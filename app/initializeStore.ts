@@ -1,5 +1,5 @@
 import { combineReducers, createStore } from "redux";
-import { reducer } from "./reducers";
+import { reducer } from "./reducer";
 export const initializeStore = () => {
     const AppReducers = combineReducers({
         reducer,
