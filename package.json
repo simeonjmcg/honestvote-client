@@ -3,13 +3,13 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "web": "cd web && webpack-dev-server --open",
+    "web": "webpack-dev-server --open",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
     "lint": "tslint -p \".\" -t stylish",
-    "build:web": "cd web && webpack"
+    "build:web": "webpack"
   },
   "dependencies": {
     "react": "^16.11.0",

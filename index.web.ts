@@ -1,10 +1,7 @@
-import {AppRegistry} from 'react-native'
-import {name as appName} from './app.json'
-import App from './app/App'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { App } from './app/App';
 
-AppRegistry.registerComponent(appName, () => App)
-
-AppRegistry.runApplication(appName, {
-  initialProps: {},
-  rootTag: document.getElementById('app-root'),
-})
+ReactDOM.render(
+    React.createElement(App),
+document.getElementById('app-root'));

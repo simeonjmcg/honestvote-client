@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const RULES = require('./webpack.rules')
-const rootDir = path.join(__dirname, '..')
+const rootDir = path.join(__dirname, '.')
 const webpackEnv = process.env.NODE_ENV || 'development'
 
 module.exports = {
@@ -20,7 +20,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, './index.html'),
+      template: path.join(__dirname, './public/index.html'),
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
