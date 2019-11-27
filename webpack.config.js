@@ -1,9 +1,9 @@
-const path = require('path')
-const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const RULES = require('./webpack.rules')
-const rootDir = path.join(__dirname, '.')
-const webpackEnv = process.env.NODE_ENV || 'development'
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const RULES = require('./webpack.rules');
+const rootDir = path.join(__dirname, '.');
+const webpackEnv = process.env.NODE_ENV || 'development';
 
 module.exports = {
   mode: webpackEnv,
@@ -39,4 +39,4 @@ module.exports = {
       'react-native$': 'react-native-web',
     }),
   },
-}
+};
