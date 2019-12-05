@@ -25,3 +25,11 @@ To build the android target, you first need to setup the Android development env
 # build
 npm run android
 ```
+
+## Troubleshooting
+If you get the error ``` Error: spawnSync ./gradlew EACCES ```, you need to
+fix the permissions for ```android/gradlew```
+
+``` bash
+chmod 755 android/gradlew
+```
