@@ -30,7 +30,7 @@ class ElectionPage extends React.PureComponent<ElectionPageProps> {
         const { elections } = this.props;
         return (
             <Page>
-                <List data={elections} renderRow={row => <ListItem>{row.name}</ListItem>} />
+                <List data={elections} renderRow={(row, index) => <ListItem key={index}>{row.name}</ListItem>} />
             </Page>
         );
     }
