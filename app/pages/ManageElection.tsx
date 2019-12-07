@@ -9,7 +9,7 @@ import { getElections } from '../accessors';
 import { Dispatch } from 'redux';
 import { NavigationStackOptions } from 'react-navigation-stack';
 
-export type ProfilePageProps = StateProps & DispatchProps;
+export type ManageElectionPageProps = StateProps & DispatchProps;
 
 interface StateProps {
     elections: Election[];
@@ -19,9 +19,9 @@ interface DispatchProps {
     requestElections: () => ActionTypes;
 }
 
-class ProfilePage extends React.PureComponent<ProfilePageProps> {
+class ManageElectionPage extends React.PureComponent<ManageElectionPageProps> {
     public static navigationOptions: NavigationStackOptions = {
-        title: 'Profile',
+        title: 'Manage Election',
     };
     public componentDidMount() {
         this.props.requestElections();
@@ -48,5 +48,5 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>): DispatchProps => {
     };
 }
 
-const profilePage = connect(mapStateToProps, mapDispatchToProps) (ProfilePage);
-export { profilePage as ProfilePage };
+const manageElectionPage = connect(mapStateToProps, mapDispatchToProps) (ManageElectionPage);
+export { manageElectionPage as ManageElectionPage };

@@ -3,10 +3,10 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import { Provider } from 'react-redux';
 import { store } from './reduxStore';
-import { ElectionPage } from './pages/ElectionPage';
+import { ElectionsListPage } from './pages/ElectionsListPage';
 
 const MainNavigator = createStackNavigator({
-  Election: { path: 'election', screen: ElectionPage },
+  ElectionsList: { path: 'elections-list', screen: ElectionsListPage },
 });
 
 const Navigation = createAppContainer(MainNavigator);
