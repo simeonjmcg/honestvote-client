@@ -1,6 +1,6 @@
 {
     "data": [
-        { "id": "11", "displayName": "President" },
-        { "id": "12", "displayName": "Secretary" }
+        { "id": "position1", "displayName": "President" },
+        { "id": "position1", "displayName": "Secretary" }
     ]
 }

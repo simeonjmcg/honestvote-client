@@ -13,6 +13,9 @@ export type ElectionId = AppId;
 // TicketEntryId is an identifier for a TicketEntry
 export type TicketEntryId = AppId;
 
+// TicketId is an identifier for a Ticket
+export type TicketId = AppId;
+
 // ElectionPositionId is an identifier for an ElectionPosition
 export type ElectionPositionId = AppId;
 
@@ -51,7 +54,7 @@ export enum ElectionType {
 // "President and Vice-President", running on the same ticket.
 export interface TicketEntry {
   id: TicketEntryId;
-  displayName: string;
+  displayName?: string;
   allowedElectionPositions: ElectionPositionId[];
   tickets: Ticket[];
 }
@@ -61,13 +64,14 @@ export interface TicketEntry {
 // running for this TicketEntry. For instance, you may have one ElectionPositionEntry
 // for a President, and another ElectionPositionEntry for a Vice-President
 export interface Ticket {
+  id: TicketId;
   electionPositionEntries: ElectionPositionEntry[];
   votes: Vote[];
 }
 
 // ElectionPositionEntry is a single candidate and the office that they are running for.
 export interface ElectionPositionEntry {
-  userId: CandidateId;
+  candidateId: CandidateId;
   electionPositionId: ElectionPositionId;
 }
 
@@ -80,6 +84,7 @@ export interface ElectionPosition {
 // Vote is a vote that can go toward a particular candidate
 export interface Vote {
   voterId: VoterId;
+  ticketId: TicketId;
   votePriority: VotePriority; // used in rank based voting. for now always 1
 }
 
@@ -91,19 +96,17 @@ export interface Voter {
 
 // VoterPermissions are the permissions granted to a given Voter user
 export interface VoterPermissions {
-  canCreateElection: boolean;
-  canManageElection: ElectionId[];
-  canVote: Array<ElectionId | TicketEntryId>;
+  canVote: ElectionId[];
 }
 
 // Candidate is a candidate user that is publicly identified, and is able to run in an election
 export interface Candidate {
   id: CandidateId;
-  displayName: string;
+  fullName: string;
   permissions: CandidatePermissions;
 }
 
 // CandidatePermissions are the permissions granted to a given Candidate user
 export interface CandidatePermissions {
-  canRun: Array<ElectionId | TicketEntryId>;
+  canRun: ElectionId[];
 }
