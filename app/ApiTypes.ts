@@ -37,8 +37,6 @@ export interface Election extends ElectionInfo {
 export interface ElectionOptions {
   canHaveMultiTicket?: boolean;
   candidateCanRunForMultiple?: boolean;
-  candidateCanVote?: boolean;
-  candidateCanVoteForSelf?: boolean;
 }
 
 // The ElectionType is an enumeration of different possible election types
