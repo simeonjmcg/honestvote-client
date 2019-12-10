@@ -1,0 +1,43 @@
+{
+    "data": [{
+    "id": "0",
+    "displayName": "West Chester University Executive Board",
+    "term": "Spring 2020",
+    "type": 0,
+    "ticketEntries": [
+      {
+        "id": "1",
+        "displayName": "Presidential",
+        "allowedElectionPositions": ["11"],
+        "tickets": [
+          {
+            "electionPositionEntries": [{ "userId": "13", "electionPositionId": "11" }],
+            "votes": [{ "voterId": "5", "votePriority": 1 }, { "voterId": "6", "votePriority": 1 }, { "voterId": "7", "votePriority": 1 }]
+          }, {
+            "electionPositionEntries": [{ "userId": "14", "electionPositionId": "11" }],
+            "votes": [{ "voterId": "8", "votePriority": 1 }, { "voterId": "9", "votePriority": 1 }, { "voterId": "10", "votePriority": 1 }]
+          }
+        ]
+      }, {
+        "id": "2",
+        "displayName": "Secretorial",
+        "allowedElectionPositions": ["12"],
+        "tickets": [
+          {
+            "electionPositionEntries": [{ "userId": "15", "electionPositionId": "12" }],
+            "votes": [{"voterId": "3", "votePriority": 1}, {"voterId": "4", "votePriority": 1}, {"voterId": "7", "votePriority": 1}]
+          }, {
+            "electionPositionEntries": [{ "userId": "16", "electionPositionId": "12" }],
+            "votes": [{"voterId": "8", "votePriority": 1}, {"voterId": "9", "votePriority": 1}, {"voterId": "10", "votePriority": 1}]
+          }
+        ]
+      }
+    ],
+    "options": {
+      "canHaveMultiTicket": false,
+      "candidateCanRunForMultiple": false,
+      "candidateCanVote": true,
+      "candidateCanVoteForSelf": false
+    }
+  }]
+}

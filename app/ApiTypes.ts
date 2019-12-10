@@ -1,139 +1,111 @@
-export type AppId        = string;
-export type VoterId      = AppId;
-export type CandidateId  = AppId;
-export type ElectionId   = AppId;
-export type RaceId       = AppId;
-export type PositionId   = AppId;
+// AppId is a generic string identifier used throughout the program
+export type AppId = string;
+
+// VoterId is an identifier for a Voter
+export type VoterId = AppId;
+
+// CandidateId is an identifier for a Candidate
+export type CandidateId = AppId;
+
+// ElectionId is an identifier for an Election
+export type ElectionId = AppId;
+
+// TicketEntryId is an identifier for a TicketEntry
+export type TicketEntryId = AppId;
+
+// ElectionPositionId is an identifier for an ElectionPosition
+export type ElectionPositionId = AppId;
+
+// VotePriority is the priority for a vote. This is only used in non FPTP systems
 export type VotePriority = number;
 
-export interface Election {
+// ElectionInfo is a brief description of a given election without including the whole structure
+export interface ElectionInfo {
   id: ElectionId;
-  name: string;
+  displayName: string;
   term: string;
-  races: Race[];
   type: ElectionType;
-  canHaveMultiTicket: boolean;
-  candidateCanRunForMultiple: boolean;
-  candidateCanVote: boolean;
-  candidateCanVoteForSelf: boolean;
 }
 
+// Election is a given election
+export interface Election extends ElectionInfo {
+  ticketEntries: TicketEntry[];
+  options?: ElectionOptions;
+}
+
+// ElectionOptions are options that apply to a given Election
+export interface ElectionOptions {
+  canHaveMultiTicket?: boolean;
+  candidateCanRunForMultiple?: boolean;
+  candidateCanVote?: boolean;
+  candidateCanVoteForSelf?: boolean;
+}
+
+// The ElectionType is an enumeration of different possible election types
 export enum ElectionType {
   FirstPastThePost,
   InstantRunoff,
   MultiRunoff,
 }
 
-export interface Race {
-  id: RaceId;
-  name: string;
-  allowedPositions: PositionId[];
+// TicketEntry is an entry in an election.
+// For instance, this would define an entry such as "President", or even
+// "President and Vice-President", running on the same ticket.
+export interface TicketEntry {
+  id: TicketEntryId;
+  displayName: string;
+  allowedElectionPositions: ElectionPositionId[];
   tickets: Ticket[];
 }
 
 
+// Ticket is a specific ticket associated with a list of candidates
+// running for this TicketEntry. For instance, you may have one ElectionPositionEntry
+// for a President, and another ElectionPositionEntry for a Vice-President
 export interface Ticket {
-  positionEntries: PositionEntry[];
+  electionPositionEntries: ElectionPositionEntry[];
   votes: Vote[];
 }
 
-export interface PositionEntry {
+// ElectionPositionEntry is a single candidate and the office that they are running for.
+export interface ElectionPositionEntry {
   userId: CandidateId;
-  positionId: PositionId;
+  electionPositionId: ElectionPositionId;
 }
 
+// ElectionPosition is a particular position
 export interface ElectionPosition {
-  id: PositionId;
-  name: string;
+  id: ElectionPositionId;
+  displayName: string;
 }
 
+// Vote is a vote that can go toward a particular candidate
 export interface Vote {
   voterId: VoterId;
   votePriority: VotePriority; // used in rank based voting. for now always 1
 }
 
+// Voter is a user that is able to vote
 export interface Voter {
   id: VoterId;
   permissions: VoterPermissions;
 }
 
+// VoterPermissions are the permissions granted to a given Voter user
 export interface VoterPermissions {
   canCreateElection: boolean;
   canManageElection: ElectionId[];
-  canVote: Array<ElectionId | RaceId>;
+  canVote: Array<ElectionId | TicketEntryId>;
 }
 
+// Candidate is a candidate user that is publicly identified, and is able to run in an election
 export interface Candidate {
   id: CandidateId;
   displayName: string;
   permissions: CandidatePermissions;
 }
 
+// CandidatePermissions are the permissions granted to a given Candidate user
 export interface CandidatePermissions {
-  canRun: Array<ElectionId | RaceId>;
+  canRun: Array<ElectionId | TicketEntryId>;
 }
-
-export const elections: Election[] = [
-  {
-    id: "0",
-    name: "West Chester University Executive Board",
-    term: "Spring 2020",
-    type: ElectionType.FirstPastThePost,
-    races: [
-      {
-        id: "1",
-        name: "Presidential",
-        allowedPositions: ["11"],
-        tickets: [
-          {
-            positionEntries: [{ userId: "13", positionId: "11" }],
-            votes: [{ voterId: "5", votePriority: 1 }, { voterId: "6", votePriority: 1 }, { voterId: "7", votePriority: 1 }],
-          }, {
-            positionEntries: [{ userId: "14", positionId: "11" }],
-            votes: [{ voterId: "8", votePriority: 1 }, { voterId: "9", votePriority: 1 }, { voterId: "10", votePriority: 1 }],
-          },
-        ],
-      }, {
-        id: "2",
-        name: "Secretorial",
-        allowedPositions: ["12"],
-        tickets: [
-          {
-            positionEntries: [{ userId: "15", positionId: "12" }],
-            votes: [{voterId: "3", votePriority: 1}, {voterId: "4", votePriority: 1}, {voterId: "7", votePriority: 1}],
-          }, {
-            positionEntries: [{ userId: "16", positionId: "12" }],
-            votes: [{voterId: "8", votePriority: 1}, {voterId: "9", votePriority: 1}, {voterId: "10", votePriority: 1}],
-          },
-        ],
-      },
-    ],
-    canHaveMultiTicket: false,
-    candidateCanRunForMultiple: false,
-    candidateCanVote: true,
-    candidateCanVoteForSelf: false,
-  },
-];
-
-export const positions: ElectionPosition[] = [
-  { id: "11", name: "President" },
-  { id: "12", name: "Secretary" },
-];
-
-export const users: Voter[] = [
-  { id: "3",  permissions: { canCreateElection: true,  canManageElection: ["0"], canVote: ["0"] }},
-  { id: "4",  permissions: { canCreateElection: false, canManageElection: [],    canVote: ["0"] }},
-  { id: "5",  permissions: { canCreateElection: false, canManageElection: [],    canVote: ["0"] }},
-  { id: "6",  permissions: { canCreateElection: false, canManageElection: [],    canVote: ["0"] }},
-  { id: "7",  permissions: { canCreateElection: false, canManageElection: [],    canVote: ["0"] }},
-  { id: "8",  permissions: { canCreateElection: false, canManageElection: [],    canVote: ["0"] }},
-  { id: "9",  permissions: { canCreateElection: false, canManageElection: [],    canVote: ["0"] }},
-  { id: "10", permissions: { canCreateElection: false, canManageElection: [],    canVote: ["0"] }},
-];
-
-export const candidates: Candidate[] = [
-  { id: "13", displayName: "James Brennen",   permissions: {  canRun: ["0"] }},
-  { id: "14", displayName: "Mike Grimson",    permissions: {  canRun: ["0"] }},
-  { id: "15", displayName: "Alicia Michaels", permissions: {  canRun: ["0"] }},
-  { id: "16", displayName: "Kelly Zimmerman", permissions: {  canRun: ["0"] }},
-];
