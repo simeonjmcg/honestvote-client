@@ -1,13 +1,14 @@
 import React from 'react';
 import { Page } from '../components/Page';
-import { Election, AppState, ActionTypes } from '../types';
+import { AppState } from '../datatypes/types';
 import { List } from '../components/List';
 import { ListItem } from '../components/ListItem';
 import { connect } from 'react-redux';
-import { requestElections } from '../actions';
-import { getElections } from '../accessors';
+import { requestElections } from '../datatypes/actions';
+import { getElections } from '../datatypes/accessors';
 import { Dispatch } from 'redux';
 import { NavigationStackOptions } from 'react-navigation-stack';
+import { Election, ElectionActionTypes } from '../datatypes/elections/types';
 
 export type BallotPageProps = StateProps & DispatchProps;
 
@@ -16,7 +17,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    requestElections: () => ActionTypes;
+    requestElections: () => ElectionActionTypes;
 }
 
 class BallotPage extends React.PureComponent<BallotPageProps> {
@@ -30,7 +31,7 @@ class BallotPage extends React.PureComponent<BallotPageProps> {
         const { elections } = this.props;
         return (
             <Page>
-                <List data={elections} renderRow={(row, index) => <ListItem key={index}>{row.name}</ListItem>} />
+                <List data={elections} renderRow={(row, index) => <ListItem key={index}>{row.displayName}</ListItem>} />
             </Page>
         );
     }
@@ -42,7 +43,7 @@ const mapStateToProps = (state: AppState): StateProps => {
     };
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<ElectionActionTypes>): DispatchProps => {
     return {
         requestElections: () => dispatch(requestElections()),
     };

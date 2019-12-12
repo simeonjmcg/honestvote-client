@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux'
-import { store } from './reduxStore';
+import { store } from './datatypes/reduxStore';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import { ElectionsListPage } from './pages/ElectionsListPage';
 

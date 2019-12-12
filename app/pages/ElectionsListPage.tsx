@@ -1,13 +1,14 @@
 import React from 'react';
 import { Page } from '../components/Page';
-import { Election, AppState, ActionTypes } from '../types';
+import { AppState, ActionTypes } from '../datatypes/types';
 import { List } from '../components/List';
 import { ListItem } from '../components/ListItem';
 import { connect } from 'react-redux';
-import { requestElections } from '../actions';
-import { getElections } from '../accessors';
+import { requestElections } from '../datatypes/actions';
+import { getElections } from '../datatypes/accessors';
 import { Dispatch } from 'redux';
 import { NavigationStackOptions } from 'react-navigation-stack';
+import { Election } from '../datatypes/elections/types';
 
 export type ElectionsListPageProps = StateProps & DispatchProps;
 
@@ -30,7 +31,7 @@ class ElectionsListPage extends React.PureComponent<ElectionsListPageProps> {
         const { elections } = this.props;
         return (
             <Page>
-                <List data={elections} renderRow={(row, index) => <ListItem key={index}>{row.name}</ListItem>} />
+                <List data={elections} renderRow={(row, index) => <ListItem key={index}>{row.displayName}</ListItem>} />
             </Page>
         );
     }
