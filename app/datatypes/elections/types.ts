@@ -1,6 +1,6 @@
 import { AppId } from "../types";
 import { ElectionPositionId } from "../positions/types";
-import { Ticket, TicketId } from "../tickets/types";
+import { TicketId } from "../tickets/types";
 
 /** state for Elections */
 export type ElectionsState = Election[];
@@ -50,7 +50,7 @@ export interface TicketEntry {
   id: TicketEntryId;
   displayName?: string;
   allowedElectionPositions: ElectionPositionId[];
-  tickets: TicketId[] | Ticket[];
+  tickets: TicketId[];
 }
 
 export const ELECTIONS_REQUEST = 'ELECTIONS_REQUEST';
@@ -80,7 +80,7 @@ interface ElectionSucessAction {
     payload: Election;
 }
 interface ElectionFailureAction {
-    type: typeof ELECTIONS_FAILURE;
+    type: typeof ELECTION_FAILURE;
 }
 
 export type ElectionActionTypes = ElectionsRequestAction

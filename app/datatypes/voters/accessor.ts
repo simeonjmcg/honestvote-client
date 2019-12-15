@@ -1,10 +1,10 @@
-import { AppState } from "../types";
+import { State } from "../types";
 import { VoterId } from "./types";
 
-export function getVoters(state: AppState) {
+export function getVoters(state: State) {
     return state.voters;
 }
 
-export function getVoter(state: AppState, id: VoterId) {
+export function getVoter(state: State, id: VoterId) {
     return getVoters(state).find(p => p.id === id);
 }

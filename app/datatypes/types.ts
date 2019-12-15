@@ -1,11 +1,15 @@
-import { CandidateActionTypes, CandidatesState, initialCandidatesState } from "./candidates/types";
-import { ElectionActionTypes, ElectionsState, initialElectionsState } from "./elections/types";
-import { ElectionPositionActionTypes, ElectionPositionsState, initialElectionPositionsState } from "./positions/types";
-import { TicketActionTypes, TicketsState, initialTicketsState } from "./tickets/types";
-import { VoterActionTypes, VotersState, initialVotersState } from "./voters/types";
+import {
+    AppActionTypes, AppState, initialAppState,
+    CandidateActionTypes, CandidatesState, initialCandidatesState,
+    ElectionActionTypes, ElectionsState, initialElectionsState,
+    ElectionPositionActionTypes, ElectionPositionsState, initialElectionPositionsState,
+    TicketActionTypes, TicketsState, initialTicketsState,
+    VoterActionTypes, VotersState, initialVotersState,
+} from './';
 
 /** Full redux state of the application */
-export interface AppState {
+export interface State {
+    app: AppState;
     candidates: CandidatesState;
     elections: ElectionsState;
     positions: ElectionPositionsState;
@@ -14,7 +18,8 @@ export interface AppState {
 }
 
 /** Initial redux state of the application */
-export const initialAppState: AppState = {
+export const initialState: State = {
+    app: initialAppState,
     candidates: initialCandidatesState,
     elections: initialElectionsState,
     positions: initialElectionPositionsState,
@@ -28,7 +33,8 @@ export const API_URL = "http://portainer.honestvote.io:7001";
 /** AppId is a generic string identifier used throughout the program */
 export type AppId = string;
 
-export type ActionTypes = CandidateActionTypes
+export type ActionTypes = AppActionTypes
+                        | CandidateActionTypes
                         | ElectionActionTypes
                         | ElectionPositionActionTypes
                         | TicketActionTypes

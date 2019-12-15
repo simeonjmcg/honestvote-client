@@ -2,10 +2,9 @@ import React from 'react';
 
 export interface ListProps<Data = any> {
     data: Data[];
-    renderRow: (row: Data, index?: number) => React.ReactNode;
+    renderRow: (row: Data, index?: number) => React.ReactElement | null;
+    keyExtractor?: (item: Data, index: number) => string;
 }
 
-export const List = <D extends {}>(props: ListProps<D>): React.ReactElement =>
-    <div>
-        {props.data.map((row, index) => props.renderRow(row, index))}
-    </div>;
+export const List = <D extends {}>({ data, renderRow }: ListProps<D>) =>
+    <div>{data.map((row, index) => renderRow(row, index))}</div>;

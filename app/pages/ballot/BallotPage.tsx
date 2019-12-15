@@ -1,16 +1,16 @@
 import React from 'react';
-import { Page } from '../components/Page';
-import { AppState } from '../datatypes/types';
-import { List } from '../components/List';
-import { ListItem } from '../components/ListItem';
+import { Page } from '../../components/Page';
+import { State } from '../../datatypes/types';
+import { List } from '../../components/List';
+import { ListItem } from '../../components/ListItem';
 import { connect } from 'react-redux';
-import { requestElections } from '../datatypes/actions';
-import { getElections } from '../datatypes/accessors';
+import { requestElections } from '../../datatypes/actions';
+import { getElections } from '../../datatypes/accessors';
 import { Dispatch } from 'redux';
 import { NavigationStackOptions } from 'react-navigation-stack';
-import { Election, ElectionActionTypes } from '../datatypes/elections/types';
+import { Election, ElectionActionTypes } from '../../datatypes/elections/types';
 
-export type ElectionPageProps = StateProps & DispatchProps;
+export type BallotPageProps = StateProps & DispatchProps;
 
 interface StateProps {
     elections: Election[];
@@ -20,9 +20,9 @@ interface DispatchProps {
     requestElections: () => ElectionActionTypes;
 }
 
-class ElectionPage extends React.PureComponent<ElectionPageProps> {
+class BallotPage extends React.PureComponent<BallotPageProps> {
     public static navigationOptions: NavigationStackOptions = {
-        title: 'Election',
+        title: 'Ballot',
     };
     public componentDidMount() {
         this.props.requestElections();
@@ -37,7 +37,7 @@ class ElectionPage extends React.PureComponent<ElectionPageProps> {
     }
 }
 
-const mapStateToProps = (state: AppState): StateProps => {
+const mapStateToProps = (state: State): StateProps => {
     return {
         elections: getElections(state),
     };
@@ -49,5 +49,5 @@ const mapDispatchToProps = (dispatch: Dispatch<ElectionActionTypes>): DispatchPr
     };
 }
 
-const electionPage = connect(mapStateToProps, mapDispatchToProps) (ElectionPage);
-export { electionPage as ElectionPage };
+const ballotPage = connect(mapStateToProps, mapDispatchToProps) (BallotPage);
+export { ballotPage as BallotPage };

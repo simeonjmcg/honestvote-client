@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { NativeSyntheticEvent, NativeTouchEvent } from 'react-native';
 
-export interface ListProps<Data = any> {
-    data: Data[];
-    renderRow: (row: Data, index?: number) => React.ReactNode;
+export interface LinkProps {
+    children: string;
+    to: string;
+    onPress: (ev: NativeSyntheticEvent<NativeTouchEvent>) => void;
 }
 
-export const List = <D extends {}>(props: ListProps<D>): React.ReactElement =>
-    <div>
-        {props.data.map((row, index) => props.renderRow(row, index))}
-    </div>;
+export const Link = ({ to, children }: LinkProps) =>
+    <RouterLink to={to}>{ children }</RouterLink>;

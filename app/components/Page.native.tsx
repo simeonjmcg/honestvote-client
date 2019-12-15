@@ -1,11 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
+import { PageProps } from './Page';
 
-export interface PageProps {
-    children?: React.ReactNode;
-}
-
-export const Page: React.FC<PageProps> = (props: PageProps): React.ReactElement =>
-    <View>
-        { props.children }
-    </View>;
+export const Page = ({ children }: PageProps) =>
+    <View>{ children }</View>;

@@ -1,14 +1,16 @@
 import React from 'react';
-import { Page } from '../components/Page';
-import { AppState } from '../datatypes/types';
-import { List } from '../components/List';
-import { ListItem } from '../components/ListItem';
 import { connect } from 'react-redux';
-import { getElections } from '../datatypes/accessors';
 import { Dispatch } from 'redux';
 import { NavigationStackOptions } from 'react-navigation-stack';
-import { Election, ElectionActionTypes } from '../datatypes/elections/types';
-import { requestElections } from '../datatypes/actions';
+import {
+    Page, List, ListItem,
+} from '../../components';
+import {
+    Election, ElectionActionTypes,
+    State,
+    getElections,
+    requestElections,
+} from '../../datatypes';
 
 export type ProfilePageProps = StateProps & DispatchProps;
 
@@ -37,17 +39,13 @@ class ProfilePage extends React.PureComponent<ProfilePageProps> {
     }
 }
 
-const mapStateToProps = (state: AppState): StateProps => {
-    return {
-        elections: getElections(state),
-    };
-}
+const mapStateToProps = (state: State): StateProps => ({
+    elections: getElections(state),
+});
 
-const mapDispatchToProps = (dispatch: Dispatch<ElectionActionTypes>): DispatchProps => {
-    return {
-        requestElections: () => dispatch(requestElections()),
-    };
-}
+const mapDispatchToProps = (dispatch: Dispatch<ElectionActionTypes>): DispatchProps => ({
+    requestElections: () => dispatch(requestElections()),
+});
 
 const profilePage = connect(mapStateToProps, mapDispatchToProps) (ProfilePage);
 export { profilePage as ProfilePage };

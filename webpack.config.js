@@ -13,10 +13,14 @@ module.exports = {
   output: {
     path: path.resolve(rootDir, 'dist'),
     filename: 'app-[hash].bundle.js',
+    publicPath: '/'
   },
   devtool: 'source-map',
   module: {
     rules: RULES,
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({

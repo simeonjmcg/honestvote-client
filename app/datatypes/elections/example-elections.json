@@ -10,7 +10,7 @@
                 "allowedElectionPositions": ["position1"],
                 "tickets": [ "ticket1", "ticket2" ]
             }, {
-                "id": "ticketentry1",
+                "id": "ticketentry2",
                 "allowedElectionPositions": ["position2"],
                 "tickets": [ "ticket3", "ticket4" ]
             }

@@ -1,11 +1,6 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { View } from 'react-native';
+import { ListItemProps } from './ListItem'
 
-export interface ListItemProps {
-    children?: React.ReactNode;
-}
-
-export const ListItem: React.FC<ListItemProps> = (props: ListItemProps): React.ReactElement =>
-    <Text>
-        { props.children }
-    </Text>;
+export const ListItem = ({ children }: ListItemProps) =>
+    <View>{ children }</View>;
