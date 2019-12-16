@@ -1,4 +1,5 @@
 import React from 'react';
+import { List as ListMaterial } from '@material-ui/core';
 
 export interface ListProps<Data = any> {
     data: Data[];
@@ -7,4 +8,4 @@ export interface ListProps<Data = any> {
 }
 
 export const List = <D extends {}>({ data, renderRow }: ListProps<D>) =>
-    <div>{data.map((row, index) => renderRow(row, index))}</div>;
+    <ListMaterial>{data.map((row, index) => renderRow(row, index))}</ListMaterial>;

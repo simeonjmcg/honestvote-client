@@ -1,60 +1,44 @@
-import React from 'react';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
-import { RouteChildrenProps } from 'react-router';
-import { NavigationStackOptions, NavigationStackScreenProps } from 'react-navigation-stack';
+import React, { useEffect } from 'react';
+import { NavigationStackScreenProps } from "react-navigation-stack";
+import { RouteChildrenProps } from "react-router";
+import { ScreenFC } from "../../utils";
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "redux";
 import {
-    Page, List, ListItem, Link,
-} from '../../components';
-import {
-    Election,
     State, ActionTypes,
-    requestElections,
-    getElections,
-} from '../../datatypes';
+    requestElections, getElections,
+    Election,
+} from "../../datatypes";
+import { Page, List, ListItemLink, Text } from '../../components';
 
-export type ElectionsPageProps =
-    StateProps & DispatchProps & // redux props
-    NavigationStackScreenProps & RouteChildrenProps; // NavigationStack for native, Router for web
+// NavigationStack for native, Router for web
+export type ElectionsPageProps = NavigationStackScreenProps & RouteChildrenProps;
 
-interface StateProps {
-    elections: Election[];
+export const ElectionsPage: ScreenFC<ElectionsPageProps> = () => {
+    const dispatch = useDispatch<Dispatch<ActionTypes>>();
+    useEffect(() => {
+        dispatch(requestElections());
+    }, []);
+    const elections = useSelector<State, Election[]>(state => getElections(state));
+    return (
+        <Page>
+            <List
+                data={elections}
+                keyExtractor={(item) => item.id}
+                renderRow={(row, index) => 
+                <ListItemLink
+                    key={index}
+                    to={`/election/${row.id}`}
+                    route="Election"
+                    params={{id: row.id}}>
+                    <Text>{row.displayName}</Text>
+                </ListItemLink>} />
+        </Page>
+    );
 }
-
-interface DispatchProps {
-    requestElections: () => ActionTypes;
+ElectionsPage.navigationOptions = {
+    title: "Elections",
+    headerStyle: {
+      backgroundColor: '#f08c38',
+    },
 }
-
-class ElectionsPage extends React.PureComponent<ElectionsPageProps> {
-    public static navigationOptions: NavigationStackOptions = {
-        title: 'Elections',
-    };
-    public componentDidMount() {
-        this.props.requestElections();
-    }
-    public render(): React.ReactElement {
-        const { elections } = this.props;
-        return (
-            <Page>
-                <List data={elections} renderRow={(row, index) => 
-                    <ListItem key={index}>
-                        <Link
-                            to={"/election/" + row.id}
-                            onPress={() => this.props.navigation &&
-                                this.props.navigation.navigate("Election", {id: row.id})}>
-                                {row.displayName}
-                        </Link>
-                    </ListItem>} />
-            </Page>
-        );
-    }
-}
-
-const mapStateToProps = (state: State): StateProps =>
-    ({ elections: getElections(state) });
-
-const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>): DispatchProps =>
-    ({ requestElections: () => dispatch(requestElections()) });
-
-const electionsPage = connect(mapStateToProps, mapDispatchToProps) (ElectionsPage);
-export { electionsPage as ElectionsPage };

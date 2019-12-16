@@ -1,8 +1,8 @@
 {
     "data": [
-        { "id": "candidate1", "fullName": "James Brennen",   "permissions": {  "canRun": ["election1"] }},
-        { "id": "candidate2", "fullName": "Mike Grimson",    "permissions": {  "canRun": ["election1"] }},
-        { "id": "candidate3", "fullName": "Alicia Michaels", "permissions": {  "canRun": ["election1"] }},
+        { "id": "candidate1", "fullName": "Alicia Michaels", "permissions": {  "canRun": ["election1"] }},
+        { "id": "candidate2", "fullName": "James Brennen",   "permissions": {  "canRun": ["election1"] }},
+        { "id": "candidate3", "fullName": "Mike Grimson",    "permissions": {  "canRun": ["election1"] }},
         { "id": "candidate4", "fullName": "Kelly Zimmerman", "permissions": {  "canRun": ["election1"] }}
     ]
 }

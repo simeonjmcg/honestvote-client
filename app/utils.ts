@@ -1,11 +1,11 @@
 import { AppId } from "./datatypes/types";
-import { NavigationStackScreenProps } from "react-navigation-stack";
-import { RouteChildrenProps } from "react-router";
+import { NavigationStackProp, NavigationStackOptions } from "react-navigation-stack";
+import { match } from "react-router";
 
-type ParamProps = NavigationStackScreenProps & RouteChildrenProps;
+export type ScreenFC<T> = React.FC<T> & { navigationOptions?: NavigationStackOptions }
 
 /** Utility function to get a parameter from either react router or react navigator */
-export function getParamFromProps <P extends ParamProps>({match, navigation}: P, field: string) {
+export function getParamFromProps (match: match | null, navigation: NavigationStackProp, field: string) {
     if (match != undefined) {
         const params = match.params as {[key: string]: any};
         if (params[field]) {

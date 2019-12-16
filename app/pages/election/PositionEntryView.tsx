@@ -8,31 +8,24 @@ import {
  } from '../../datatypes';
 import { findId } from '../../utils';
 import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-export interface PositionEntryViewProps extends StateProps, DispatchProps {
+export interface PositionEntryViewProps {
     positionEntry: ElectionPositionEntry;
     electionPositions: ElectionPosition[];
     multi: boolean;
 }
 
-interface StateProps {
-    candidates: Candidate[];
-}
+export function PositionEntryView ({ positionEntry, electionPositions, multi }: PositionEntryViewProps) {
+    // get dispatch function, pull candidates from redux
+    const dispatch = useDispatch<Dispatch<CandidateActionTypes>>();
+    const candidates = useSelector<State, Candidate[]>(state => getCandidates(state));
 
-interface DispatchProps {
-    requestCandidates: () => void;
-}
-
-function PositionEntryView ({
-    positionEntry, candidates, electionPositions, multi,
-    requestCandidates,
-}: PositionEntryViewProps) {
     // Getting object by id
     const candidate = findId(candidates, positionEntry.candidateId);
     const position = findId(electionPositions, positionEntry.electionPositionId);
     // run this when component mounts(like componentDidMount)
-    useEffect(() => {requestCandidates()}, []);
+    useEffect(() => {dispatch(requestCandidates());}, []);
     return (
         <Text>
             {candidate ? candidate.fullName : "(unknown name)"}
@@ -40,12 +33,3 @@ function PositionEntryView ({
         </Text>
     );
 }
-
-const mapStateToProps = (state: State): StateProps => 
-    ({ candidates: getCandidates(state) });
-
-const mapDispatchToProps = (dispatch: Dispatch<CandidateActionTypes>): DispatchProps =>
-    ({ requestCandidates: () => dispatch(requestCandidates()) });
-
-const positionEntryView = connect(mapStateToProps, mapDispatchToProps) (PositionEntryView);
-export { positionEntryView as PositionEntryView };

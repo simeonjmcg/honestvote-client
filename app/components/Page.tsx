@@ -1,8 +1,22 @@
 import React from 'react';
+import { Container } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 
 export interface PageProps {
     children?: React.ReactNode;
 }
 
-export const Page = ({ children }: PageProps) =>
-    <div>{ children }</div>;
+const useStyles = makeStyles({
+    page: {
+        padding: 16,
+    },
+});
+
+export const Page = ({ children }: PageProps) => {
+    const { page } = useStyles();
+    return (
+        <Container maxWidth="md" className={page}>
+            { children }
+        </Container>
+    );
+}

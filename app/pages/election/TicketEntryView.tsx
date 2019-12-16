@@ -1,8 +1,6 @@
 import React, { Dispatch, useEffect } from 'react';
-import { connect } from 'react-redux';
-import {
-    List, Text, View,
-} from '../../components';
+import { useDispatch, useSelector } from 'react-redux';
+import { List, Text, View, ListItem } from '../../components';
 import {
     TicketEntry, Ticket, ElectionPosition,
     State, ActionTypes,
@@ -12,27 +10,21 @@ import {
 import { notUndefined, findId } from '../../utils';
 import { TicketView } from './TicketView';
 
-export interface TicketEntryViewProps extends StateProps, DispatchProps {
+export interface TicketEntryViewProps {
     ticketEntry: TicketEntry;
 }
 
-interface StateProps {
-    tickets: Ticket[];
-    electionPositions: ElectionPosition[];
-}
+export const TicketEntryView = ({ ticketEntry }: TicketEntryViewProps) => {
+    // get redux dispatcher
+    const dispatch = useDispatch<Dispatch<ActionTypes>>();
+    // get redux values
+    const electionPositions = useSelector<State, ElectionPosition[]>(state => getElectionPositions(state));
+    const tickets = useSelector<State, Ticket[]>(state => getTickets(state));
 
-interface DispatchProps {
-    requestTickets: () => void;
-    requestElectionPositions: () => void;
-}
-
-const TicketEntryView = ({
-    ticketEntry, electionPositions, tickets,
-    requestTickets, requestElectionPositions,
- }: TicketEntryViewProps) => {
+    // executed onMount
     useEffect(() => {
-        requestTickets();
-        requestElectionPositions();
+        dispatch(requestTickets());
+        dispatch(requestElectionPositions());
     }, []);
     const allowed = 
         ticketEntry.allowedElectionPositions
@@ -45,24 +37,17 @@ const TicketEntryView = ({
                 Position{multiAllowed ? "s" : ""}: {allowed.map(t => t.displayName).join(", ")}
             </Text>
             <List data={ticketEntry.tickets}
-                renderRow={(id, k) =>
-                    <TicketView key={k}
-                        ticket={findId(tickets, id)}
-                        electionPositions={allowed} />}
+                  keyExtractor={(_, index) => index+""}
+                  renderRow={(id, k) => {
+                    const ticket = findId(tickets, id);
+                    return <ListItem>
+                        {ticket ? 
+                            <TicketView key={k}
+                                ticket={ticket}
+                                electionPositions={allowed} />
+                            : <Text>Ticket not found!</Text>}
+                    </ListItem>}}
             />
         </View>
     );
 }
-
-const mapStateToProps = (state: State): StateProps => ({
-    tickets: getTickets(state),
-    electionPositions: getElectionPositions(state),
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>): DispatchProps => ({
-    requestTickets: () => dispatch(requestTickets()),
-    requestElectionPositions: () => dispatch(requestElectionPositions()),
-});
-
-const ticketEntryView = connect(mapStateToProps, mapDispatchToProps) (TicketEntryView);
-export { ticketEntryView as TicketEntryView };
