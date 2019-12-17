@@ -1,10 +1,16 @@
-import { AppId } from "../types";
+import { AppId, ApiState } from "../types";
 
 /** state for ElectionPositions */
-export type ElectionPositionsState = ElectionPosition[];
+export interface ElectionPositionsState {
+    positions: ElectionPosition[];
+    apiState: ApiState;
+}
 
 /** Initial redux state of the application */
-export const initialElectionPositionsState: ElectionPositionsState = [];
+export const initialElectionPositionsState: ElectionPositionsState = {
+    positions: [],
+    apiState: ApiState.Idle,
+};
 
 /** ElectionPositionId is an identifier for an ElectionPosition */
 export type ElectionPositionId = AppId;

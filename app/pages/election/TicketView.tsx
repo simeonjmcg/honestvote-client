@@ -8,7 +8,7 @@ export interface TicketViewProps {
     electionPositions: ElectionPosition[];
 }
 
-export const TicketView = ({ticket, electionPositions}: TicketViewProps) => 
+    export const TicketView = ({ticket, electionPositions}: TicketViewProps) => 
     <View>
         {ticket.electionPositionEntries.map((entry, k) => 
             <PositionEntryView key={k}

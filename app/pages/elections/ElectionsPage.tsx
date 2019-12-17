@@ -9,7 +9,7 @@ import {
     requestElections, getElections,
     Election,
 } from "../../datatypes";
-import { Page, List, ListItemLink, Text } from '../../components';
+import { Page, List, ListItemLink, Text, Card, Header5 } from '../../components';
 
 // NavigationStack for native, Router for web
 export type ElectionsPageProps = NavigationStackScreenProps & RouteChildrenProps;
@@ -22,17 +22,20 @@ export const ElectionsPage: ScreenFC<ElectionsPageProps> = () => {
     const elections = useSelector<State, Election[]>(state => getElections(state));
     return (
         <Page>
-            <List
-                data={elections}
-                keyExtractor={(item) => item.id}
-                renderRow={(row, index) => 
-                <ListItemLink
-                    key={index}
-                    to={`/election/${row.id}`}
-                    route="Election"
-                    params={{id: row.id}}>
-                    <Text>{row.displayName}</Text>
-                </ListItemLink>} />
+            <Card>
+                <Header5>Current Elections</Header5>
+                <List
+                    data={elections}
+                    keyExtractor={(item) => item.id}
+                    renderRow={(row, index) => 
+                    <ListItemLink
+                        key={index}
+                        to={`/election/${row.id}`}
+                        route="Election"
+                        params={{id: row.id}}>
+                        <Text>{row.displayName}</Text>
+                    </ListItemLink>} />
+            </Card>
         </Page>
     );
 }

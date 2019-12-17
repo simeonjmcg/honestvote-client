@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text as NativeText } from 'react-native';
 
-export interface Header5Props {
+export interface Header6Props {
     children?: React.ReactNode;
 }
 

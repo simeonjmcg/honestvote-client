@@ -1,6 +1,7 @@
 import { ElectionActionTypes, Election, ELECTIONS_REQUEST, ELECTIONS_SUCESS, ELECTIONS_FAILURE, ELECTION_FAILURE, ELECTION_SUCESS, ElectionId } from "./types";
 import { store } from "../reduxStore";
 import example from "./example-elections.json";
+import { findId } from "../../utils";
 
 /** request the Elections from the backend */
 export function requestElections(): ElectionActionTypes {
@@ -26,7 +27,7 @@ export function errorElections(): ElectionActionTypes {
 /** request the Elections from the backend */
 export function requestElection(id: ElectionId): ElectionActionTypes {
     try {
-        const election = (example.data as Election[]).find(e => e.id === id);
+        const election = findId((example.data as Election[]), id);
 
         if (election) {
             store.dispatch(storeElection(election));

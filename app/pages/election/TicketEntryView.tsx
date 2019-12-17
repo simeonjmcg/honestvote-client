@@ -1,6 +1,6 @@
-import React, { Dispatch, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { List, Text, View, ListItem } from '../../components';
+import { List, Text, ListItem, Card, Header6 } from '../../components';
 import {
     TicketEntry, Ticket, ElectionPosition,
     State, ActionTypes,
@@ -9,6 +9,7 @@ import {
 } from '../../datatypes';
 import { notUndefined, findId } from '../../utils';
 import { TicketView } from './TicketView';
+import { Dispatch } from 'redux';
 
 export interface TicketEntryViewProps {
     ticketEntry: TicketEntry;
@@ -30,14 +31,11 @@ export const TicketEntryView = ({ ticketEntry }: TicketEntryViewProps) => {
         ticketEntry.allowedElectionPositions
                    .map(pid => findId(electionPositions, pid))
                    .filter(notUndefined);
-    const multiAllowed = electionPositions.length !== 1;
     return (
-        <View>
-            <Text>
-                Position{multiAllowed ? "s" : ""}: {allowed.map(t => t.displayName).join(", ")}
-            </Text>
+        <Card>
+            <Header6>{allowed.map(t => t.displayName).join(", ")}</Header6>
             <List data={ticketEntry.tickets}
-                  keyExtractor={(_, index) => index+""}
+                  keyExtractor={(_, index) => index.toString()}
                   renderRow={(id, k) => {
                     const ticket = findId(tickets, id);
                     return <ListItem>
@@ -48,6 +46,6 @@ export const TicketEntryView = ({ ticketEntry }: TicketEntryViewProps) => {
                             : <Text>Ticket not found!</Text>}
                     </ListItem>}}
             />
-        </View>
+        </Card>
     );
 }

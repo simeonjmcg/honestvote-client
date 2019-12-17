@@ -17,6 +17,11 @@ export interface State {
     voters: VotersState;
 }
 
+/** API states */
+export enum ApiState {
+    Idle, Fetching, Failed, Success
+}
+
 /** Initial redux state of the application */
 export const initialState: State = {
     app: initialAppState,

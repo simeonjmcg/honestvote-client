@@ -6,5 +6,6 @@ export interface ViewProps {
     children?: React.ReactNode;
 }
 
+
 /** User interface View */
 export const View = (props: ViewProps) => <NativeView>{ props.children }</NativeView>;
