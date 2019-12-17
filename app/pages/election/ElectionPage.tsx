@@ -21,6 +21,7 @@ export type ElectionPageProps = NavigationStackScreenProps & RouteChildrenProps;
 export const ElectionPage: ScreenFC<ElectionPageProps> = ({match, navigation}: ElectionPageProps) => {
     const dispatch = useDispatch<Dispatch<ActionTypes>>();
     const getId = () => getParamFromProps(match, navigation, "id");
+    // this is the onMount function
     useEffect(() => {
         dispatch(setTitle('Election'));
         dispatch(requestElection(getId()));
