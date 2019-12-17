@@ -1,4 +1,4 @@
-import { State, ApiState } from "../types";
+import { State } from "../types";
 import { TicketId } from "./types";
 import { findId } from "../../utils";
 
@@ -15,5 +15,5 @@ export function getTicketsApiStatus(state: State) {
 }
 
 export function areTicketsLoading(state: State) {
-    return getTicketsApiStatus(state) === ApiState.Fetching;
+    return getTicketsApiStatus(state) === "Fetching";
 }

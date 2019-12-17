@@ -10,7 +10,7 @@ export interface CandidatesState {
 /** Initial redux state of the application */
 export const initialCandidatesState: CandidatesState = {
   candidates: [],
-  apiState: ApiState.Idle,
+  apiState: "Idle",
 };
 
 /** CandidateId is an identifier for a Candidate */

@@ -12,7 +12,7 @@ export interface TicketsState {
 /** Initial redux state of the application */
 export const initialTicketsState: TicketsState = {
   tickets: [],
-  apiState: ApiState.Idle,
+  apiState: "Idle",
 };
 
 /** TicketId is an identifier for a Ticket */

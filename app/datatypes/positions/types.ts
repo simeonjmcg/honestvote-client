@@ -9,7 +9,7 @@ export interface ElectionPositionsState {
 /** Initial redux state of the application */
 export const initialElectionPositionsState: ElectionPositionsState = {
     positions: [],
-    apiState: ApiState.Idle,
+    apiState: "Idle",
 };
 
 /** ElectionPositionId is an identifier for an ElectionPosition */

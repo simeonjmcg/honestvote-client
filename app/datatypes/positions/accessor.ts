@@ -1,4 +1,4 @@
-import { State, ApiState } from "../types";
+import { State } from "../types";
 import { ElectionPositionId } from "./types";
 
 export function getElectionPositions(state: State) {
@@ -14,5 +14,5 @@ export function getPositionsApiStatus(state: State) {
 }
 
 export function arePositionsLoading(state: State) {
-    return getPositionsApiStatus(state) === ApiState.Fetching;
+    return getPositionsApiStatus(state) === "Fetching";
 }

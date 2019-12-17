@@ -18,9 +18,10 @@ export interface State {
 }
 
 /** API states */
-export enum ApiState {
-    Idle, Fetching, Failed, Success
-}
+export type ApiState  = "Idle"
+                      | "Fetching"
+                      | "Failed"
+                      | "Success";
 
 /** Initial redux state of the application */
 export const initialState: State = {
