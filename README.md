@@ -17,7 +17,7 @@ npm run web
 
 ### Android
 You need to have node v10.16.3 or lower. More recent versions have issues
-with react-native.
+with react-native. 
 
 To build the android target, you first need to setup the Android development environment. To find directions on this, look [here](https://facebook.github.io/react-native/docs/getting-started).
 
