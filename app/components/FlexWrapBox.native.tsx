@@ -1,13 +1,17 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { FlexWrapBoxProps } from './FlexWrapBox';
 
-export interface FlexWrapBoxProps {
-    children?: React.ReactNode;
-}
+const style = StyleSheet.create({
+    flexBox: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+    },
+});
 
 export const FlexWrapBox = ({ children }: FlexWrapBoxProps) => {
     return (
-        <View>
+        <View style={style.flexBox}>
             { children }
         </View>
     );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text as NativeText } from 'react-native';
+import { Text as NativeText } from 'react-native-elements';
 
 export interface TextProps {
     children?: React.ReactNode;

@@ -5,9 +5,9 @@ import example from "./example-tickets.json";
 /** request the Tickets from the backend */
 export function requestTickets(): TicketActionTypes {
     try {
-        store.dispatch(storeTickets(example.data as Ticket[]));
+        setTimeout(() => store.dispatch(storeTickets(example.data as Ticket[])));
     } catch (e) {
-        store.dispatch(errorTickets());
+        setTimeout(() => store.dispatch(errorTickets()));
     }
     return { type: TICKETS_REQUEST };
 }

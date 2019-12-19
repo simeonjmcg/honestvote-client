@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { List, Text, ListItem, Card, Header6 } from '../../components';
+import { Text, Card, Header6 } from '../../components';
 import {
     TicketEntry, Ticket, ElectionPosition,
     State, ActionTypes,
@@ -32,20 +32,15 @@ export const TicketEntryView = ({ ticketEntry }: TicketEntryViewProps) => {
                    .map(pid => findId(electionPositions, pid))
                    .filter(notUndefined);
     return (
-        <Card>
-            <Header6>{allowed.map(t => t.displayName).join(", ")}</Header6>
-            <List data={ticketEntry.tickets}
-                  keyExtractor={(_, index) => index.toString()}
-                  renderRow={(id, k) => {
-                    const ticket = findId(tickets, id);
-                    return <ListItem>
-                        {ticket ? 
-                            <TicketView key={k}
-                                ticket={ticket}
-                                electionPositions={allowed} />
-                            : <Text>Ticket not found!</Text>}
-                    </ListItem>}}
-            />
+        <Card title={<Header6>{allowed.map(t => t.displayName).join(", ")}</Header6>}>
+            {ticketEntry.tickets.map((id, k) => {
+                const ticket = findId(tickets, id);
+                return ticket ? 
+                    <TicketView key={k}
+                        ticket={ticket}
+                        electionPositions={allowed} />
+                    : <Text key={k}>Ticket not found!</Text>;
+            })}
         </Card>
     );
 }

@@ -10,6 +10,7 @@ import {
     getElection,
     setTitle,
     ActionTypes,
+    areElectionsLoading,
 } from '../../datatypes';
 import { Text, Page } from '../../components';
 import { Dispatch } from 'redux';
@@ -20,18 +21,19 @@ export type ElectionPageProps = NavigationStackScreenProps & RouteChildrenProps;
 
 export const ElectionPage: ScreenFC<ElectionPageProps> = ({match, navigation}: ElectionPageProps) => {
     const dispatch = useDispatch<Dispatch<ActionTypes>>();
-    const getId = () => getParamFromProps(match, navigation, "id");
+    const id = getParamFromProps(match, navigation, "id");
     // this is the onMount function
     useEffect(() => {
         dispatch(setTitle('Election'));
-        dispatch(requestElection(getId()));
+        dispatch(requestElection(id));
     }, []);
-    const election = useSelector<State, Election | undefined>(state => getElection(state, getId()));
+    const isLoading = useSelector<State, boolean>(state => areElectionsLoading(state));
+    const election = useSelector<State, Election|undefined>(state => getElection(state, id));
     return (
         <Page>
-            { election ?
-                <ElectionView election={election} /> 
-                : <Text>Election not found!</Text>}
+            { isLoading ? <Text>Loading...</Text> : 
+              election  ? <ElectionView election={election} /> :
+                          <Text>Election not found!</Text>}
         </Page>
     );
 }

@@ -67,25 +67,26 @@ export const ELECTION_REQUEST = 'ELECTION_REQUEST';
 export const ELECTION_SUCESS = 'ELECTION_SUCESS';
 export const ELECTION_FAILURE = 'ELECTION_FAILURE';
 
-interface ElectionsRequestAction {
+export interface ElectionsRequestAction {
     type: typeof ELECTIONS_REQUEST;
 }
-interface ElectionsSucessAction {
+export interface ElectionsSucessAction {
     type: typeof ELECTIONS_SUCESS;
     payload: Election[];
 }
-interface ElectionsFailureAction {
+export interface ElectionsFailureAction {
     type: typeof ELECTIONS_FAILURE;
 }
 
-interface ElectionRequestAction {
+export interface ElectionRequestAction {
     type: typeof ELECTION_REQUEST;
+    payload: ElectionId;
 }
-interface ElectionSucessAction {
+export interface ElectionSucessAction {
     type: typeof ELECTION_SUCESS;
     payload: Election;
 }
-interface ElectionFailureAction {
+export interface ElectionFailureAction {
     type: typeof ELECTION_FAILURE;
 }
 

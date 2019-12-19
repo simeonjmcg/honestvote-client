@@ -5,9 +5,9 @@ import example from "./example-positions.json";
 /** request the ElectionPositions from the backend */
 export function requestElectionPositions(): ElectionPositionActionTypes {
     try {
-        store.dispatch(storeElectionPositions(example.data as ElectionPosition[]));
+        setTimeout(() => store.dispatch(storeElectionPositions(example.data as ElectionPosition[])));
     } catch (e) {
-        store.dispatch(errorElectionPositions());
+        setTimeout(() => store.dispatch(errorElectionPositions()));
     }
     return { type: ELECTION_POSITIONS_REQUEST };
 }

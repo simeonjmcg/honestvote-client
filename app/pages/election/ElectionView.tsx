@@ -7,11 +7,11 @@ export interface ElectionViewProps {
     election: Election;
 }
 
-export const ElectionView = ({election}: ElectionViewProps) => 
+export const ElectionView = React.memo(({election}: ElectionViewProps) => 
     <View>
         <Header5>{election.displayName || "Unknown"}</Header5>
         <Subtitle1>{election.term || "Unknown"}</Subtitle1>
         <FlexWrapBox>
             {election.ticketEntries.map((entry, k) => <TicketEntryView key={k} ticketEntry={entry} />)}
         </FlexWrapBox>
-    </View>;
+    </View>);

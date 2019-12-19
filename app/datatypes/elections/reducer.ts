@@ -1,4 +1,5 @@
 import { ElectionsState, initialElectionsState, ElectionActionTypes, ELECTIONS_SUCESS, ELECTION_SUCESS, ELECTIONS_REQUEST, ELECTION_REQUEST, ELECTION_FAILURE, ELECTIONS_FAILURE } from "./types";
+import { withoutId } from "../../utils";
 
 /** reducer for Elections */
 export const electionsReducer = (state: ElectionsState = initialElectionsState, actions: ElectionActionTypes): ElectionsState => {
@@ -13,7 +14,7 @@ export const electionsReducer = (state: ElectionsState = initialElectionsState, 
             return {
                  ...state,
                 apiState: "Success",
-                elections: state.elections.map(e => e.id === election.id ? election : e),
+                elections: [...withoutId(state.elections, election.id), election]
             };
         case ELECTIONS_FAILURE:
         case ELECTION_FAILURE:

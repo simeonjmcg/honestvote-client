@@ -1,13 +1,10 @@
 import React from 'react';
 import {Card as NativeCard } from 'react-native-elements';
+import { CardProps } from './Card';
 
-export interface CardProps {
-    children?: React.ReactNode;
-}
-
-export const Card = ({ children }: CardProps) => {
+export const Card = ({ title, children }: CardProps) => {
     return (
-        <NativeCard>
+        <NativeCard title={title}>
             { children }
         </NativeCard>
     );

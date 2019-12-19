@@ -22,8 +22,7 @@ export const ElectionsPage: ScreenFC<ElectionsPageProps> = () => {
     const elections = useSelector<State, Election[]>(state => getElections(state));
     return (
         <Page>
-            <Card>
-                <Header5>Current Elections</Header5>
+            <Card title={<Header5>Current Elections</Header5>}>
                 <List
                     data={elections}
                     keyExtractor={(item) => item.id}

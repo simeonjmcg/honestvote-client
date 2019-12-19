@@ -1,14 +1,7 @@
 import { CandidateActionTypes, Candidate, CANDIDATES_REQUEST, CANDIDATES_SUCESS, CANDIDATES_FAILURE } from "./types";
-import { store } from "../reduxStore";
-import example from "./example-candidates.json";
 
 /** request the Candidates from the backend */
 export function requestCandidates(): CandidateActionTypes {
-    try {
-        store.dispatch(storeCandidates(example.data as Candidate[]));
-    } catch (e) {
-        store.dispatch(errorCandidates());
-    }
     return { type: CANDIDATES_REQUEST };
 }
 

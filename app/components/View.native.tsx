@@ -1,11 +1,6 @@
 import React from 'react';
 import { View as NativeView } from 'react-native';
-
-/** Properties of View */
-export interface ViewProps {
-    children?: React.ReactNode;
-}
-
+import { ViewProps } from './View';
 
 /** User interface View */
-export const View = (props: ViewProps) => <NativeView>{ props.children }</NativeView>;
+export const View = ({ children }: ViewProps) => <NativeView>{ children }</NativeView>;

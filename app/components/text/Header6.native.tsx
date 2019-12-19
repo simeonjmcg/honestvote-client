@@ -1,8 +1,5 @@
 import React from 'react';
-import { Text as NativeText } from 'react-native';
+import { Text as NativeText } from 'react-native-elements';
+import { Header6Props } from './Header6';
 
-export interface Header6Props {
-    children?: React.ReactNode;
-}
-
-export const Header6 = (props: Header6Props) => <NativeText>{ props.children }</NativeText>;
+export const Header6 = (props: Header6Props) => <NativeText h4>{ props.children }</NativeText>;

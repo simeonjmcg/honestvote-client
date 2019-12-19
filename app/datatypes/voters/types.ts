@@ -31,14 +31,14 @@ export const VOTERS_REQUEST = 'VOTERS_REQUEST';
 export const VOTERS_SUCESS = 'VOTERS_SUCESS';
 export const VOTERS_FAILURE = 'VOTERS_FAILURE';
 
-interface VotersRequestAction {
+export interface VotersRequestAction {
     type: typeof VOTERS_REQUEST;
 }
-interface VotersSucessAction {
+export interface VotersSucessAction {
     type: typeof VOTERS_SUCESS;
     payload: Voter[];
 }
-interface VotersFailureAction {
+export interface VotersFailureAction {
     type: typeof VOTERS_FAILURE;
 }
 

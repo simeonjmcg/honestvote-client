@@ -5,9 +5,9 @@ import example from "./example-voters.json";
 /** request the Voters from the backend */
 export function requestVoters(): VoterActionTypes {
     try {
-        store.dispatch(storeVoters(example.data as Voter[]));
+        setTimeout(() => store.dispatch(storeVoters(example.data as Voter[])));
     } catch (e) {
-        store.dispatch(errorVoters());
+        setTimeout(() => store.dispatch(errorVoters()));
     }
     return { type: VOTERS_REQUEST };
 }

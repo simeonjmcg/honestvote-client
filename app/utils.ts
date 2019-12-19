@@ -37,3 +37,7 @@ export function ofId<T extends IdObject>(id: AppId) {
 export function findId<T extends IdObject>(array: T[], id: AppId) {
     return array.find(ofId(id));
 }
+
+export function withoutId<T extends IdObject>(array: T[], id: AppId) {
+    return array.filter(item => item.id !== id);
+}

@@ -1,8 +1,9 @@
 import React from 'react';
-import {Card as NativeCard } from '@material-ui/core';
+import {Card as MaterialCard, CardHeader, CardContent } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 export interface CardProps {
+    title?: string | React.ReactElement;
     children?: React.ReactNode;
 }
 
@@ -13,11 +14,12 @@ const useStyles = makeStyles({
         margin: 5,
     },
 });
-export const Card = ({ children }: CardProps) => {
+export const Card = ({ title, children }: CardProps) => {
     const style = useStyles();
     return (
-        <NativeCard className={style.card} >
-            { children }
-        </NativeCard>
+        <MaterialCard className={style.card}>
+            <CardHeader title={title}/>
+            <CardContent>{ children }</CardContent>
+        </MaterialCard>
     );
 }
