@@ -2,6 +2,7 @@ export * from './reducer';
 export * from './types';
 
 export * from './app';
+export * from './user';
 export * from './candidates';
 export * from './elections';
 export * from './positions';

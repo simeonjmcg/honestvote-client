@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Election } from '../../datatypes';
-import { View, Header5, Subtitle1, Text } from '../../components';
+import { View, Header5, Subtitle1 } from '../../components';
 import { TicketEntryView } from './TicketEntryView';
 import { getDimensions } from '../../platformUtils';
 

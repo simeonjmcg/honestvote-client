@@ -1,5 +1,6 @@
 import {
     AppActionTypes, AppState, initialAppState,
+    UserActionTypes, UserState, initialUserState,
     CandidateActionTypes, CandidatesState, initialCandidatesState,
     ElectionActionTypes, ElectionsState, initialElectionsState,
     ElectionPositionActionTypes, ElectionPositionsState, initialElectionPositionsState,
@@ -10,6 +11,7 @@ import {
 /** Full redux state of the application */
 export interface State {
     app: AppState;
+    user: UserState;
     candidates: CandidatesState;
     elections: ElectionsState;
     positions: ElectionPositionsState;
@@ -26,6 +28,7 @@ export type ApiState  = "Idle"     // Data has not been loaded yet
 /** Initial redux state of the application */
 export const initialState: State = {
     app: initialAppState,
+    user: initialUserState,
     candidates: initialCandidatesState,
     elections: initialElectionsState,
     positions: initialElectionPositionsState,
@@ -40,6 +43,7 @@ export const API_URL = "http://portainer.honestvote.io:7001";
 export type AppId = string;
 
 export type ActionTypes = AppActionTypes
+                        | UserActionTypes
                         | CandidateActionTypes
                         | ElectionActionTypes
                         | ElectionPositionActionTypes
