@@ -9,5 +9,6 @@ export interface ListItemLinkProps {
     params?: {[key: string]: any};
 }
 
-export const ListItemLink = ({ children, to }: ListItemLinkProps) =>
-    <ListItemMaterial button component={RouterLink} to={to}>{ children }</ListItemMaterial>;
+export function ListItemLink ({ children, to }: ListItemLinkProps) {
+    return <ListItemMaterial button component={RouterLink} to={to}>{ children }</ListItemMaterial>;
+}

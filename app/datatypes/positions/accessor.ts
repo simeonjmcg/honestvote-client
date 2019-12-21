@@ -16,3 +16,9 @@ export function getPositionsApiStatus(state: State) {
 export function arePositionsLoading(state: State) {
     return getPositionsApiStatus(state) === "Fetching";
 }
+
+export function arePositionsLoaded(state: State) {
+    const status = getPositionsApiStatus(state);
+    return status !== "Idle" &&
+           status !== "Fetching";
+}

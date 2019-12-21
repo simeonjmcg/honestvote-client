@@ -18,10 +18,10 @@ export interface State {
 }
 
 /** API states */
-export type ApiState  = "Idle"
-                      | "Fetching"
-                      | "Failed"
-                      | "Success";
+export type ApiState  = "Idle"     // Data has not been loaded yet
+                      | "Fetching" // Data is being fetched
+                      | "Failed"   // Data fetch failed
+                      | "Success"; // Data fetch succeeded
 
 /** Initial redux state of the application */
 export const initialState: State = {

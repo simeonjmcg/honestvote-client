@@ -12,7 +12,11 @@
             }, {
                 "id": "ticketentry2",
                 "allowedElectionPositions": ["position2"],
-                "tickets": [ "ticket3", "ticket4" ]
+                "tickets": [ "ticket3", "ticket4", "ticket5" ]
+            }, {
+                "id": "ticketentry3",
+                "allowedElectionPositions": ["position3"],
+                "tickets": [ "ticket6", "ticket7", "ticket8" ]
             }
         ],
         "options": {

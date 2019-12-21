@@ -5,5 +5,6 @@ export interface ListItemProps {
     children?: string | React.ReactElement;
 }
 
-export const ListItem = ({ children }: ListItemProps) =>
-    <ListItemMaterial>{ children }</ListItemMaterial>;
+export function ListItem ({ children }: ListItemProps) {
+    return <ListItemMaterial>{ children }</ListItemMaterial>;
+}

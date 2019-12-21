@@ -1,7 +1,6 @@
 export * from './text';
 
 export * from './Card';
-export * from './FlexWrapBox';
 export * from './Link';
 export * from './List';
 export * from './ListItem';

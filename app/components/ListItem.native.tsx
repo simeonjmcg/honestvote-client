@@ -2,5 +2,6 @@ import React from 'react';
 import { ListItem as ListItemNative } from 'react-native-elements';
 import { ListItemProps } from './ListItem'
 
-export const ListItem = ({ children }: ListItemProps) =>
-    <ListItemNative title={children}></ListItemNative>;
+export function ListItem ({ children }: ListItemProps) {
+    return <ListItemNative title={children}></ListItemNative>;
+}

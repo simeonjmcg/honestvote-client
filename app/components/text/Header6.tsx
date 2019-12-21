@@ -5,4 +5,6 @@ export interface Header6Props {
     children?: React.ReactNode;
 }
 
-export const Header6 = (props: Header6Props) => <Typography variant="h6">{ props.children }</Typography>;
+export function Header6 ({ children }: Header6Props) {
+    return <Typography variant="h6">{ children }</Typography>;
+}

@@ -8,5 +8,6 @@ export interface LinkProps {
     params: {[key: string]: any};
 }
 
-export const Link = ({ to, children }: LinkProps) =>
-    <RouterLink to={to}>{ children }</RouterLink>;
+export function Link ({ to, children }: LinkProps) {
+    return <RouterLink to={to}>{ children }</RouterLink>;
+}

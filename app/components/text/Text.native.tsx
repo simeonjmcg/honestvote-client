@@ -5,4 +5,6 @@ export interface TextProps {
     children?: React.ReactNode;
 }
 
-export const Text = (props: TextProps) => <NativeText>{ props.children }</NativeText>;
+export function Text (props: TextProps) {
+    return <NativeText>{ props.children }</NativeText>;
+}

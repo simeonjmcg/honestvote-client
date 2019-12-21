@@ -16,3 +16,9 @@ export function getCandidatesApiStatus(state: State) {
 export function areCandidatesLoading(state: State) {
     return getCandidatesApiStatus(state) === "Fetching";
 }
+
+export function areCandidatesLoaded(state: State) {
+    const status = getCandidatesApiStatus(state);
+    return status !== "Idle" &&
+           status !== "Fetching";
+}

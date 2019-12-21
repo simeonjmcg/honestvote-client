@@ -13,7 +13,8 @@ const MainNavigator = createStackNavigator({
 
 const Navigation = createAppContainer(MainNavigator);
 
-export const App: React.FC = () =>
-    <Provider store={store}>
+export function App () {
+    return <Provider store={store}>
         <Navigation />
     </Provider>;
+}

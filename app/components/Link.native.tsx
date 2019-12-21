@@ -3,7 +3,7 @@ import { useNavigation } from 'react-navigation-hooks';
 import { Button } from 'react-native-elements';
 import { LinkProps } from './Link';
 
-export const Link = ({ children, route, params }: LinkProps) => {
+export function Link ({ children, route, params }: LinkProps) {
     const navigation = useNavigation();
     return (
         <Button title={children} type="clear"

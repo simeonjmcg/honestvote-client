@@ -1,6 +1,7 @@
 import React from 'react';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { PageProps } from './Page';
 
-export const Page = ({ children }: PageProps) =>
-    <View>{ children }</View>;
+export function Page ({ children }: PageProps) {
+    return <ScrollView>{ children }</ScrollView>;
+}

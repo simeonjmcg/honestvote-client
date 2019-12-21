@@ -8,12 +8,13 @@ import { ElectionPage } from './pages/election/ElectionPage';
 import { AppBar, Toolbar, Typography, ThemeProvider, responsiveFontSizes } from '@material-ui/core';
 import { State, getTitle } from './datatypes';
 import { createMuiTheme } from '@material-ui/core/styles';
+import { PRIMARY_COLOR, SECONDARY_COLOR } from './theme';
 
 const theme = responsiveFontSizes(createMuiTheme({
-  palette: {
-    primary: { main: "#f08c38" },
-    secondary: { main: "#6bc4d2" },
-  },
+    palette: {
+        primary: { main: PRIMARY_COLOR },
+        secondary: { main: SECONDARY_COLOR },
+    },
 }));
 
 const useStyles = makeStyles(_ => ({
@@ -21,25 +22,31 @@ const useStyles = makeStyles(_ => ({
         flexGrow: 1,
     },
 }));
-const ApplicationBar = () =>
-    <AppBar position="static">
-        <Toolbar>
-            <Typography variant="h6" className={useStyles().title}>
-                {useSelector<State, string>(state => getTitle(state))}
-            </Typography>
-        </Toolbar>
-    </AppBar>;
+function ApplicationBar() {
+    return (
+        <AppBar position="sticky">
+            <Toolbar>
+                <Typography variant="h6" className={useStyles().title}>
+                    {useSelector<State, string>(state => getTitle(state))}
+                </Typography>
+            </Toolbar>
+        </AppBar>
+    );
+}
 
-export const App: React.FC = () =>
-    <Provider store={store}>
-        <ThemeProvider theme={theme}>
-            <ApplicationBar />
-            <Router>
-                <Switch>
-                    <Route exact path="/"><Redirect to="/elections" /></Route>
-                    <Route path="/elections" component={ElectionsPage} />
-                    <Route path="/election/:id" component={ElectionPage} />
-                </Switch>
-            </Router>
-        </ThemeProvider>
-    </Provider>;
+export function App() {
+    return (
+        <Provider store={store}>
+            <ThemeProvider theme={theme}>
+                <Router>
+                    <ApplicationBar />
+                    <Switch>
+                        <Route exact path="/"><Redirect to="/elections" /></Route>
+                        <Route path="/elections" component={ElectionsPage} />
+                        <Route path="/election/:id" component={ElectionPage} />
+                    </Switch>
+                </Router>
+            </ThemeProvider>
+        </Provider>
+    );
+}

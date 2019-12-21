@@ -1,11 +1,34 @@
 import React from 'react';
-import {Card as NativeCard } from 'react-native-elements';
 import { CardProps } from './Card';
+import { StyleSheet, View } from 'react-native';
 
-export const Card = ({ title, children }: CardProps) => {
+const style = StyleSheet.create({
+    card: {
+        padding: 16,
+        margin: 5,
+        borderRadius: 4,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 2.22,
+        
+        elevation: 3,
+    },
+    cardHeader: {
+        marginBottom: 16,
+    },
+    cardContent: {
+
+    },
+});
+
+export function Card ({ title, children, minWidth, width }: CardProps) {
     return (
-        <NativeCard title={title}>
-            { children }
-        </NativeCard>
+        <View style={[{ minWidth, width }, style.card] }>
+            <View style={ style.cardHeader }>{ title }</View>
+            <View style={ style.cardContent }>{ children }</View>
+        </View>
     );
 }

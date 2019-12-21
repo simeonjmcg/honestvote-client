@@ -1,18 +1,38 @@
 import * as React from 'react';
 import { ElectionPosition, Ticket} from '../../datatypes';
-import { View } from '../../components';
 import { PositionEntryView } from './PositionEntryView';
+import { TicketRow } from './components';
+import { Text, View } from '../../components';
+import { countVotes } from '../../utils';
+import { Progress } from '../../components/Progress';
 
 export interface TicketViewProps {
+    index: number;
+    total: number;
+    max: number;
     ticket: Ticket;
     electionPositions: ElectionPosition[];
 }
 
-    export const TicketView = ({ticket, electionPositions}: TicketViewProps) => 
-    <View>
-        {ticket.electionPositionEntries.map((entry, k) => 
-            <PositionEntryView key={k}
-                positionEntry={entry}
-                electionPositions={electionPositions}
-                multi={electionPositions.length !== 1} />)}
-    </View>;
+function TicketView ({index, ticket, electionPositions, total, max}: TicketViewProps) {
+    const votes = countVotes(ticket.votes);
+    const percentage = Math.round(votes / total * 100);
+    return (
+        <TicketRow index={ index }
+            info={ 
+                <View direction="row" centerSelf={true}>
+                    <Text>{percentage}%</Text>
+                    <Progress width={100} progress={votes / max} />
+                </View>
+            }>
+            {ticket.electionPositionEntries.map((entry, k) => 
+                <PositionEntryView key={k}
+                    positionEntry={entry}
+                    electionPositions={electionPositions}
+                    multi={electionPositions.length !== 1} />)}
+        </TicketRow>
+    );
+}
+
+const ticketView = React.memo(TicketView);
+export { ticketView as TicketView };

@@ -3,7 +3,7 @@ import { ListItem as ListItemNative } from 'react-native-elements';
 import { ListItemLinkProps } from './ListItemLink'
 import { useNavigation } from 'react-navigation-hooks';
 
-export const ListItemLink = ({ children, route, params }: ListItemLinkProps) => {
+export function ListItemLink ({ children, route, params }: ListItemLinkProps) {
     const navigation = useNavigation();
     return (
         <ListItemNative title={children} 

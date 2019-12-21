@@ -1,8 +1,14 @@
 {
     "data": [
-        { "id": "candidate1", "fullName": "Alicia Michaels", "permissions": {  "canRun": ["election1"] }},
-        { "id": "candidate2", "fullName": "James Brennen",   "permissions": {  "canRun": ["election1"] }},
-        { "id": "candidate3", "fullName": "Mike Grimson",    "permissions": {  "canRun": ["election1"] }},
-        { "id": "candidate4", "fullName": "Kelly Zimmerman", "permissions": {  "canRun": ["election1"] }}
+        { "id": "candidate1",  "fullName": "Traci Simpson",     "permissions": {  "canRun": ["election1"] }},
+        { "id": "candidate2",  "fullName": "Amanda Murray",     "permissions": {  "canRun": ["election1"] }},
+        { "id": "candidate3",  "fullName": "Trisha Newton",     "permissions": {  "canRun": ["election1"] }},
+        { "id": "candidate4",  "fullName": "Owen Jensen",       "permissions": {  "canRun": ["election1"] }},
+        { "id": "candidate5",  "fullName": "Gregory Cortez",    "permissions": {  "canRun": ["election1"] }},
+        { "id": "candidate6",  "fullName": "Casey Brady",       "permissions": {  "canRun": ["election1"] }},
+        { "id": "candidate7",  "fullName": "Anton Vargas",      "permissions": {  "canRun": ["election1"] }},
+        { "id": "candidate8",  "fullName": "Lacy Holden",       "permissions": {  "canRun": ["election1"] }},
+        { "id": "candidate9",  "fullName": "Hipolito Randolph", "permissions": {  "canRun": ["election1"] }},
+        { "id": "candidate10", "fullName": "Lina Turner",       "permissions": {  "canRun": ["election1"] }}
     ]
 }

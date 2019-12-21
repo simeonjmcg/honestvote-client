@@ -1,17 +1,30 @@
-import * as React from 'react';
-import { Election} from '../../datatypes';
-import { View, Header5, Subtitle1, FlexWrapBox } from '../../components';
+import React, { useCallback, useState } from 'react';
+import { Election } from '../../datatypes';
+import { View, Header5, Subtitle1, Text } from '../../components';
 import { TicketEntryView } from './TicketEntryView';
+import { getDimensions } from '../../platformUtils';
 
 export interface ElectionViewProps {
     election: Election;
 }
 
-export const ElectionView = React.memo(({election}: ElectionViewProps) => 
-    <View>
-        <Header5>{election.displayName || "Unknown"}</Header5>
-        <Subtitle1>{election.term || "Unknown"}</Subtitle1>
-        <FlexWrapBox>
-            {election.ticketEntries.map((entry, k) => <TicketEntryView key={k} ticketEntry={entry} />)}
-        </FlexWrapBox>
-    </View>);
+function ElectionView ({election}: ElectionViewProps) {
+    let { width } = getDimensions();
+    
+    const [ small, setSmall ] = useState(width < 720);
+    const onResize = useCallback(() => {
+        const { width } = getDimensions();
+        setSmall(width < 720);
+    }, []);
+    return (
+        <View>
+            <Header5>{election.displayName || "Unknown"}</Header5>
+            <Subtitle1>{election.term || "Unknown"}</Subtitle1>
+            <View stretch={small} wrap={true} direction={small ? "column" : "row"} onResize={onResize}>
+                {election.ticketEntries.map((entry, k) => <TicketEntryView key={k} ticketEntry={entry} />)}
+            </View>
+        </View>
+    );
+}
+const electionView = React.memo(ElectionView);
+export { electionView as ElectionView };

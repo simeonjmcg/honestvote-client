@@ -16,3 +16,9 @@ export function getElectionsApiStatus(state: State) {
 export function areElectionsLoading(state: State) {
     return getElectionsApiStatus(state) === "Fetching";
 }
+
+export function areElectionsLoaded(state: State) {
+    const status = getElectionsApiStatus(state);
+    return status !== "Idle" &&
+           status !== "Fetching";
+}

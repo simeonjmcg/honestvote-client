@@ -4,7 +4,7 @@ import {
     Candidate, CandidateActionTypes,
     ElectionPosition, ElectionPositionEntry,
     State,
-    getCandidates, requestCandidates, areCandidatesLoading, arePositionsLoading,
+    getCandidates, requestCandidates, areCandidatesLoaded, arePositionsLoaded,
  } from '../../datatypes';
 import { findId } from '../../utils';
 import { Dispatch } from 'redux';
@@ -16,14 +16,14 @@ export interface PositionEntryViewProps {
     multi: boolean;
 }
 
-export function PositionEntryView ({ positionEntry, electionPositions, multi }: PositionEntryViewProps) {
+function PositionEntryView ({ positionEntry, electionPositions, multi }: PositionEntryViewProps) {
     // get dispatch function, pull candidates from redux
     const dispatch = useDispatch<Dispatch<CandidateActionTypes>>();
     const candidates = useSelector<State, Candidate[]>(state => getCandidates(state));
 
     // Get isLoading for candidates and positions
-    const isLoadingCandidates = useSelector<State, boolean>(state => areCandidatesLoading(state));
-    const isLoadingPositions = useSelector<State, boolean>(state => arePositionsLoading(state));
+    const isLoadedCandidates = useSelector<State, boolean>(state => areCandidatesLoaded(state));
+    const isLoadedPositions = useSelector<State, boolean>(state => arePositionsLoaded(state));
     // Getting object by id
     const candidate = findId(candidates, positionEntry.candidateId);
     const position = findId(electionPositions, positionEntry.electionPositionId);
@@ -31,13 +31,16 @@ export function PositionEntryView ({ positionEntry, electionPositions, multi }: 
     useEffect(() => {dispatch(requestCandidates());}, []);
     return (
         <Text>
-            {isLoadingCandidates ? "Loading..." :
+            {!isLoadedCandidates ? "Loading..." :
             candidate            ? candidate.fullName :
                                    "(unknown name)"}
-            {multi ? `: ${isLoadingPositions ? "Loading..." :
+            {multi ? `: ${!isLoadedPositions ? "Loading..." :
                           position           ? position.displayName :
                                                "(unknown position)"}` :
                      ""}
         </Text>
     );
 }
+
+const positionEntryView = React.memo(PositionEntryView);
+export { positionEntryView as PositionEntryView };

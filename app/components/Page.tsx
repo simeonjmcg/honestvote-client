@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     },
 });
 
-export const Page = ({ children }: PageProps) => {
+export function Page ({ children }: PageProps) {
     const { page } = useStyles();
     return (
         <Container maxWidth="md" className={page}>

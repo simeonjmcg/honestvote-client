@@ -7,5 +7,6 @@ export interface ListProps<Data = any> {
     keyExtractor?: (item: Data, index: number) => string;
 }
 
-export const List = <D extends {}>({ data, renderRow }: ListProps<D>) =>
-    <ListMaterial>{data.map((row, index) => renderRow(row, index))}</ListMaterial>;
+export function List <D extends {}>({ data, renderRow }: ListProps<D>) {
+    return <ListMaterial>{data.map((row, index) => renderRow(row, index))}</ListMaterial>;
+}
