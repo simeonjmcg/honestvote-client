@@ -1,6 +1,6 @@
 import React from 'react';
-import { createUseStyles } from 'react-jss';
-import { Text } from '../../../components';
+import { StyleSheet, View } from 'react-native';
+import { Text } from '../../../../components';
 
 export interface TicketRowProps {
     index?: number;
@@ -8,11 +8,10 @@ export interface TicketRowProps {
     info: React.ReactNode;
 }
 
-const useStyles = createUseStyles({
+const styles = StyleSheet.create({
     ticketRow: {
         padding: 4,
-        display: "flex",
-        justifyContent: "space-between",
+        flexDirection: "row",
     },
     ticketRowIndex: {
         padding: 2,
@@ -30,19 +29,18 @@ const useStyles = createUseStyles({
 });
 
 export function TicketRow ({ index, children, info }: TicketRowProps) {
-    const styles = useStyles();
     return (
-        <div className={styles.ticketRow}>
+        <View style={styles.ticketRow}>
             {index != undefined ? 
-                <div className={styles.ticketRowIndex}>
-                    <Text>{ index + 1 }</Text>
-                </div> : undefined }
-            <div className={styles.ticketRowChildren}>
+                <View style={styles.ticketRowIndex}>
+                    <Text>{ index+1 }</Text>
+                </View> : undefined }
+            <View style={styles.ticketRowChildren}>
                 { children }
-            </div>
-            <div className={styles.ticketRowInfo}>
+            </View>
+            <View style={styles.ticketRowInfo}>
                 { info }
-            </div>
-        </div>
+            </View>
+        </View>
     );
 }

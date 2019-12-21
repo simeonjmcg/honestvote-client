@@ -1,14 +1,14 @@
 import React from 'react';
-import { Page } from '../../components/Page';
-import { State } from '../../datatypes/types';
-import { List } from '../../components/List';
-import { ListItem } from '../../components/ListItem';
+import { Page } from '../../../../components/Page';
+import { State } from '../../../../datatypes/types';
+import { List } from '../../../../components/List';
+import { ListItem } from '../../../../components/ListItem';
 import { connect } from 'react-redux';
-import { requestElections } from '../../datatypes/actions';
-import { getElections } from '../../datatypes/accessors';
+import { requestElections } from '../../../../datatypes/actions';
+import { getElections } from '../../../../datatypes/accessors';
 import { Dispatch } from 'redux';
 import { NavigationStackOptions } from 'react-navigation-stack';
-import { Election, ElectionActionTypes } from '../../datatypes/elections/types';
+import { Election, ElectionActionTypes } from '../../../../datatypes/elections/types';
 
 export type BallotPageProps = StateProps & DispatchProps;
 

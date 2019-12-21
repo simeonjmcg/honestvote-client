@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { Text } from '../../components';
+import { Text } from '../../../components';
 import { 
     Candidate, CandidateActionTypes,
     ElectionPosition, ElectionPositionEntry,
     State,
     getCandidates, requestCandidates, areCandidatesLoaded, arePositionsLoaded,
- } from '../../datatypes';
-import { findId } from '../../utils';
+ } from '../../../datatypes';
+import { findId } from '../../../utils';
 import { Dispatch } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 
