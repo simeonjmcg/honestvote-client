@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { ElectionPosition, Ticket} from '../../datatypes';
+import { ElectionPosition, Ticket} from '~/datatypes';
 import { PositionEntryView } from './PositionEntryView';
+import { Text, View, Progress } from '~/components';
+import { countVotes } from '~/utils';
 import { TicketRow } from './components';
-import { Text, View } from '../../components';
-import { countVotes } from '../../utils';
-import { Progress } from '../../components/Progress';
 
 export interface TicketViewProps {
     index: number;

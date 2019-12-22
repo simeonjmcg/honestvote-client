@@ -1,6 +1,6 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
-import { Text } from '../../../../components';
+import { Text } from '~/components';
 
 export interface TicketRowProps {
     index?: number;

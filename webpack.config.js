@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const RULES = require('./webpack.rules');
 const rootDir = path.join(__dirname, '.');
 const webpackEnv = process.env.NODE_ENV || 'development';
@@ -42,5 +43,6 @@ module.exports = {
     alias: Object.assign({
       'react-native$': 'react-native-web',
     }),
+    plugins: [new TsconfigPathsPlugin()],
   },
 };

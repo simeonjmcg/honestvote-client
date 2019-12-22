@@ -6,4 +6,5 @@ export * from './List';
 export * from './ListItem';
 export * from './ListItemLink';
 export * from './Page';
+export * from './Progress';
 export * from './View';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Text } from '../../../../components';
+import { Text } from '~/components';
 
 export interface TicketRowProps {
     index?: number;

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteChildrenProps } from 'react-router';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
-import { getParamFromProps } from '../../utils';
+import { getParamFromProps } from '~/utils';
 import {
     State,
     Election,
@@ -11,11 +11,11 @@ import {
     setTitle,
     ActionTypes,
     areElectionsLoaded,
-} from '../../datatypes';
-import { Text, Page } from '../../components';
+} from '~/datatypes';
+import { Text, Page } from '~/components';
 import { Dispatch } from 'redux';
 import { ElectionView } from './ElectionView';
-import { PRIMARY_COLOR } from '../../theme';
+import { PRIMARY_COLOR } from '~/theme';
 
 // NavigationStack for native, Router for web
 export type ElectionPageProps = NavigationStackScreenProps & RouteChildrenProps;

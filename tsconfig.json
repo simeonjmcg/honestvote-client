@@ -6,6 +6,10 @@
       "esnext",
       "dom"
     ],
+    "baseUrl": "./app",
+    "paths": {
+      "~/*": ["./*"],
+    },
     "jsx": "react",
     "noEmit": false,
     "strict": true,

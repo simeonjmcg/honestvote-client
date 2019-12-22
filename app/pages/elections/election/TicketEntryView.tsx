@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Text, Card, Header6 } from '../../../components';
+import { Text, Card, Header6 } from '~/components';
 import {
     TicketEntry, Ticket, ElectionPosition,
     State, ActionTypes,
     getTickets, getElectionPositions,
     requestTickets, requestElectionPositions,
-} from '../../../datatypes';
-import { mapIdList, sortTickets, sumTicketsVotes, countVotes } from '../../../utils';
+} from '~/datatypes';
+import { mapIdList, sortTickets, sumTicketsVotes, countVotes } from '~/utils';
 import { TicketView } from './TicketView';
 import { Dispatch } from 'redux';
 import { TicketRow } from './components';

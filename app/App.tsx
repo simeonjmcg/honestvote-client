@@ -3,12 +3,14 @@ import { Provider, useSelector } from 'react-redux'
 import { store } from './datatypes/reduxStore';
 import { makeStyles } from '@material-ui/core/styles';
 import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
-import { ElectionsPage } from './pages/elections/ElectionsPage';
-import { ElectionPage } from './pages/election/ElectionPage';
 import { AppBar, Toolbar, Typography, ThemeProvider, responsiveFontSizes } from '@material-ui/core';
 import { State, getTitle } from './datatypes';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from './theme';
+
+import { ElectionsPage } from './pages/elections/ElectionsPage';
+import { ElectionPage } from './pages/elections/election/ElectionPage';
+import { BallotPage } from './pages/elections/election/ballot/BallotPage';
 
 const theme = responsiveFontSizes(createMuiTheme({
     palette: {
@@ -44,6 +46,7 @@ export function App() {
                         <Route exact path="/"><Redirect to="/elections" /></Route>
                         <Route path="/elections" component={ElectionsPage} />
                         <Route path="/election/:id" component={ElectionPage} />
+                        <Route path="/election/:id/ballot" component={BallotPage} />
                     </Switch>
                 </Router>
             </ThemeProvider>

@@ -4,13 +4,13 @@ import { Dispatch } from 'redux';
 import { NavigationStackOptions } from 'react-navigation-stack';
 import {
     Page, List, ListItem,
-} from '../../components';
+} from '~/components';
 import {
     Election, ElectionActionTypes,
     State,
     getElections,
     requestElections,
-} from '../../datatypes';
+} from '~/datatypes';
 
 export type ProfilePageProps = StateProps & DispatchProps;
 

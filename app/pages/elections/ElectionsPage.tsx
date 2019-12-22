@@ -7,9 +7,9 @@ import {
     State, ActionTypes,
     requestElections, getElections,
     Election,
-} from "../../datatypes";
-import { Page, ListItemLink, Text, Card, Header5 } from '../../components';
-import { PRIMARY_COLOR } from '../../theme';
+} from "~/datatypes";
+import { Page, ListItemLink, Text, Card, Header5 } from '~/components';
+import { PRIMARY_COLOR } from '~/theme';
 
 // NavigationStack for native, Router for web
 export type ElectionsPageProps = NavigationStackScreenProps & RouteChildrenProps;
