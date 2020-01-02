@@ -36,8 +36,14 @@ export const initialState: State = {
     voters: initialVotersState,
 };
 
-/** URL to the backend */
-export const API_URL = "http://portainer.honestvote.io:7001";
+/** Keys for persistant local storage */
+export const enum StorageKeys {
+  PassCheck            = '@pass_check', // nonce encrypted by passcode, salt and iv, used to verify correct passcode
+  PassSalt             = '@pass_salt',
+  PublicKey            = '@public_key', // plaintext public key
+  InitializationVector = '@initialization_vector',
+  PrivateKeyEncrypted  = '@private_key_encrypted',
+}
 
 /** AppId is a generic string identifier used throughout the program */
 export type AppId = string;

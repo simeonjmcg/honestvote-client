@@ -1,35 +1,24 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Text, Card, Header6 } from '~/components';
 import {
-    TicketEntry, Ticket, ElectionPosition,
-    State, ActionTypes,
+    TicketEntry,
     getTickets, getElectionPositions,
-    requestTickets, requestElectionPositions,
 } from '~/datatypes';
 import { mapIdList, sortTickets, sumTicketsVotes, countVotes } from '~/utils';
 import { TicketView } from './TicketView';
-import { Dispatch } from 'redux';
 import { TicketRow } from './components';
 
 export interface TicketEntryViewProps {
     ticketEntry: TicketEntry;
+    small?: boolean;
 }
 
-function TicketEntryView ({ ticketEntry }: TicketEntryViewProps) {
-    // get redux dispatcher
-    const dispatch = useDispatch<Dispatch<ActionTypes>>();
+function TicketEntryView ({ ticketEntry, small }: TicketEntryViewProps) {
     // get redux values
-    const electionPositions = 
-        useSelector<State, ElectionPosition[]>(state => getElectionPositions(state));
-    const tickets = 
-        useSelector<State, Ticket[]>(state => getTickets(state));
+    const electionPositions = useSelector(getElectionPositions);
+    const tickets = useSelector(getTickets);
 
-    // executed onMount
-    useEffect(() => {
-        dispatch(requestTickets());
-        dispatch(requestElectionPositions());
-    }, []);
     const allowed = mapIdList(ticketEntry.allowedElectionPositions, electionPositions);
     const mappedTickets = mapIdList(ticketEntry.tickets, tickets);
     const totalVotes = sumTicketsVotes(mappedTickets);
@@ -37,7 +26,7 @@ function TicketEntryView ({ ticketEntry }: TicketEntryViewProps) {
     const max = orderedTickets.length !== 0 ?
         countVotes(orderedTickets[0].votes) : 0;
     return (
-        <Card minWidth={300}
+        <Card minWidth={!small ? 400 : undefined}
             title={
                 <TicketRow info={<Text>{totalVotes} votes</Text>}>
                     <Header6>{allowed.map(t => t.displayName).join(", ")}</Header6>

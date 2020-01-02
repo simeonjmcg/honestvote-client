@@ -1,12 +1,26 @@
-import { VotersState, initialVotersState, VoterActionTypes, VOTERS_SUCESS, VOTERS_REQUEST, VOTERS_FAILURE } from "./types";
+import {
+    VotersState, initialVotersState, VoterActionTypes,
+    VOTER_SUCCESS, VOTER_REQUEST, VOTER_FAILURE,
+    VOTERS_SUCCESS, VOTERS_REQUEST, VOTERS_FAILURE,
+} from "./types";
+import { updateIdArray } from "~/utils";
 
 /** reducer for Voters */
-export const votersReducer = (state: VotersState = initialVotersState, actions: VoterActionTypes): VotersState => {
-    switch(actions.type) {
+export function votersReducer(
+        state: VotersState = initialVotersState,
+        action: VoterActionTypes): VotersState {
+    switch(action.type) {
+        case VOTER_REQUEST:
         case VOTERS_REQUEST:
             return { ...state, apiState: "Fetching" };
-        case VOTERS_SUCESS:
-            return { ...state, apiState: "Success", voters: actions.payload };
+        case VOTER_SUCCESS:
+            return {
+                ...state, apiState: "Success",
+                voters: updateIdArray(state.voters, action.payload),
+            };
+        case VOTERS_SUCCESS:
+            return { ...state, apiState: "Success", voters: action.payload };
+        case VOTER_FAILURE:
         case VOTERS_FAILURE:
             return { ...state, apiState: "Failed" };
     }

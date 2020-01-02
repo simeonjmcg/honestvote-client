@@ -10,6 +10,7 @@ export interface CardProps {
 
 const useStyles = makeStyles({
     card: {
+        backgroundColor: "#fff",
         padding: 16,
         margin: 5,
         borderRadius: 4,

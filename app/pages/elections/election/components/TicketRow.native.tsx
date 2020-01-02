@@ -21,9 +21,12 @@ const styles = StyleSheet.create({
     },
     ticketRowChildren: {
         padding: 2,
+        paddingRight: 8,
+        paddingLeft: 8,
         flexGrow: 1,
     },
     ticketRowInfo: {
+        paddingRight: 8,
         padding: 2,
     },
 });

@@ -1,20 +1,32 @@
-import { TicketActionTypes, Ticket, TICKETS_REQUEST, TICKETS_SUCESS, TICKETS_FAILURE } from "./types";
-import { store } from "../reduxStore";
-import example from "./example-tickets.json";
+import {
+    TicketActionTypes, Ticket, TicketId,
+    TICKET_REQUEST, TICKET_SUCCESS, TICKET_FAILURE,
+    TICKETS_REQUEST, TICKETS_SUCCESS, TICKETS_FAILURE,
+} from "./types";
+
+/** request specific Ticket from the backend */
+export function requestTicket(ticketId: TicketId): TicketActionTypes {
+    return { type: TICKET_REQUEST, payload: ticketId };
+}
+
+/** store Ticket in to the redux store */
+export function storeTicket(ticket: Ticket): TicketActionTypes {
+    return { type: TICKET_SUCCESS,  payload: ticket };
+}
+
+/** fail storage of Ticket in the redux store */
+export function errorTicket(): TicketActionTypes {
+    return { type: TICKET_FAILURE };
+}
 
 /** request the Tickets from the backend */
 export function requestTickets(): TicketActionTypes {
-    try {
-        setTimeout(() => store.dispatch(storeTickets(example.data as Ticket[])));
-    } catch (e) {
-        setTimeout(() => store.dispatch(errorTickets()));
-    }
     return { type: TICKETS_REQUEST };
 }
 
 /** store Tickets in to the redux store */
-export function storeTickets(candidates: Ticket[]): TicketActionTypes {
-    return { type: TICKETS_SUCESS,  payload: candidates };
+export function storeTickets(tickets: Ticket[]): TicketActionTypes {
+    return { type: TICKETS_SUCCESS,  payload: tickets };
 }
 
 /** fail storage of Tickets in the redux store */

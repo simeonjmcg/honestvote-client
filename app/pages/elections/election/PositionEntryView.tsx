@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Text } from '~/components';
 import { 
-    Candidate, CandidateActionTypes,
     ElectionPosition, ElectionPositionEntry,
-    State,
-    getCandidates, requestCandidates, areCandidatesLoaded, arePositionsLoaded,
+    getCandidates, areCandidatesLoaded, arePositionsLoaded,
  } from '~/datatypes';
 import { findId } from '~/utils';
-import { Dispatch } from 'redux';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 export interface PositionEntryViewProps {
     positionEntry: ElectionPositionEntry;
@@ -17,18 +14,15 @@ export interface PositionEntryViewProps {
 }
 
 function PositionEntryView ({ positionEntry, electionPositions, multi }: PositionEntryViewProps) {
-    // get dispatch function, pull candidates from redux
-    const dispatch = useDispatch<Dispatch<CandidateActionTypes>>();
-    const candidates = useSelector<State, Candidate[]>(state => getCandidates(state));
+    // get candidates from redux
+    const candidates = useSelector(getCandidates);
 
     // Get isLoading for candidates and positions
-    const isLoadedCandidates = useSelector<State, boolean>(state => areCandidatesLoaded(state));
-    const isLoadedPositions = useSelector<State, boolean>(state => arePositionsLoaded(state));
+    const isLoadedCandidates = useSelector(areCandidatesLoaded);
+    const isLoadedPositions = useSelector(arePositionsLoaded);
     // Getting object by id
     const candidate = findId(candidates, positionEntry.candidateId);
     const position = findId(electionPositions, positionEntry.electionPositionId);
-    // run this when component mounts(like componentDidMount)
-    useEffect(() => {dispatch(requestCandidates());}, []);
     return (
         <Text>
             {!isLoadedCandidates ? "Loading..." :

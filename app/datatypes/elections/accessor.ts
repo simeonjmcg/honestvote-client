@@ -1,12 +1,13 @@
 import { State } from "../types";
 import { ElectionId } from "./types";
+import { findId } from "~/utils";
 
 export function getElections(state: State) {
     return state.elections.elections;
 }
 
-export function getElection(state: State, id: ElectionId) {
-    return getElections(state).find(e => e.id === id);
+export function getElection(id: ElectionId) {
+    return (state: State) => findId(getElections(state), id);
 }
 
 export function getElectionsApiStatus(state: State) {

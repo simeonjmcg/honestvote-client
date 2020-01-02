@@ -22,9 +22,12 @@ const useStyles = createUseStyles({
     },
     ticketRowChildren: {
         padding: 2,
+        paddingRight: 4,
+        paddingLeft: 4,
         flexGrow: 1,
     },
     ticketRowInfo: {
+        paddingLeft: 4,
         padding: 2,
     },
 });

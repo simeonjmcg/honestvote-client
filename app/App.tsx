@@ -3,14 +3,16 @@ import { Provider, useSelector } from 'react-redux'
 import { store } from './datatypes/reduxStore';
 import { makeStyles } from '@material-ui/core/styles';
 import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, ThemeProvider, responsiveFontSizes } from '@material-ui/core';
-import { State, getTitle } from './datatypes';
+import { AppBar, Toolbar, Typography, ThemeProvider, responsiveFontSizes, Modal } from '@material-ui/core';
+import { getTitle, isPromptingPass } from './datatypes';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from './theme';
 
 import { ElectionsPage } from './pages/elections/ElectionsPage';
 import { ElectionPage } from './pages/elections/election/ElectionPage';
 import { BallotPage } from './pages/elections/election/ballot/BallotPage';
+import { PromptPassModal } from './pages/PromptPassModal';
+import { useCommon } from './pages/common-hooks';
 
 const theme = responsiveFontSizes(createMuiTheme({
     palette: {
@@ -23,18 +25,41 @@ const useStyles = makeStyles(_ => ({
     title: {
         flexGrow: 1,
     },
+    prompt: {
+        height: '100%',
+        paddingTop: 200,
+        display: 'flex',
+        alignItems: 'start',
+        justifyContent: 'center',
+    },
 }));
 function ApplicationBar() {
+    const styles = useStyles();
     return (
         <AppBar position="sticky">
             <Toolbar>
-                <Typography variant="h6" className={useStyles().title}>
-                    {useSelector<State, string>(state => getTitle(state))}
+                <Typography variant="h6" className={styles.title}>
+                    {useSelector(getTitle)}
                 </Typography>
             </Toolbar>
         </AppBar>
     );
 }
+
+function PromptPass() {
+    useCommon();
+    const styles = useStyles();
+    const showPrompt = useSelector(isPromptingPass);
+    return (
+        <Modal
+            open={showPrompt} >
+            <div className={styles.prompt} tabIndex={undefined}>
+                <PromptPassModal />
+            </div>
+        </Modal>
+    );
+}
+
 
 export function App() {
     return (
@@ -42,6 +67,7 @@ export function App() {
             <ThemeProvider theme={theme}>
                 <Router>
                     <ApplicationBar />
+                    <PromptPass />
                     <Switch>
                         <Route exact path="/"><Redirect to="/elections" /></Route>
                         <Route path="/elections" component={ElectionsPage} />

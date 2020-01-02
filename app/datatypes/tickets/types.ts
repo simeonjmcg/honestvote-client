@@ -45,21 +45,40 @@ export interface Vote {
   votePriority: VotePriority; // used in rank based voting. for now always 1
 }
 
+export const TICKET_REQUEST = 'TICKET_REQUEST';
+export const TICKET_SUCCESS =  'TICKET_SUCCESS';
+export const TICKET_FAILURE = 'TICKET_FAILURE';
+
 export const TICKETS_REQUEST = 'TICKETS_REQUEST';
-export const TICKETS_SUCESS = 'TICKETS_SUCESS';
+export const TICKETS_SUCCESS =  'TICKETS_SUCCESS';
 export const TICKETS_FAILURE = 'TICKETS_FAILURE';
 
-interface TicketsRequestAction {
+export interface TicketRequestAction {
+    type: typeof TICKET_REQUEST;
+    payload: TicketId;
+}
+export interface TicketSuccessAction {
+    type: typeof TICKET_SUCCESS;
+    payload: Ticket;
+}
+export interface TicketFailureAction {
+    type: typeof TICKET_FAILURE;
+}
+
+export interface TicketsRequestAction {
     type: typeof TICKETS_REQUEST;
 }
-interface TicketsSucessAction {
-    type: typeof TICKETS_SUCESS;
+export interface TicketsSuccessAction {
+    type: typeof TICKETS_SUCCESS;
     payload: Ticket[];
 }
-interface TicketsFailureAction {
+export interface TicketsFailureAction {
     type: typeof TICKETS_FAILURE;
 }
 
-export type TicketActionTypes = TicketsRequestAction
-                              | TicketsSucessAction
+export type TicketActionTypes = TicketRequestAction
+                              | TicketSuccessAction
+                              | TicketFailureAction
+                              | TicketsRequestAction
+                              | TicketsSuccessAction
                               | TicketsFailureAction;

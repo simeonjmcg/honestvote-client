@@ -2,20 +2,19 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteChildrenProps } from 'react-router';
 import { NavigationStackScreenProps } from 'react-navigation-stack';
-import { getParamFromProps } from '~/utils';
+import { Dispatch } from 'redux';
+
 import {
-    State,
-    Election,
-    requestElection,
-    getElection,
-    setTitle,
     ActionTypes,
-    areElectionsLoaded,
+    requestTickets, requestElectionPositions, requestCandidates,
+    requestElection, setTitle,
+    getElection, areElectionsLoaded,
 } from '~/datatypes';
 import { Text, Page } from '~/components';
-import { Dispatch } from 'redux';
-import { ElectionView } from './ElectionView';
+import { getParamFromProps } from '~/utils';
 import { PRIMARY_COLOR } from '~/theme';
+
+import { ElectionView } from './ElectionView';
 
 // NavigationStack for native, Router for web
 export type ElectionPageProps = NavigationStackScreenProps & RouteChildrenProps;
@@ -26,13 +25,17 @@ function ElectionPage ({match, navigation}: ElectionPageProps) {
     // this is the onMount function
     useEffect(() => {
         dispatch(setTitle('Election'));
+
+        // retrieve all data
+        dispatch(requestTickets());
+        dispatch(requestElectionPositions());
+        dispatch(requestCandidates());
         if (id !== undefined) {
             dispatch(requestElection(id));
         }
     }, []);
-    const isLoaded = useSelector<State, boolean>(state => areElectionsLoaded(state));
-    const election = id !== undefined ?
-        useSelector<State, Election|undefined>(state => getElection(state, id))
+    const isLoaded = useSelector(areElectionsLoaded);
+    const election = id !== undefined ? useSelector(getElection(id))
         : undefined;
     return (
         <Page>

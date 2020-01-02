@@ -1,16 +1,16 @@
 import { takeEvery, put } from "@redux-saga/core/effects";
-import { ELECTIONS_REQUEST, ELECTION_REQUEST, ElectionRequestAction } from "./types";
-import example from "./example-elections.json";
-import { storeElections, storeElection, errorElection } from "./actions";
+import {
+    ELECTION_REQUEST, ElectionRequestAction,
+    ELECTIONS_REQUEST,
+    storeElection, errorElection,
+    storeElections, 
+} from "./";
 import { findId } from "../../utils";
+import example from "./example-elections.json";
 
 export function* electionsSaga() {
-    yield takeEvery(ELECTIONS_REQUEST, electionsRequestSaga);
     yield takeEvery(ELECTION_REQUEST, electionRequestSaga);
-}
-
-function* electionsRequestSaga() {
-    yield put(storeElections(example.data));
+    yield takeEvery(ELECTIONS_REQUEST, electionsRequestSaga);
 }
 
 function* electionRequestSaga(action: ElectionRequestAction) {
@@ -20,4 +20,8 @@ function* electionRequestSaga(action: ElectionRequestAction) {
         return;
     }
     yield put(storeElection(election));
+}
+
+function* electionsRequestSaga() {
+    yield put(storeElections(example.data));
 }

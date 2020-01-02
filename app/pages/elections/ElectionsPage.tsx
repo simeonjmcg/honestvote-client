@@ -4,9 +4,8 @@ import { RouteChildrenProps } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
 import {
-    State, ActionTypes,
+    ActionTypes,
     requestElections, getElections,
-    Election,
 } from "~/datatypes";
 import { Page, ListItemLink, Text, Card, Header5 } from '~/components';
 import { PRIMARY_COLOR } from '~/theme';
@@ -19,7 +18,7 @@ export function ElectionsPage () {
     useEffect(() => {
         dispatch(requestElections());
     }, []);
-    const elections = useSelector<State, Election[]>(state => getElections(state));
+    const elections = useSelector(getElections);
     return (
         <Page>
             <Card title={<Header5>Current Elections</Header5>}>

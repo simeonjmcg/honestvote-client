@@ -1,23 +1,27 @@
-import { ElectionsState, initialElectionsState, ElectionActionTypes, ELECTIONS_SUCESS, ELECTION_SUCESS, ELECTIONS_REQUEST, ELECTION_REQUEST, ELECTION_FAILURE, ELECTIONS_FAILURE } from "./types";
-import { withoutId } from "../../utils";
+import {
+    ElectionsState, initialElectionsState, ElectionActionTypes,
+    ELECTION_REQUEST, ELECTION_SUCCESS, ELECTION_FAILURE,
+    ELECTIONS_REQUEST, ELECTIONS_SUCCESS, ELECTIONS_FAILURE,
+} from "./types";
+import { updateIdArray } from "../../utils";
 
 /** reducer for Elections */
-export const electionsReducer = (state: ElectionsState = initialElectionsState, actions: ElectionActionTypes): ElectionsState => {
-    switch(actions.type) {
-        case ELECTIONS_REQUEST:
+export function electionsReducer(
+        state: ElectionsState = initialElectionsState,
+        action: ElectionActionTypes): ElectionsState {
+    switch(action.type) {
         case ELECTION_REQUEST:
+        case ELECTIONS_REQUEST:
             return { ...state, apiState: "Fetching" };
-        case ELECTIONS_SUCESS:
-            return { ...state, apiState: "Success", elections: actions.payload };
-        case ELECTION_SUCESS:
-            const election = actions.payload;
+        case ELECTION_SUCCESS:
             return {
-                 ...state,
-                apiState: "Success",
-                elections: [...withoutId(state.elections, election.id), election]
+                 ...state, apiState: "Success",
+                elections: updateIdArray(state.elections, action.payload),
             };
-        case ELECTIONS_FAILURE:
+        case ELECTIONS_SUCCESS:
+            return { ...state, apiState: "Success", elections: action.payload };
         case ELECTION_FAILURE:
+        case ELECTIONS_FAILURE:
             return { ...state, apiState: "Failed" };
     }
     return state;

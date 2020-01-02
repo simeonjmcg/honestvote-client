@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 
 const style = StyleSheet.create({
     card: {
+        backgroundColor: "#fff",
         padding: 16,
         margin: 5,
         borderRadius: 4,

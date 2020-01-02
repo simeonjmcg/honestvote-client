@@ -22,21 +22,40 @@ export interface ElectionPosition {
   displayName: string;
 }
 
+export const ELECTION_POSITION_REQUEST = 'ELECTION_POSITION_REQUEST';
+export const ELECTION_POSITION_SUCCESS =  'ELECTION_POSITION_SUCCESS';
+export const ELECTION_POSITION_FAILURE = 'ELECTION_POSITION_FAILURE';
+
 export const ELECTION_POSITIONS_REQUEST = 'ELECTION_POSITIONS_REQUEST';
-export const ELECTION_POSITIONS_SUCESS = 'ELECTION_POSITIONS_SUCESS';
+export const ELECTION_POSITIONS_SUCCESS =  'ELECTION_POSITIONS_SUCCESS';
 export const ELECTION_POSITIONS_FAILURE = 'ELECTION_POSITIONS_FAILURE';
 
-interface ElectionPositionsRequestAction {
+export interface ElectionPositionRequestAction {
+    type: typeof ELECTION_POSITION_REQUEST;
+    payload: ElectionPositionId;
+}
+export interface ElectionPositionSuccessAction {
+    type: typeof ELECTION_POSITION_SUCCESS;
+    payload: ElectionPosition;
+}
+export interface ElectionPositionFailureAction {
+    type: typeof ELECTION_POSITION_FAILURE;
+}
+
+export interface ElectionPositionsRequestAction {
     type: typeof ELECTION_POSITIONS_REQUEST;
 }
-interface ElectionPositionsSucessAction {
-    type: typeof ELECTION_POSITIONS_SUCESS;
+export interface ElectionPositionsSuccessAction {
+    type: typeof ELECTION_POSITIONS_SUCCESS;
     payload: ElectionPosition[];
 }
-interface ElectionPositionsFailureAction {
+export interface ElectionPositionsFailureAction {
     type: typeof ELECTION_POSITIONS_FAILURE;
 }
 
-export type ElectionPositionActionTypes = ElectionPositionsRequestAction
-                                        | ElectionPositionsSucessAction
+export type ElectionPositionActionTypes = ElectionPositionRequestAction
+                                        | ElectionPositionSuccessAction
+                                        | ElectionPositionFailureAction
+                                        | ElectionPositionsRequestAction
+                                        | ElectionPositionsSuccessAction
                                         | ElectionPositionsFailureAction;

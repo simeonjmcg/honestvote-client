@@ -34,6 +34,10 @@ export function withoutId<T extends IdObject>(array: T[], id: AppId) {
     return array.filter(item => item.id !== id);
 }
 
+export function updateIdArray<T extends IdObject>(array: T[], item: T) {
+    return [ ...withoutId(array, item.id), item ];
+}
+
 /** map idArray to the correct ids from array */
 export function mapIdList<T extends IdObject>(idArray: AppId[], array: T[]) {
     return idArray.map(pid => findId(array, pid))

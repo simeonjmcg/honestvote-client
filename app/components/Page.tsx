@@ -8,7 +8,7 @@ export interface PageProps {
 
 const useStyles = makeStyles({
     page: {
-        padding: 16,
+        paddingTop: 16,
     },
 });
 

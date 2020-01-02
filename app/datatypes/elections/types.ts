@@ -60,18 +60,18 @@ export interface TicketEntry {
 }
 
 export const ELECTIONS_REQUEST = 'ELECTIONS_REQUEST';
-export const ELECTIONS_SUCESS = 'ELECTIONS_SUCESS';
+export const ELECTIONS_SUCCESS = 'ELECTIONS_SUCCESS';
 export const ELECTIONS_FAILURE = 'ELECTIONS_FAILURE';
 
 export const ELECTION_REQUEST = 'ELECTION_REQUEST';
-export const ELECTION_SUCESS = 'ELECTION_SUCESS';
+export const ELECTION_SUCCESS = 'ELECTION_SUCCESS';
 export const ELECTION_FAILURE = 'ELECTION_FAILURE';
 
 export interface ElectionsRequestAction {
     type: typeof ELECTIONS_REQUEST;
 }
-export interface ElectionsSucessAction {
-    type: typeof ELECTIONS_SUCESS;
+export interface ElectionsSuccessAction {
+    type: typeof ELECTIONS_SUCCESS;
     payload: Election[];
 }
 export interface ElectionsFailureAction {
@@ -82,8 +82,8 @@ export interface ElectionRequestAction {
     type: typeof ELECTION_REQUEST;
     payload: ElectionId;
 }
-export interface ElectionSucessAction {
-    type: typeof ELECTION_SUCESS;
+export interface ElectionSuccessAction {
+    type: typeof ELECTION_SUCCESS;
     payload: Election;
 }
 export interface ElectionFailureAction {
@@ -91,8 +91,8 @@ export interface ElectionFailureAction {
 }
 
 export type ElectionActionTypes = ElectionsRequestAction
-                                 | ElectionsSucessAction
+                                 | ElectionsSuccessAction
                                  | ElectionsFailureAction
                                  | ElectionRequestAction
-                                 | ElectionSucessAction
+                                 | ElectionSuccessAction
                                  | ElectionFailureAction;

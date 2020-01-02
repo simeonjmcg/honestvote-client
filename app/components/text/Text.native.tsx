@@ -1,10 +1,7 @@
 import React from 'react';
 import { Text as NativeText } from 'react-native-elements';
+import { TextProps } from './Text';
 
-export interface TextProps {
-    children?: React.ReactNode;
-}
-
-export function Text (props: TextProps) {
-    return <NativeText>{ props.children }</NativeText>;
+export function Text ({ children, color }: TextProps) {
+    return <NativeText style={{ color }}>{ children }</NativeText>;
 }

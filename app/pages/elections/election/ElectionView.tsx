@@ -11,17 +11,17 @@ export interface ElectionViewProps {
 function ElectionView ({election}: ElectionViewProps) {
     let { width } = getDimensions();
     
-    const [ small, setSmall ] = useState(width < 720);
+    const [ small, setSmall ] = useState(width < 930);
     const onResize = useCallback(() => {
         const { width } = getDimensions();
-        setSmall(width < 720);
+        setSmall(width < 930);
     }, []);
     return (
         <View>
             <Header5>{election.displayName || "Unknown"}</Header5>
             <Subtitle1>{election.term || "Unknown"}</Subtitle1>
             <View stretch={small} wrap={true} direction={small ? "column" : "row"} onResize={onResize}>
-                {election.ticketEntries.map((entry, k) => <TicketEntryView key={k} ticketEntry={entry} />)}
+                {election.ticketEntries.map((entry, k) => <TicketEntryView key={k} ticketEntry={entry} small={small} />)}
             </View>
         </View>
     );
