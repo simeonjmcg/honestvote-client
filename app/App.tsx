@@ -11,6 +11,8 @@ import { PRIMARY_COLOR, SECONDARY_COLOR } from './theme';
 import { ElectionsPage } from './pages/elections/ElectionsPage';
 import { ElectionPage } from './pages/elections/election/ElectionPage';
 import { BallotPage } from './pages/elections/election/ballot/BallotPage';
+
+import { RegistrationPage } from './pages/elections/election/registration/RegistrationPage';
 import { PromptPassModal } from './pages/PromptPassModal';
 import { useCommon } from './pages/common-hooks';
 
@@ -71,8 +73,9 @@ export function App() {
                     <Switch>
                         <Route exact path="/"><Redirect to="/elections" /></Route>
                         <Route path="/elections" component={ElectionsPage} />
-                        <Route path="/election/:id" component={ElectionPage} />
                         <Route path="/election/:id/ballot" component={BallotPage} />
+                        <Route path="/election/:id/registration" component={RegistrationPage} />
+                        <Route path="/election/:id" component={ElectionPage} />
                     </Switch>
                 </Router>
             </ThemeProvider>

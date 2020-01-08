@@ -3,7 +3,7 @@ import {
     ElectionPermissionRequest,
     USER_RETREIVE_PUBLIC, USER_STORE_PUBLIC,
     USER_RETREIVE_PRIVATE, USER_RETURN_PRIVATE, USER_RETURN_PRIVATE_FAILED,
-    USER_REQUEST_PERMISSIONS, USER_SUCCESS_PERMISSIONS, USER_FAILURE_PERMISSIONS,
+    USER_REQUEST_PERMISSIONS, USER_SUCCESS_PERMISSIONS, USER_FAILURE_PERMISSIONS, USER_RESET_IDLE_PERMISSIONS,
 } from "./types";
 
 /** retreive public key from the redux store */
@@ -41,6 +41,11 @@ export function returnPrivateFailed(): UserActionTypes {
         type: USER_RETURN_PRIVATE_FAILED,
      };
 }
+
+export function resetIdleElectionPermissions(): UserActionTypes {
+    return { type: USER_RESET_IDLE_PERMISSIONS };
+}
+
 
 /** Request permissions for election */
 export function requestElectionPermissions(permissions: ElectionPermissionRequest): UserActionTypes {

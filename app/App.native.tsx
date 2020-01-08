@@ -9,11 +9,13 @@ import { BallotPage } from './pages/elections/election/ballot/BallotPage';
 import { View, Modal, StyleSheet } from 'react-native';
 import { PromptPassModal } from './pages/PromptPassModal';
 import { useCommon } from './pages/common-hooks';
+import { RegistrationPage } from './pages/elections/election/registration/RegistrationPage';
 
 const MainNavigator = createStackNavigator({
   Elections: { screen: ElectionsPage },
   Election: { screen: ElectionPage },
   Ballot: { screen: BallotPage },
+  Registration: { screen: RegistrationPage },
 });
 
 const Navigation = createAppContainer(MainNavigator);
