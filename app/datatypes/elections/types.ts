@@ -24,12 +24,16 @@ export type TicketEntryId = AppId;
 export interface ElectionInfo {
   id: ElectionId;
   displayName: string;
+  institutionName: string;
   term: string;
+  startDate?: number;
+  endDate: number;
   type: ElectionType;
 }
 
 /** Election is a given election */
 export interface Election extends ElectionInfo {
+  emailDomain: string;
   ticketEntries: TicketEntry[];
   options?: ElectionOptions;
 }

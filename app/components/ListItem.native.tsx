@@ -1,7 +1,11 @@
 import React from 'react';
-import { ListItem as ListItemNative } from 'react-native-elements';
+import { List } from 'react-native-paper';
 import { ListItemProps } from './ListItem'
 
-export function ListItem ({ children }: ListItemProps) {
-    return <ListItemNative title={children}></ListItemNative>;
+export function ListItem ({ title, description, left, right }: ListItemProps) {
+    return (
+        <List.Item title={title} description={description}
+            left={left != undefined ? () => left : undefined}
+            right={right != undefined ? () => right : undefined} />
+    );
 }

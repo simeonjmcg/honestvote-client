@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
 import {
     ActionTypes,
-    requestElections, getElections,
+    requestElections, getElections, openedStateString,
 } from "~/datatypes";
-import { Page, ListItemLink, Text, Card, Header5 } from '~/components';
+import { Page, ListItemLink, Card, Header5, Text } from '~/components';
 import { PRIMARY_COLOR } from '~/theme';
 
 // NavigationStack for native, Router for web
 export type ElectionsPageProps = NavigationStackScreenProps & RouteChildrenProps;
+
 
 export function ElectionsPage () {
     const dispatch = useDispatch<Dispatch<ActionTypes>>();
@@ -22,14 +23,15 @@ export function ElectionsPage () {
     return (
         <Page>
             <Card title={<Header5>Current Elections</Header5>}>
-                {elections.map((row, index) => 
-                    <ListItemLink
-                        key={index}
-                        to={`/election/${row.id}`}
-                        route="Election"
-                        params={{id: row.id}}>
-                        <Text>{row.displayName}</Text>
-                    </ListItemLink>)}
+                {elections.map((row, index) => {
+                    return <ListItemLink
+                            key={index}
+                            to={`/election/${row.id}`}
+                            route="Election" params={{id: row.id}}
+                            title={row.institutionName}
+                            description={row.displayName}
+                            right={<Text>{openedStateString(row)}</Text>}/>;
+                })}
             </Card>
         </Page>
     );

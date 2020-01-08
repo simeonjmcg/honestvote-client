@@ -1,4 +1,3 @@
-import { ElectionId } from "../elections";
 import { ApiState } from "../types";
 
 /** state for App */
@@ -7,7 +6,6 @@ export interface AppState {
   promptingPass: boolean;
   createPass: boolean;
   passPromptMessage: string;
-  activePermissionRequest: ElectionId[];
   closestNodeRequestStatus: ApiState;
   endpoint: string | null;
 };
@@ -18,7 +16,6 @@ export const initialAppState: AppState = {
   promptingPass: false,
   createPass: false,
   passPromptMessage: "",
-  activePermissionRequest: [],
   closestNodeRequestStatus: "Idle",
   endpoint: null,
 };

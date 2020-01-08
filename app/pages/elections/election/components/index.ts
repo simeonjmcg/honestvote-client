@@ -1,1 +1,1 @@
-export * from './TicketRow';
+export * from './RowItem';

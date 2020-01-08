@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { NavigationStackOptions } from 'react-navigation-stack';
 import {
-    Page, List, ListItem,
+    Page, List, View,
 } from '~/components';
 import {
     Election, ElectionActionTypes,
@@ -33,7 +33,7 @@ class ProfilePage extends React.PureComponent<ProfilePageProps> {
         const { elections } = this.props;
         return (
             <Page>
-                <List data={elections} renderRow={(row, index) => <ListItem key={index}>{row.displayName}</ListItem>} />
+                <List data={elections} renderRow={(row, index) => <View key={index}>{row.displayName}</View>} />
             </Page>
         );
     }

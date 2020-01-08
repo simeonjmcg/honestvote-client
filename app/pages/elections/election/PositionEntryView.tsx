@@ -11,9 +11,10 @@ export interface PositionEntryViewProps {
     positionEntry: ElectionPositionEntry;
     electionPositions: ElectionPosition[];
     multi: boolean;
+    onPress?: () => void;
 }
 
-function PositionEntryView ({ positionEntry, electionPositions, multi }: PositionEntryViewProps) {
+function PositionEntryView ({ positionEntry, electionPositions, multi, onPress }: PositionEntryViewProps) {
     // get candidates from redux
     const candidates = useSelector(getCandidates);
 
@@ -24,7 +25,7 @@ function PositionEntryView ({ positionEntry, electionPositions, multi }: Positio
     const candidate = findId(candidates, positionEntry.candidateId);
     const position = findId(electionPositions, positionEntry.electionPositionId);
     return (
-        <Text>
+        <Text onPress={onPress}>
             {!isLoadedCandidates ? "Loading..." :
             candidate            ? candidate.fullName :
                                    "(unknown name)"}

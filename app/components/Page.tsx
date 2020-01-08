@@ -1,12 +1,12 @@
 import React from 'react';
 import { Container } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { createUseStyles } from 'react-jss';
 
 export interface PageProps {
     children?: React.ReactNode;
 }
 
-const useStyles = makeStyles({
+const useStyles = createUseStyles({
     page: {
         paddingTop: 16,
     },

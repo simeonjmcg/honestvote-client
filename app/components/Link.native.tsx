@@ -1,12 +1,13 @@
 import React from 'react';
 import { useNavigation } from 'react-navigation-hooks';
-import { Button } from 'react-native-elements';
+import { Text } from 'react-native';
 import { LinkProps } from './Link';
 
 export function Link ({ children, route, params }: LinkProps) {
     const navigation = useNavigation();
     return (
-        <Button title={children} type="clear"
-            onPress={() => navigation && navigation.navigate(route, params)} />
+        <Text onPress={() => navigation && navigation.navigate(route, params)}>
+            {children}
+        </Text>
     );
 }

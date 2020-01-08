@@ -51,12 +51,12 @@ function bytesToHex(bytes: Uint8Array) {
 }
 
 // retreive public key from persistent storage
-export async function getPublicKey () {
+export async function loadPublicKey () {
     return await getItem(StorageKeys.PublicKey);
 }
 
 // retreive private key from persistent storage given the passcode
-export async function getPrivateKey(pass: string) {
+export async function loadPrivateKey(pass: string) {
     const salt = await getItem(StorageKeys.PassSalt);
     const passCheck = await getItem(StorageKeys.PassCheck);
     const encryptedPrivateKey = await getItem(StorageKeys.PrivateKeyEncrypted);

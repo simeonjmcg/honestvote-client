@@ -5,7 +5,7 @@ export interface LinkProps {
     children: string;
     to: string;
     route: string;
-    params: {[key: string]: any};
+    params: {[key: string]: string};
 }
 
 export function Link ({ to, children }: LinkProps) {

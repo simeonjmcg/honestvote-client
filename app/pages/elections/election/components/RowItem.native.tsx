@@ -1,19 +1,14 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Text } from '~/components';
-
-export interface TicketRowProps {
-    index?: number;
-    children: React.ReactNode;
-    info: React.ReactNode;
-}
+import { RowItemProps } from './RowItem';
 
 const styles = StyleSheet.create({
     ticketRow: {
         padding: 4,
         flexDirection: "row",
+        flexGrow: 1,
     },
-    ticketRowIndex: {
+    ticketRowLeft: {
         padding: 2,
         paddingRight: 4,
         textAlign: "right",
@@ -25,25 +20,27 @@ const styles = StyleSheet.create({
         paddingLeft: 8,
         flexGrow: 1,
     },
-    ticketRowInfo: {
-        paddingRight: 8,
+    ticketRowRight: {
+        paddingLeft: 8,
         padding: 2,
+        textAlign: "right",
     },
 });
 
-export function TicketRow ({ index, children, info }: TicketRowProps) {
+export function RowItem ({ left, children, right }: RowItemProps) {
     return (
         <View style={styles.ticketRow}>
-            {index != undefined ? 
-                <View style={styles.ticketRowIndex}>
-                    <Text>{ index+1 }</Text>
-                </View> : undefined }
+            {left != undefined ? 
+                <View style={styles.ticketRowLeft}>
+                    { left }
+                </View> : undefined}
             <View style={styles.ticketRowChildren}>
-                { children }
+                {children}
             </View>
-            <View style={styles.ticketRowInfo}>
-                { info }
-            </View>
+            {right != undefined ?
+                <View style={styles.ticketRowRight}>
+                    { right }
+                </View> : undefined }
         </View>
     );
 }

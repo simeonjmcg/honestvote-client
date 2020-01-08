@@ -1,11 +1,11 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import { createUseStyles } from 'react-jss';
 
 export interface ButtonGroupProps {
     children?: React.ReactNode;
 }
 
-const useStyles = makeStyles({
+const useStyles = createUseStyles({
     buttonGroup: {
         display: "flex",
         flexDirection: "row",

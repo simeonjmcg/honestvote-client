@@ -1,8 +1,12 @@
 {
     "data": [{
         "id": "election1",
-        "displayName": "West Chester University Executive Board",
+        "displayName": "Executive Board",
+        "institutionName": "West Chester University",
         "term": "Spring 2020",
+        "startDate": 1578459600000,
+        "endDate":   1579582799000,
+        "emailDomain": "wcupa.edu",
         "type": 0,
         "ticketEntries": [
             {
@@ -20,8 +24,8 @@
             }
         ],
         "options": {
-        "canHaveMultiTicket": false,
-        "candidateCanRunForMultiple": false
+            "canHaveMultiTicket": false,
+            "candidateCanRunForMultiple": false
         }
     }]
 }

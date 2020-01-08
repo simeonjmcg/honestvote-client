@@ -7,7 +7,7 @@ import {
 } from '~/datatypes';
 import { mapIdList, sortTickets, sumTicketsVotes, countVotes } from '~/utils';
 import { TicketView } from './TicketView';
-import { TicketRow } from './components';
+import { RowItem } from './components';
 
 export interface TicketEntryViewProps {
     ticketEntry: TicketEntry;
@@ -28,9 +28,9 @@ function TicketEntryView ({ ticketEntry, small }: TicketEntryViewProps) {
     return (
         <Card minWidth={!small ? 400 : undefined}
             title={
-                <TicketRow info={<Text>{totalVotes} votes</Text>}>
+                <RowItem right={<Text>{totalVotes} votes</Text>}>
                     <Header6>{allowed.map(t => t.displayName).join(", ")}</Header6>
-                </TicketRow>
+                </RowItem>
             }>
             {orderedTickets.map((ticket, idx) => {
                 return ticket ? 

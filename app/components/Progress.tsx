@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/styles';
+import { createUseStyles } from 'react-jss';
 import { SECONDARY_COLOR } from '../theme';
 
 export interface ProgressProps {
@@ -7,7 +7,7 @@ export interface ProgressProps {
     progress: number;
 }
 
-const useStyles = makeStyles({
+const useStyles = createUseStyles({
     progress: {
         position: "relative",
         margin: 5,

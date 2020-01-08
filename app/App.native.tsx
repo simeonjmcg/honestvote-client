@@ -9,6 +9,8 @@ import { BallotPage } from './pages/elections/election/ballot/BallotPage';
 import { View, Modal, StyleSheet } from 'react-native';
 import { PromptPassModal } from './pages/PromptPassModal';
 import { useCommon } from './pages/common-hooks';
+import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper';
+
 
 const MainNavigator = createStackNavigator({
   Elections: { screen: ElectionsPage },
@@ -42,10 +44,23 @@ function PromptPass() {
   );
 }
 
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#3498db',
+    accent: '#f1c40f',
+  },
+};
 
 export function App() {
-  return <Provider store={store}>
-    <PromptPass />
-    <Navigation />
-  </Provider>;
+  return (
+    <Provider store={store}>
+      <PaperProvider theme={theme}>
+        <PromptPass />
+        <Navigation />
+      </PaperProvider>
+    </Provider>
+  );
 }

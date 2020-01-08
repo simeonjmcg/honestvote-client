@@ -1,13 +1,14 @@
 import React from 'react';
-import { ListItem as ListItemNative } from 'react-native-elements';
+import { List } from 'react-native-paper';
 import { ListItemLinkProps } from './ListItemLink'
 import { useNavigation } from 'react-navigation-hooks';
 
-export function ListItemLink ({ children, route, params }: ListItemLinkProps) {
+export function ListItemLink ({ title, description, route, params, left, right }: ListItemLinkProps) {
     const navigation = useNavigation();
     return (
-        <ListItemNative title={children} 
-                onPress={() => navigation && navigation.navigate(route, params)}/>
+        <List.Item title={title} description={description}
+            onPress={() => {navigation?.navigate?.(route, params)}}
+            left={left != undefined ? () => left : undefined}
+            right={right != undefined ? () => right : undefined} />
     );
 }
-    

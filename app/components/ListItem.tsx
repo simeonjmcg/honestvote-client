@@ -1,10 +1,22 @@
 import React from 'react';
-import { ListItem as ListItemMaterial } from '@material-ui/core';
+import {
+    ListItem as ListItemMaterial,
+    ListItemText, ListItemIcon, ListItemSecondaryAction
+} from '@material-ui/core';
 
 export interface ListItemProps {
-    children?: string | React.ReactElement;
+    title: string | React.ReactElement;
+    description?: string | React.ReactElement;
+    left?: React.ReactElement;
+    right?: string | React.ReactElement;
 }
 
-export function ListItem ({ children }: ListItemProps) {
-    return <ListItemMaterial>{ children }</ListItemMaterial>;
+export function ListItem ({ title, description, left, right }: ListItemProps) {
+    return <ListItemMaterial>
+        {left != undefined ?
+            <ListItemIcon>{ left }</ListItemIcon> : undefined}
+        <ListItemText primary={title} secondary={description} />
+        {right != undefined ?
+            <ListItemSecondaryAction>{ right }</ListItemSecondaryAction> : undefined}
+    </ListItemMaterial>;
 }

@@ -4,11 +4,16 @@ import {Button as MaterialButton } from '@material-ui/core';
 export interface ButtonProps {
     children?: string;
     onPress?: () => void;
+    type?: ButtonType;
+    color?: ButtonColor;
 }
 
-export function Button ({ children, onPress }: ButtonProps) {
+export type ButtonType = "text" | "contained" | "outlined";
+export type ButtonColor = "primary" | "secondary" | undefined;
+
+export function Button ({ children, onPress, type, color }: ButtonProps) {
     return (
-        <MaterialButton onClick={onPress}>
+        <MaterialButton onClick={onPress} variant={type} color={color} >
             {children}
         </MaterialButton>
     );

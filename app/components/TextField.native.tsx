@@ -1,9 +1,9 @@
 import React from 'react';
-import { Input } from 'react-native-elements';
+import { TextInput } from 'react-native-paper';
 import { TextFieldProps } from './TextField';
 
 export function TextField ({ label, onValueChange, value }: TextFieldProps) {
     return (
-        <Input label={label} onChangeText={onValueChange} value={value} />
+        <TextInput label={label} onChangeText={onValueChange} value={value} />
     );
 }

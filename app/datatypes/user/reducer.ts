@@ -1,6 +1,7 @@
 import {
-    UserActionTypes, UserState, initialUserState,    USER_STORE_PUBLIC,
+    UserActionTypes, UserState, initialUserState, USER_STORE_PUBLIC,
     USER_REQUEST_PERMISSIONS, USER_SUCCESS_PERMISSIONS, USER_FAILURE_PERMISSIONS,
+    USER_SUBMIT_BALLOT, USER_SUCCESS_BALLOT, USER_FAILURE_BALLOT,
 } from "./types";
 
 /** reducer for user */
@@ -11,11 +12,22 @@ export function userReducer(
         case USER_STORE_PUBLIC:
             return {...state, publicKey: action.payload };
         case USER_REQUEST_PERMISSIONS:
-            return { ...state, apiStatus: "Fetching" };
+            const id = action.payload.electionId;
+            return {
+                ...state, permissionRequestStatus: "Fetching",
+                activePermissionRequest: state.activePermissionRequest.includes(id) ?
+                    state.activePermissionRequest : [...state.activePermissionRequest, id],
+            };
         case USER_SUCCESS_PERMISSIONS:
-            return { ...state, apiStatus: "Success" };
+            return { ...state, permissionRequestStatus: "Success" };
         case USER_FAILURE_PERMISSIONS:
-            return { ...state, apiStatus: "Failed" };
+            return { ...state, permissionRequestStatus: "Failed" };
+        case USER_SUBMIT_BALLOT:
+            return { ...state, ballotSubmissionStatus: "Fetching" };
+        case USER_SUCCESS_BALLOT:
+            return { ...state, ballotSubmissionStatus: "Success" };
+        case USER_FAILURE_BALLOT:
+            return { ...state, ballotSubmissionStatus: "Failed" };
     }
     return state;
 }

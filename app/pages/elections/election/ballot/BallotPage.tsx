@@ -1,51 +1,54 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Page, List, ListItem } from '~/components';
-import {
-    Election, ElectionActionTypes,
-    requestElections, getElections, State,
-} from '~/datatypes';
-import { NavigationStackOptions } from 'react-navigation-stack';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RouteChildrenProps } from 'react-router';
+import { NavigationStackScreenProps } from 'react-navigation-stack';
 import { Dispatch } from 'redux';
 
-export type BallotPageProps = StateProps & DispatchProps;
+import { Text, Page } from '~/components';
+import { getParamFromProps } from '~/utils';
+import { PRIMARY_COLOR } from '~/theme';
+import {
+    ActionTypes,
+    setTitle,
+    requestTickets, requestElectionPositions, requestCandidates, requestElection,
+    getElection, areElectionsLoaded,
+} from '~/datatypes';
 
-interface StateProps {
-    elections: Election[];
+import { BallotView } from './BallotView';
+
+// NavigationStack for native, Router for web
+export type BallotPageProps = NavigationStackScreenProps & RouteChildrenProps;
+
+function BallotPage ({match, navigation}: BallotPageProps) {
+    const dispatch = useDispatch<Dispatch<ActionTypes>>();
+    const id = getParamFromProps(match, navigation, "id");
+    // this is the onMount function
+    useEffect(() => {
+        dispatch(setTitle('Ballot'));
+
+        // retrieve all data
+        dispatch(requestTickets());
+        dispatch(requestElectionPositions());
+        dispatch(requestCandidates());
+        if (id !== undefined) {
+            dispatch(requestElection(id));
+        }
+    }, []);
+    const isLoaded = useSelector(areElectionsLoaded);
+    const election = id !== undefined ? useSelector(getElection(id))
+        : undefined;
+    return (
+        <Page>
+            { !isLoaded ? <Text>Loading...</Text> : 
+              election  ? <BallotView election={election} /> :
+                          <Text>Ballot not found!</Text>}
+        </Page>
+    );
 }
-
-interface DispatchProps {
-    requestElections: () => ElectionActionTypes;
+BallotPage.navigationOptions = {
+    title: "Ballot",
+    headerStyle: {
+      backgroundColor: PRIMARY_COLOR,
+    },
 }
-
-class BallotPage extends React.PureComponent<BallotPageProps> {
-    public static navigationOptions: NavigationStackOptions = {
-        title: 'Ballot',
-    };
-    public componentDidMount() {
-        this.props.requestElections();
-    }
-    public render(): React.ReactElement {
-        const { elections } = this.props;
-        return (
-            <Page>
-                <List data={elections} renderRow={(row, index) => <ListItem key={index}>{row.displayName}</ListItem>} />
-            </Page>
-        );
-    }
-}
-
-const mapStateToProps = (state: State): StateProps => {
-    return {
-        elections: getElections(state),
-    };
-}
-
-const mapDispatchToProps = (dispatch: Dispatch<ElectionActionTypes>): DispatchProps => {
-    return {
-        requestElections: () => dispatch(requestElections()),
-    };
-}
-
-const ballotPage = connect(mapStateToProps, mapDispatchToProps) (BallotPage);
-export { ballotPage as BallotPage };
+export { BallotPage };

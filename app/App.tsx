@@ -60,7 +60,6 @@ function PromptPass() {
     );
 }
 
-
 export function App() {
     return (
         <Provider store={store}>
@@ -71,8 +70,8 @@ export function App() {
                     <Switch>
                         <Route exact path="/"><Redirect to="/elections" /></Route>
                         <Route path="/elections" component={ElectionsPage} />
-                        <Route path="/election/:id" component={ElectionPage} />
                         <Route path="/election/:id/ballot" component={BallotPage} />
+                        <Route path="/election/:id" component={ElectionPage} />
                     </Switch>
                 </Router>
             </ThemeProvider>
