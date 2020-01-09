@@ -3,6 +3,7 @@ import {
     USER_RETREIVE_PUBLIC, USER_STORE_PUBLIC,
     USER_RETREIVE_PRIVATE, USER_RETURN_PRIVATE, USER_RETURN_PRIVATE_FAILED,
     USER_REQUEST_PERMISSIONS, USER_SUCCESS_PERMISSIONS, USER_FAILURE_PERMISSIONS, USER_CONFIRM_PERMISSIONS, USER_SUBMIT_BALLOT,
+    USER_RESET_IDLE_PERMISSIONS,
 } from "./types";
 import { ElectionId } from "../elections";
 import { TicketId } from "../tickets";
@@ -42,6 +43,11 @@ export function returnPrivateFailed(): UserActionTypes {
         type: USER_RETURN_PRIVATE_FAILED,
      };
 }
+
+export function resetIdleElectionPermissions(): UserActionTypes {
+    return { type: USER_RESET_IDLE_PERMISSIONS };
+}
+
 
 /** Request permissions for election */
 export function requestElectionPermissions(electionId: ElectionId, email: string): UserActionTypes {

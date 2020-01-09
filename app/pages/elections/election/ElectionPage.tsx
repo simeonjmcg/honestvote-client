@@ -41,7 +41,8 @@ function ElectionPage ({match, navigation}: ElectionPageProps) {
         <Page>
             { !isLoaded ? <Text>Loading...</Text> : 
               election  ? <ElectionView election={election} /> :
-                          <Text>Election not found!</Text>}
+                          <Text>Election not found!</Text>
+            }
         </Page>
     );
 }

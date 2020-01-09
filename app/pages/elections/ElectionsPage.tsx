@@ -21,7 +21,7 @@ export function ElectionsPage () {
     }, []);
     const elections = useSelector(getElections);
     return (
-        <Page>
+        <Page>  
             <Card title={<Header5>Current Elections</Header5>}>
                 {elections.map((row, index) => {
                     return <ListItemLink

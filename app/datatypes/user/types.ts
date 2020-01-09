@@ -32,6 +32,7 @@ export const USER_RETREIVE_PRIVATE = 'USER_RETREIVE_PRIVATE';
 export const USER_RETURN_PRIVATE = 'USER_RETURN_PRIVATE';
 export const USER_RETURN_PRIVATE_FAILED = 'USER_RETURN_PRIVATE_FAILED';
 
+export const USER_RESET_IDLE_PERMISSIONS = 'USER_RESET_IDLE_PERMISSIONS';
 export const USER_REQUEST_PERMISSIONS = 'USER_REQUEST_PERMISSIONS';
 export const USER_SUCCESS_PERMISSIONS = 'USER_SUCCESS_PERMISSIONS';
 export const USER_FAILURE_PERMISSIONS = 'USER_FAILURE_PERMISSIONS';
@@ -63,6 +64,10 @@ export interface UserReturnPrivateAction {
 
 export interface UserReturnPrivateFailedAction {
     type: typeof USER_RETURN_PRIVATE_FAILED;
+}
+
+export interface UserResetIdlePermissionsAction {
+  type: typeof USER_RESET_IDLE_PERMISSIONS;
 }
 
 export interface UserRequestPermissionsAction {
@@ -101,6 +106,7 @@ export type UserActionTypes = UserRetreivePublicAction
                             | UserRetreivePrivateAction
                             | UserReturnPrivateAction
                             | UserReturnPrivateFailedAction
+                            | UserResetIdlePermissionsAction
                             | UserRequestPermissionsAction
                             | UserSuccessPermissionsAction
                             | UserFailurePermissionsAction
