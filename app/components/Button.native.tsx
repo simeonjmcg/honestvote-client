@@ -6,7 +6,7 @@ import { PRIMARY_COLOR, SECONDARY_COLOR } from '~/theme';
 
 const style = StyleSheet.create({
     button: {
-        padding: 3
+        margin: 3
     }
 });
 

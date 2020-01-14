@@ -32,7 +32,7 @@ function BallotView ({election}: BallotViewProps) {
                 <Button onPress={() => setDialogVisible(true)}>Submit</Button>
             </View>
             <Dialog open={dialogVisible} actions={<ButtonGroup>
-                <Button onPress={() => dispatch(submitBallot(selectedTickets.map(t => t.id)))}>Submit Ballot</Button>
+                <Button onPress={() => dispatch(submitBallot(election.id, selectedTickets.map(t => t.id)))}>Submit Ballot</Button>
                 <Button onPress={() => setDialogVisible(false)}>Revise Ballot</Button>
             </ButtonGroup>}
                 onClose={() => setDialogVisible(false)}
