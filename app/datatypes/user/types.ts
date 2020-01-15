@@ -1,6 +1,5 @@
 import { ApiState } from "../types";
 import { ElectionId } from "../elections";
-import { VoterId } from "../voters";
 import { TicketId } from "../tickets";
 
 /** state for user */
@@ -20,7 +19,6 @@ export const initialUserState: UserState = {
 };
 
 export interface ElectionPermissionRequest {
-  voterId: VoterId;
   electionId: ElectionId;
   email: string; // may either be plain text, or encrypted with electionId's public key
 }
@@ -32,10 +30,11 @@ export const USER_RETREIVE_PRIVATE = 'USER_RETREIVE_PRIVATE';
 export const USER_RETURN_PRIVATE = 'USER_RETURN_PRIVATE';
 export const USER_RETURN_PRIVATE_FAILED = 'USER_RETURN_PRIVATE_FAILED';
 
-export const USER_RESET_IDLE_PERMISSIONS = 'USER_RESET_IDLE_PERMISSIONS';
 export const USER_REQUEST_PERMISSIONS = 'USER_REQUEST_PERMISSIONS';
 export const USER_SUCCESS_PERMISSIONS = 'USER_SUCCESS_PERMISSIONS';
 export const USER_FAILURE_PERMISSIONS = 'USER_FAILURE_PERMISSIONS';
+
+export const USER_RESET_REQUEST_PERMISSIONS = 'USER_RESET_REQUEST_PERMISSIONS';
 
 export const USER_CONFIRM_PERMISSIONS = 'USER_CONFIRM_PERMISSIONS';
 
@@ -66,13 +65,9 @@ export interface UserReturnPrivateFailedAction {
     type: typeof USER_RETURN_PRIVATE_FAILED;
 }
 
-export interface UserResetIdlePermissionsAction {
-  type: typeof USER_RESET_IDLE_PERMISSIONS;
-}
-
 export interface UserRequestPermissionsAction {
   type: typeof USER_REQUEST_PERMISSIONS;
-  payload: { electionId: ElectionId, email: string };
+  payload: ElectionPermissionRequest;
 }
 
 export interface UserSuccessPermissionsAction {
@@ -83,6 +78,11 @@ export interface UserFailurePermissionsAction {
   type: typeof USER_FAILURE_PERMISSIONS;
 }
 
+export interface UserResetRequestPermissionsAction {
+  type: typeof USER_RESET_REQUEST_PERMISSIONS;
+  payload: ElectionId;
+}
+
 export interface UserConfirmPermissionsAction {
   type: typeof USER_CONFIRM_PERMISSIONS;
   payload: ElectionId;
@@ -90,7 +90,7 @@ export interface UserConfirmPermissionsAction {
 
 export interface UserSubmitBallotAction {
   type: typeof USER_SUBMIT_BALLOT;
-  payload: {tickets: TicketId[]};
+  payload: {electionId: ElectionId, tickets: TicketId[]};
 }
 
 export interface UserSuccessBallotAction {
@@ -106,10 +106,10 @@ export type UserActionTypes = UserRetreivePublicAction
                             | UserRetreivePrivateAction
                             | UserReturnPrivateAction
                             | UserReturnPrivateFailedAction
-                            | UserResetIdlePermissionsAction
                             | UserRequestPermissionsAction
                             | UserSuccessPermissionsAction
                             | UserFailurePermissionsAction
+                            | UserResetRequestPermissionsAction
                             | UserConfirmPermissionsAction
                             | UserSubmitBallotAction
                             | UserSuccessBallotAction

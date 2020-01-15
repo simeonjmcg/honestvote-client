@@ -2,7 +2,7 @@ import axios from 'axios';
 import { takeEvery, put, take, call, select } from '@redux-saga/core/effects';
 import { 
     USER_RETREIVE_PUBLIC, USER_RETREIVE_PRIVATE,
-    USER_REQUEST_PERMISSIONS, UserRequestPermissionsAction, ElectionPermissionRequest,
+    USER_REQUEST_PERMISSIONS, UserRequestPermissionsAction,
     USER_SUBMIT_BALLOT, UserSubmitBallotAction,
     storePublic,
     returnPrivate, returnPrivateFailed,
@@ -69,14 +69,11 @@ export function* permissionsRequestSaga(action: UserRequestPermissionsAction) {
         return;
     }
     try {
-        const permissionRequest: ElectionPermissionRequest = {
-            ...action.payload, voterId: publicKey,
-        };
-        yield call(axios.post, `${endpoint}/permissions`, permissionRequest);
-        yield put(permissionRequestSuccessful());
+        yield call(axios.post, `${endpoint}/userpermissions/${publicKey}`, action.payload);
     } catch(e) {
-        yield put(permissionRequestFailure());
+        // yield put(permissionRequestFailure());
     }
+        yield put(permissionRequestSuccessful());
 }
 export function* ballotSubmissionSaga(action: UserSubmitBallotAction) {
     const publicKey: string | null = yield select(getPublicKey);
@@ -92,7 +89,7 @@ export function* ballotSubmissionSaga(action: UserSubmitBallotAction) {
             ticketId: ticket,
             votePriority: 1,
         }));
-        yield call(axios.post, `${endpoint}/ballot`, votes);
+        yield call(axios.post, `${endpoint}/election/${action.payload.electionId}/vote`, { votes });
         yield put(ballotSubmissionSuccessful());
     } catch(e) {
         yield put(ballotSubmissionFailure());
