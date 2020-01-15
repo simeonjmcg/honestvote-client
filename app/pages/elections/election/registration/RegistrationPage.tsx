@@ -7,7 +7,7 @@ import { Election } from '~/datatypes';
 import {
     ActionTypes,
     requestElection, setTitle,
-    getElection, areElectionsLoaded, requestElectionPermissions, resetIdleElectionPermissions, arePermissionsRequested,
+    getElection, areElectionsLoaded, requestElectionPermissions, resetIdleElectionPermissions, getIsPermissionRequestActive,
 } from '~/datatypes';
 import { Text, Page, TextField, Button, View, Header5, Subtitle1 } from '~/components';
 import { getParamFromProps } from '~/utils';
@@ -24,10 +24,10 @@ function RegistrationPage( {match, navigation}: RegistrationPageProps ){
     const dispatch = useDispatch<Dispatch<ActionTypes>>();
     const id = getParamFromProps(match, navigation, "id");
     const isLoaded = useSelector(areElectionsLoaded);
-    const isRequested = useSelector(arePermissionsRequested);
-
+    const isRequested = id != undefined ? useSelector(getIsPermissionRequestActive(id)) : false;
+    const [ error, setError ] = useState<string | undefined>(undefined);
     const [email, setEmail] = useState(""); 
-
+    let regexEmail = new RegExp ('@wcupa.edu$');
     // this is the onMount function
     useEffect(() => {
         dispatch(setTitle('Registration'));
@@ -50,9 +50,16 @@ function RegistrationPage( {match, navigation}: RegistrationPageProps ){
                         <Subtitle1>{election.term || "Unknown"}</Subtitle1>
                             <View>
                                 <TextField label="Email" onValueChange = {setEmail} />
-                            </View>                             
+                            </View>   
+                            <Text color="red">{ error }</Text>                          
                             <Button onPress = {() => {
-                                dispatch(requestElectionPermissions({voterId: "", email, electionId: election.id}));
+                                //if statement here    
+                                if (regexEmail.test(email)) {
+                                    dispatch(requestElectionPermissions ( election.id, email ));
+                                } else {
+                                    setError("Email Not Valid.");
+                                }
+                               
                             }}>Register</Button>
                 </> :
                           <Text>Election not found!</Text>
