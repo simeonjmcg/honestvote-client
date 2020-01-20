@@ -3,10 +3,7 @@ export * from './types';
 
 export * from './app';
 export * from './user';
-export * from './candidates';
 export * from './elections';
-export * from './positions';
-export * from './tickets';
-export * from './voters';
+export * from './votes';
 
 export * from './reduxStore';

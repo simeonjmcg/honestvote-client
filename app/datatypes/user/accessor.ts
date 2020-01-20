@@ -1,6 +1,5 @@
 import { State } from "..";
-import { ElectionId, Election } from "../elections";
-import { getIsVoterRegistered, getVoter, getHasVoterVoted, getCanVoterVote } from "../voters";
+import { ElectionId, Election, getElection, isElectionActive, getVotes } from "../elections";
 
 export function getPublicKey(state: State) {
     return state.user.publicKey;
@@ -15,18 +14,12 @@ export function getIsPermissionRequestActive(election: ElectionId | Election) {
     return (state: State) => getActivePermissionRequests(state).includes(id);
 }
 
-export function getUserVoter(state: State) {
-    const pub = getPublicKey(state);
-    if (pub == undefined) return undefined;
-
-    return getVoter(pub)(state);
-}
-
 export function getIsUserRegistered(election: ElectionId | Election) {
     return (state: State) => {
         const id = getPublicKey(state);
         if (id == null) return false;
-        return getIsVoterRegistered(id, election)(state);
+        const electionId = typeof election === "object" ? election.id : election;
+        return state.user.permissions.canVote.includes(electionId);
     }
 }
 
@@ -34,19 +27,24 @@ export function getHasUserVoted(election: ElectionId | Election) {
     return (state: State) => {
         const id = getPublicKey(state);
         if (id == null) return false;
-        return getHasVoterVoted(id, election)(state);
+        const eid = typeof election === "object" ? election.id : election;
+        const votes = getVotes(eid)(state);
+        return votes.some(v => v.voterId == id);
     }
 }
 
 export function getCanUserVote(election: Election | ElectionId, timestamp: number = Date.now()) {
     return (state: State) => {
         const id = getPublicKey(state);
-        if (id == null) return false;
-        return getCanVoterVote(id, election, timestamp)(state);
+        const e = typeof election === "object" ? election : getElection(election)(state);
+        if (id == null || e == null) return false;
+        return isElectionActive(e, timestamp) &&
+            getIsUserRegistered(e.id)(state) &&
+            !getHasUserVoted(election)(state);
     }
 }
 export function getPermissionRequestApiStatus(state: State) {
-    return state.candidates.apiState;
+    return state.user.permissionRequestStatus;
 }
 
 export function arePermissionsBeingRequested(state: State) {

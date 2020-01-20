@@ -6,9 +6,8 @@ import { Dispatch } from 'redux';
 
 import {
     ActionTypes,
-    requestTickets, requestElectionPositions, requestCandidates,
     requestElection, setTitle,
-    getElection, areElectionsLoaded,
+    getElection, areElectionsLoaded, requestVotes,
 } from '~/datatypes';
 import { Text, Page } from '~/components';
 import { getParamFromProps } from '~/utils';
@@ -26,12 +25,10 @@ function ElectionPage ({match, navigation}: ElectionPageProps) {
     useEffect(() => {
         dispatch(setTitle('Election'));
 
-        // retrieve all data
-        dispatch(requestTickets());
-        dispatch(requestElectionPositions());
-        dispatch(requestCandidates());
+        // retrieve data
         if (id !== undefined) {
             dispatch(requestElection(id));
+            dispatch(requestVotes(id));
         }
     }, []);
     const isLoaded = useSelector(areElectionsLoaded);
@@ -39,9 +36,11 @@ function ElectionPage ({match, navigation}: ElectionPageProps) {
         : undefined;
     return (
         <Page>
-            { !isLoaded ? <Text>Loading...</Text> : 
-              election  ? <ElectionView election={election} /> :
-                          <Text>Election not found!</Text>
+            { !isLoaded ?
+                <Text>Loading...</Text> : 
+              election && "positions" in election ?
+                <ElectionView election={election} /> :
+                <Text>Election not found!</Text>
             }
         </Page>
     );

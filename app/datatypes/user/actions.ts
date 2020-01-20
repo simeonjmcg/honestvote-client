@@ -4,9 +4,9 @@ import {
     USER_RETREIVE_PRIVATE, USER_RETURN_PRIVATE, USER_RETURN_PRIVATE_FAILED,
     USER_REQUEST_PERMISSIONS, USER_SUCCESS_PERMISSIONS, USER_FAILURE_PERMISSIONS, USER_CONFIRM_PERMISSIONS, USER_SUBMIT_BALLOT,
     USER_RESET_REQUEST_PERMISSIONS,
+    UserPermissions,
 } from "./types";
-import { ElectionId } from "../elections";
-import { TicketId } from "../tickets";
+import { ElectionId, CandidateId } from "../elections";
 
 /** retreive public key from the redux store */
 export function retreivePublicKey(): UserActionTypes {
@@ -65,13 +65,13 @@ export function permissionRequestFailure(): UserActionTypes {
 }
 
 /** Request of permissions for election has been confirmed */
-export function permissionRequestConfirmed(id: ElectionId): UserActionTypes {
-    return { type: USER_CONFIRM_PERMISSIONS, payload: id };
+export function permissionRequestConfirmed(userPermissions: UserPermissions): UserActionTypes {
+    return { type: USER_CONFIRM_PERMISSIONS, payload: userPermissions };
 }
 
 /** Submit ballot for election */
-export function submitBallot(electionId: ElectionId, tickets: TicketId[]): UserActionTypes {
-    return { type: USER_SUBMIT_BALLOT, payload: { tickets, electionId } };
+export function submitBallot(electionId: ElectionId, candidates: CandidateId[]): UserActionTypes {
+    return { type: USER_SUBMIT_BALLOT, payload: { candidates, electionId } };
 }
 
 /** Ballot submission for election successful */
