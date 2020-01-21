@@ -12,8 +12,7 @@ import { promptPass, APP_RETURN_PASS, getEndpoint, AppReturnPassAction } from '.
 import { areKeysGenerated, generateNewUserKeys, loadPrivateKey, loadPublicKey } from '~/encryption';
 import { ECKeyPair } from 'elliptic';
 import { getPublicKey } from './accessor';
-import {} from './types';
-import { Vote } from '../tickets';
+import { Vote } from '../votes';
 import { ballotSubmissionFailure, ballotSubmissionSuccessful } from './actions';
 
 export function* userSaga() {
@@ -84,11 +83,15 @@ export function* ballotSubmissionSaga(action: UserSubmitBallotAction) {
         return;
     }
     try {
-        const votes: Vote[] = action.payload.tickets.map((ticket): Vote => ({
-            voterId: publicKey,
-            ticketId: ticket,
-            votePriority: 1,
-        }));
+        const votes: Vote[] = action.payload.candidates.map((id): Vote => {
+            const signature = "";
+            return {
+                voterId: publicKey,
+                electionId: action.payload.electionId,
+                candidateId: id,
+                signature,
+            }
+        });
         yield call(axios.post, `${endpoint}/election/${action.payload.electionId}/vote`, { votes });
         yield put(ballotSubmissionSuccessful());
     } catch(e) {

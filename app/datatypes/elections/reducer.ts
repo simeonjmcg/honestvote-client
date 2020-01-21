@@ -6,7 +6,7 @@ import {
 import { updateIdArray } from "../../utils";
 
 /** reducer for Elections */
-export function electionsReducer(
+export function elections(
         state: ElectionsState = initialElectionsState,
         action: ElectionActionTypes): ElectionsState {
     switch(action.type) {

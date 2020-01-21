@@ -47,22 +47,24 @@ function RegistrationPage( {match, navigation}: RegistrationPageProps ){
                     You are registered for this election. Click <Link to={`/election/${id}`} route="Election" params={{ id: id || "" }}>here</Link> to return to Election page.
                 </Text> :
                 isRequested && election ? <View>
-                    <Text>You have successfully requested registration for { election.displayName} please check your email for confirmation.</Text>
+                    <Text>You have successfully requested registration for { election.electionName} please check your email for confirmation.</Text>
                     <View direction="row">
-                    <Button type="contained" onPress={() => dispatch(resetRequestElectionPermissions(id!))}>Resend</Button>
+                        <Button type="contained" onPress={() => dispatch(resetRequestElectionPermissions(id!))}>Resend</Button>
                     </View>
                 </View> :
                 election  ? <>
-                        <Header5>{election.displayName || "Unknown"}</Header5>
-                        <Subtitle1>{election.term || "Unknown"}</Subtitle1>
-                            <View>
-                                <TextField label="Email" onValueChange = {setEmail} />
-                            </View>                             
-                            <Button type="contained" onPress = {() => {
-                                dispatch(requestElectionPermissions(election.id, email));
-                            }}>Register</Button>
+                    <Header5>{election.electionName || "Unknown"}</Header5>
+                    <Subtitle1>{election.description || "Unknown"}</Subtitle1>
+                    <View>
+                        <TextField label="Email" onValueChange = {setEmail} />
+                    </View>                             
+                    <View direction="row">
+                        <Button type="contained" onPress = {() => {
+                            dispatch(requestElectionPermissions(election.id, email));
+                        }}>Register</Button>
+                    </View>
                 </> :
-                          <Text>Election not found!</Text>
+                    <Text>Election not found!</Text>
             }
             
             

@@ -10,8 +10,8 @@ import { PRIMARY_COLOR } from '~/theme';
 import {
     ActionTypes,
     setTitle,
-    requestTickets, requestElectionPositions, requestCandidates, requestElection,
-    getElection, areElectionsLoaded,
+    requestElection,
+    getElection, areElectionsLoaded, requestVotes,
 } from '~/datatypes';
 
 import { BallotView } from './BallotView';
@@ -26,12 +26,10 @@ function BallotPage ({match, navigation}: BallotPageProps) {
     useEffect(() => {
         dispatch(setTitle('Ballot'));
 
-        // retrieve all data
-        dispatch(requestTickets());
-        dispatch(requestElectionPositions());
-        dispatch(requestCandidates());
+        // retrieve data
         if (id !== undefined) {
             dispatch(requestElection(id));
+            dispatch(requestVotes(id));
         }
     }, []);
     const isLoaded = useSelector(areElectionsLoaded);
@@ -39,9 +37,11 @@ function BallotPage ({match, navigation}: BallotPageProps) {
         : undefined;
     return (
         <Page>
-            { !isLoaded ? <Text>Loading...</Text> : 
-              election  ? <BallotView election={election} /> :
-                          <Text>Ballot not found!</Text>}
+            { !isLoaded ?
+                <Text>Loading...</Text> : 
+              election && "positions" in election ?
+                <BallotView election={election} /> :
+                <Text>Ballot not found!</Text>}
         </Page>
     );
 }

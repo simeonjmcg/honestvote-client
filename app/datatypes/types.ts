@@ -1,22 +1,16 @@
 import {
     AppActionTypes, AppState, initialAppState,
     UserActionTypes, UserState, initialUserState,
-    CandidateActionTypes, CandidatesState, initialCandidatesState,
     ElectionActionTypes, ElectionsState, initialElectionsState,
-    ElectionPositionActionTypes, ElectionPositionsState, initialElectionPositionsState,
-    TicketActionTypes, TicketsState, initialTicketsState,
-    VoterActionTypes, VotersState, initialVotersState,
 } from './';
+import { VotesState, initialVotesState, VotesActionTypes } from './votes';
 
 /** Full redux state of the application */
 export interface State {
     app: AppState;
     user: UserState;
-    candidates: CandidatesState;
+    votes: VotesState;
     elections: ElectionsState;
-    positions: ElectionPositionsState;
-    tickets: TicketsState;
-    voters: VotersState;
 }
 
 /** API states */
@@ -29,11 +23,8 @@ export type ApiState  = "Idle"     // Data has not been loaded yet
 export const initialState: State = {
     app: initialAppState,
     user: initialUserState,
-    candidates: initialCandidatesState,
+    votes: initialVotesState,
     elections: initialElectionsState,
-    positions: initialElectionPositionsState,
-    tickets: initialTicketsState,
-    voters: initialVotersState,
 };
 
 /** Keys for persistant local storage */
@@ -50,8 +41,5 @@ export type AppId = string;
 
 export type ActionTypes = AppActionTypes
                         | UserActionTypes
-                        | CandidateActionTypes
-                        | ElectionActionTypes
-                        | ElectionPositionActionTypes
-                        | TicketActionTypes
-                        | VoterActionTypes;
+                        | VotesActionTypes
+                        | ElectionActionTypes;

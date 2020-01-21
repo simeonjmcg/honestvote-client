@@ -1,7 +1,7 @@
 import { AppId } from "./datatypes/types";
 import { NavigationStackProp } from "react-navigation-stack";
 import { match } from "react-router";
-import { Vote, Ticket } from "./datatypes";
+import { Vote, Candidate } from "./datatypes";
 
 /** Utility function to get a parameter from either react router or react navigator */
 export function getParamFromProps (match: match<any> | null, navigation: NavigationStackProp, field: string): string | undefined{
@@ -49,13 +49,21 @@ export function countVotes(votes: Vote[]) {
     return votes.length;
 }
 
-/** sum votes for a given ticket */
-export function sumTicketsVotes(tickets: Ticket[]) {
-    return tickets.map(t => countVotes(t.votes))
-                  .reduce((a, v) => a + v, 0); // sum
-}
+/** Accessor function for id */
+export function getId<T extends IdObject>(obj: T) { return obj.id; }
 
-/** Sort tickets according to votes */
-export function sortTickets(tickets: Ticket[]) {
-    return tickets.sort((t1, t2) => countVotes(t2.votes) - countVotes(t1.votes));
+/** Maps list to map by id */
+export function groupById<T>(list: T[], accessor: (o: T) => AppId) {
+    const byId: {[key: string]: T[]} = {};
+    list.forEach(v => {
+        const id = accessor(v);
+        if (!(id in byId)) byId[id] = [];
+        byId[id].push(v);
+    });
+    return byId;
+} 
+
+/** Sort candidates according to votes */
+export function sortCandidatesByVotes(candidates: Candidate[], votes: {[key: string]: Vote[]}) {
+    return candidates.sort((t1, t2) => votes[t2.id].length - votes[t1.id].length);
 }

@@ -6,7 +6,8 @@ import {
     storeElections, 
 } from "./";
 import { findId } from "../../utils";
-import example from "./example-elections.json";
+import example_elections from "./example-elections.json";
+import example_election from "./example-election1.json";
 
 export function* electionsSaga() {
     yield takeEvery(ELECTION_REQUEST, electionRequestSaga);
@@ -14,7 +15,7 @@ export function* electionsSaga() {
 }
 
 function* electionRequestSaga(action: ElectionRequestAction) {
-    const election = findId(example.data, action.payload);
+    const election = findId([example_election.data], action.payload);
     if (election === undefined) {
         yield put(errorElection());
         return;
@@ -23,5 +24,5 @@ function* electionRequestSaga(action: ElectionRequestAction) {
 }
 
 function* electionsRequestSaga() {
-    yield put(storeElections(example.data));
+    yield put(storeElections(example_elections.data));
 }

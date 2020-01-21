@@ -6,7 +6,7 @@ import {
     openedStateString,
 } from '~/datatypes';
 import { View, Header5, Subtitle1, Text, ButtonLink, Link } from '~/components';
-import { TicketEntryView } from './TicketEntryView';
+import { PositionView } from './PositionView';
 import { getDimensions } from '~/platformUtils';
 import { useSelector } from 'react-redux';
 
@@ -32,7 +32,7 @@ function ElectionView ({election}: ElectionViewProps) {
     return (
         <View>
             <Header5>{election.institutionName}</Header5>
-            <Subtitle1>{election.displayName} - {election.term}</Subtitle1>
+            <Subtitle1>{election.electionName} - {election.description}</Subtitle1>
             {<Text>{openedStateString(election)}</Text>}
             {canVote ?
                 <View direction="row">
@@ -65,7 +65,11 @@ function ElectionView ({election}: ElectionViewProps) {
                 </View> : undefined
             }
             <View stretch={small} wrap={true} direction={small ? "column" : "row"} onResize={onResize}>
-                {election.ticketEntries.map((entry, k) => <TicketEntryView key={k} ticketEntry={entry} small={small} />)}
+                {election.positions.map((position, k) =>
+                    <PositionView key={k}
+                        electionId={election.id}
+                        position={position}
+                        small={small} />)}
             </View>
         </View>
     );

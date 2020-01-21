@@ -1,0 +1,42 @@
+{
+    "status": "OK",
+    "timestamp": "Tue Jan 14 04:41:44 GMT 2020",
+    "data": {
+        "id": "election1",
+        "electionName": "Executive Board",
+        "institutionName": "West Chester University",
+        "description": "Spring 2020",
+        "startDate": "Fri Jan 10 00:00:00 GMT 2020",
+        "endDate": "Mon Jan 20 00:00:00 GMT 2020",
+        "emailDomain": "^\\w{2}\\d{6}@wcupa\\.edu$",
+        "allowedCandidates": [
+            "candidate1", "candidate2", "candidate3", "candidate4",
+            "candidate5", "candidate6", "candidate7", "candidate8" ],
+        "positions": [
+            {
+                "id": "position1",
+                "positionName": "President",
+                "candidates": [
+                  {"id": "candidate1", "name": "Traci Simpson"},
+                  {"id": "candidate2", "name": "Amanda Murray"}
+                ]
+            }, {
+                "id": "position2",
+                "positionName": "Treasurer",
+                "candidates": [
+                  {"id": "candidate3", "name": "Trisha Newton"},
+                  {"id": "candidate4", "name": "Owen Jensen"},
+                  {"id": "candidate5", "name": "Gregory Cortez"}
+                ]
+            }, {
+                "id": "position3",
+                "positionName": "Secretary",
+                "candidates": [
+                  {"id": "candidate6", "name": "Casey Brady"},
+                  {"id": "candidate7", "name": "Anton Vargas"},
+                  {"id": "candidate8", "name": "Lacy Holden"}
+                ]
+            }
+        ]
+    }
+}

@@ -1,4 +1,4 @@
-import { ElectionActionTypes, Election, ELECTIONS_REQUEST, ELECTIONS_SUCCESS, ELECTIONS_FAILURE, ELECTION_FAILURE, ELECTION_SUCCESS, ElectionId, ELECTION_REQUEST } from "./types";
+import { ElectionActionTypes, Election, ELECTIONS_REQUEST, ELECTIONS_SUCCESS, ELECTIONS_FAILURE, ELECTION_FAILURE, ELECTION_SUCCESS, ElectionId, ELECTION_REQUEST, ElectionInfo } from "./types";
 
 /** request the Elections from the backend */
 export function requestElections(): ElectionActionTypes {
@@ -6,8 +6,8 @@ export function requestElections(): ElectionActionTypes {
 }
 
 /** store Elections in to the redux store */
-export function storeElections(candidates: Election[]): ElectionActionTypes {
-    return { type: ELECTIONS_SUCCESS,  payload: candidates };
+export function storeElections(elections: ElectionInfo[]): ElectionActionTypes {
+    return { type: ELECTIONS_SUCCESS,  payload: elections };
 }
 
 /** fail storage of Elections in the redux store */
