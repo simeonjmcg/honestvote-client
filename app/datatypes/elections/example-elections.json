@@ -7,6 +7,8 @@
         "institutionName": "West Chester University",
         "description": "Spring 2020",
         "startDate": "Fri Jan 10 00:00:00 GMT 2020",
-        "endDate": "Mon Jan 20 00:00:00 GMT 2020"
+        "endDate": "Mon Jan 20 00:00:00 GMT 2020",
+        "signature": "fakesig",
+        "sender": "admin1"
     }]
 }

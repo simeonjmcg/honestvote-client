@@ -1,6 +1,6 @@
 import {
     USER_SUBMIT_BALLOT, USER_SUCCESS_BALLOT, USER_FAILURE_BALLOT,
-    UserActionTypes, UserState, initialUserState,    USER_STORE_PUBLIC,
+    UserActionTypes, UserState, initialUserState, USER_STORE_PUBLIC,
     USER_REQUEST_PERMISSIONS, USER_SUCCESS_PERMISSIONS, USER_FAILURE_PERMISSIONS, USER_RESET_REQUEST_PERMISSIONS, USER_CONFIRM_PERMISSIONS,
 } from "./types";
 
@@ -22,7 +22,7 @@ export function user(
             return {
                 ...state, permissionRequestStatus: "Fetching",
                 activePermissionRequest: state.activePermissionRequest.includes(id) ?
-                    state.activePermissionRequest : [...state.activePermissionRequest, id],
+                    state.activePermissionRequest: [...state.activePermissionRequest, id],
             };
         case USER_SUCCESS_PERMISSIONS:
             return { ...state, permissionRequestStatus: "Success" };

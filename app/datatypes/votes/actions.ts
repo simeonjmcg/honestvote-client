@@ -1,6 +1,6 @@
 import {
     VotesActionTypes, Vote,
-    VOTES_REQUEST, VOTES_SUCCESS, VOTES_FAILURE,
+    VOTES_REQUEST, VOTES_SUCCESS, VOTES_FAILURE, VOTE_SUCCESS,
 } from "./types";
 import { ElectionId } from "../elections/types";
 
@@ -12,6 +12,11 @@ export function requestVotes(electionId: ElectionId): VotesActionTypes {
 /** store Votes in to the redux store */
 export function storeVotes(electionId: ElectionId, votes: Vote[]): VotesActionTypes {
     return { type: VOTES_SUCCESS,  payload: { electionId, votes } };
+}
+
+/** store Votes in to the redux store */
+export function storeVote(electionId: ElectionId, vote: Vote): VotesActionTypes {
+    return { type: VOTE_SUCCESS,  payload: { electionId, vote } };
 }
 
 /** fail storage of Votes in the redux store */

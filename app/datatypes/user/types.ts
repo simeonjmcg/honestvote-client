@@ -96,7 +96,7 @@ export interface UserConfirmPermissionsAction {
 
 export interface UserSubmitBallotAction {
   type: typeof USER_SUBMIT_BALLOT;
-  payload: {electionId: ElectionId, candidates: CandidateId[]};
+  payload: {electionId: ElectionId, receivers: {[key: string]: CandidateId} };
 }
 
 export interface UserSuccessBallotAction {

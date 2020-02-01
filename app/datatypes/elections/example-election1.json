@@ -9,6 +9,8 @@
         "startDate": "Fri Jan 10 00:00:00 GMT 2020",
         "endDate": "Mon Jan 20 00:00:00 GMT 2020",
         "emailDomain": "^\\w{2}\\d{6}@wcupa\\.edu$",
+        "signature": "fakesig",
+        "sender": "admin1",
         "allowedCandidates": [
             "candidate1", "candidate2", "candidate3", "candidate4",
             "candidate5", "candidate6", "candidate7", "candidate8" ],

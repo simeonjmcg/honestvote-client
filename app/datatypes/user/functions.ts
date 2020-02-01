@@ -29,7 +29,7 @@ export function getHasUserVoted(election: ElectionId | Election) {
         if (id == null) return false;
         const eid = typeof election === "object" ? election.id : election;
         const votes = getVotes(eid)(state);
-        return votes.some(v => v.voterId == id);
+        return votes.some(v => v.sender == id);
     }
 }
 
