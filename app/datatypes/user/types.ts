@@ -1,5 +1,5 @@
 import { ApiState } from "../types";
-import { ElectionId,  CandidateId } from "../elections";
+import { ElectionId,  CandidateId, ElectionPositionId } from "../elections";
 
 /** state for user */
 export interface UserState {
@@ -96,7 +96,7 @@ export interface UserConfirmPermissionsAction {
 
 export interface UserSubmitBallotAction {
   type: typeof USER_SUBMIT_BALLOT;
-  payload: {electionId: ElectionId, receivers: {[key: string]: CandidateId} };
+  payload: {electionId: ElectionId, receivers: {key: ElectionPositionId, id: CandidateId}[] };
 }
 
 export interface UserSuccessBallotAction {

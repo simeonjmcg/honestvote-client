@@ -6,7 +6,7 @@ import {
     USER_RESET_REQUEST_PERMISSIONS,
     UserPermissions,
 } from "./types";
-import { ElectionId, CandidateId } from "../elections";
+import { ElectionId, CandidateId, ElectionPositionId } from "../elections";
 
 /** retreive public key from the redux store */
 export function retreivePublicKey(): UserActionTypes {
@@ -70,7 +70,7 @@ export function permissionRequestConfirmed(userPermissions: UserPermissions): Us
 }
 
 /** Submit ballot for election */
-export function submitBallot(electionId: ElectionId, receivers: {[key: string]: CandidateId}): UserActionTypes {
+export function submitBallot(electionId: ElectionId, receivers: { key: ElectionPositionId, id: CandidateId }[]): UserActionTypes {
     return { type: USER_SUBMIT_BALLOT, payload: { receivers, electionId } };
 }
 
