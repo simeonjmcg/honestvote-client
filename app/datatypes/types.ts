@@ -3,7 +3,8 @@ import {
     UserActionTypes, UserState, initialUserState,
     ElectionActionTypes, ElectionsState, initialElectionsState,
 } from './';
-import { VotesState, initialVotesState, VotesActionTypes } from './votes';
+import { VotesState, initialVotesState, VotesActionTypes, VoteAddAction } from './votes';
+import { UserConfirmPermissionAction } from './user';
 
 /** Full redux state of the application */
 export interface State {
@@ -39,6 +40,12 @@ export const enum StorageKeys {
 /** AppId is a generic string identifier used throughout the program */
 export type AppId = string;
 
+/** registration endpoint */
+export const REGISTRATION_ENDPOINT = "http://127.0.0.1:8080";
+/** Websocket endpoint */
+export const WS_ENDPOINT = "wss://localhost:8080/ws";
+
+export type WebsocketTypes = VoteAddAction | UserConfirmPermissionAction;
 export type ActionTypes = AppActionTypes
                         | UserActionTypes
                         | VotesActionTypes

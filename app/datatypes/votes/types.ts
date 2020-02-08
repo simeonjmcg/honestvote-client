@@ -24,31 +24,3 @@ export interface Vote {
   signature: string;
 }
 
-
-export const VOTES_REQUEST = 'VOTES_REQUEST';
-export const VOTES_SUCCESS = 'VOTES_SUCCESS';
-export const VOTES_FAILURE = 'VOTES_FAILURE';
-
-export const VOTE_SUCCESS = 'VOTE_SUCCESS';
-
-export interface VotesRequestAction {
-    type: typeof VOTES_REQUEST;
-    payload: { electionId: ElectionId };
-}
-export interface VotesSuccessAction {
-    type: typeof VOTES_SUCCESS;
-    payload: { electionId: ElectionId, votes: Vote[] };
-}
-export interface VotesFailureAction {
-    type: typeof VOTES_FAILURE;
-    payload: { electionId: ElectionId };
-}
-export interface VoteSuccessAction {
-    type: typeof VOTE_SUCCESS;
-    payload: { electionId: ElectionId, vote: Vote };
-}
-
-export type VotesActionTypes = VotesRequestAction
-                             | VotesSuccessAction
-                             | VotesFailureAction
-                             | VoteSuccessAction;
