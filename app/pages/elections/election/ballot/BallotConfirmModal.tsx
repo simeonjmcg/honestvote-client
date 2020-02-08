@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import { BallotSelection } from './BallotView';
 import { useRedirect } from '~/platformUtils';
-import { mapValueMap, mapMapArray } from '~/utils';
+import { mapMapArray } from '~/utils';
 
 export interface BallotConfirmModalProps {
     election: Election;
@@ -28,7 +28,7 @@ export function BallotConfirmModal ({ election, visible, selections, onClose}: B
                 onPress={() => {
                     dispatch(submitBallot(
                         election.id,
-                        mapValueMap(selections, item => item.candidate.id)));
+                        mapMapArray(selections, item => ({key: item.position.id, id: item.candidate.name }))));
                     redirectElection();
                 }}>Submit</Button>
                 <Button onPress={onClose} type="contained">Revise</Button>
