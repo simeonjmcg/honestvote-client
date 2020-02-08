@@ -22,10 +22,9 @@ export function storePublic(publicKey: string): UserActionTypes {
 }
 
 /** retreive private key from the redux store */
-export function retreivePrivate(pass: string): UserActionTypes {
+export function retreivePrivate(): UserActionTypes {
     return {
         type: USER_RETREIVE_PRIVATE,
-        payload: pass,
      };
 }
 
@@ -50,8 +49,8 @@ export function resetRequestElectionPermissions(electionId: ElectionId): UserAct
 
 
 /** Request permissions for election */
-export function requestElectionPermissions(electionId: ElectionId, email: string): UserActionTypes {
-    return { type: USER_REQUEST_PERMISSIONS, payload: {electionId, email} };
+export function requestElectionPermissions(electionId: ElectionId, emailAddress: string, firstName: string, lastName: string, dateOfBirth: string): UserActionTypes {
+    return { type: USER_REQUEST_PERMISSIONS, payload: { electionId, emailAddress, firstName, lastName, dateOfBirth } };
 }
 
 /** Request permissions for election */

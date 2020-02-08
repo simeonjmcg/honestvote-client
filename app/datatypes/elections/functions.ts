@@ -2,6 +2,7 @@ import { State } from "../types";
 import { ElectionId, Election, ElectionInfo, Candidate, ElectionPositionId } from "./types";
 import { findId, mapKeyValueMap, sumMapValues } from "~/utils";
 import { Vote } from "../votes";
+import { ec } from "~/encryption";
 
 // selectors
 export function getElections(state: State) {
@@ -84,4 +85,23 @@ export function voteCountByCandidate(votes: Vote[]) {
 
 export function sortCandidatesByVoteCount(candidates: Candidate[], voteCount: { [key: string ]: number}) {
     return candidates.sort((c1, c2) => (voteCount[c2.id] ?? 0) - (voteCount[c1.id] ?? 0));
+}
+
+// utils
+export function calculateElectionSignature(election: Election, privateKey: string) {
+    const keyPair = ec.keyFromPrivate(privateKey, "hex");
+    const str =
+        election.electionName +
+        election.institutionName +
+        election.description +
+        election.startDate +
+        election.endDate +
+        election.emailDomain +
+        election.positions.map(position =>
+            position.id +
+            position.positionName +
+            position.candidates.map(candidate =>
+                candidate.id +
+                candidate.name).join("")).join("");
+    return keyPair.sign(str).toDER("hex");
 }

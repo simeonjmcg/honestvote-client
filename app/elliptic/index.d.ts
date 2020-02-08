@@ -92,8 +92,8 @@ declare class EC {
     hash: Hash;
     constructor(preset: CurvePreset);
     keyPair(options?: ECKeyPairOptions): ECKeyPair;
-    keyFromPrivate(priv: BasePoint, enc?: Encoding): ECKeyPair;
-    keyFromPublic(pub: BasePoint, enc?: Encoding): ECKeyPair;
+    keyFromPrivate(priv: Point, enc?: Encoding): ECKeyPair;
+    keyFromPublic(pub: Point, enc?: Encoding): ECKeyPair;
     genKeyPair(options?: HmacDRBGOptions): ECKeyPair;
     sign(msg: Message, key: BasePoint, enc?: Encoding, options?: SignOptions): ECSignature;
     sign(msg: Message, key: BasePoint, options?: SignOptions): ECSignature;
@@ -145,16 +145,16 @@ export declare class ECKeyPair {
     priv: BasePoint | null;
     pub: BasePoint | null;
     constructor(ec: EC, options?: ECKeyPairOptions);
-    static fromPublic(ec: EC, pub: BasePoint, enc?: Encoding): ECKeyPair;
-    static fromPrivate(ec: EC, priv: BasePoint, enc?: Encoding): ECKeyPair;
+    static fromPublic(ec: EC, pub: Point, enc?: Encoding): ECKeyPair;
+    static fromPrivate(ec: EC, priv: Point, enc?: Encoding): ECKeyPair;
     validate(): ValidationResult;
     getPublic(compact: boolean, enc: 'hex'): string;
     getPublic(compact?: boolean, enc?: Encoding): BasePoint;
     getPublic(enc: 'hex'): string;
-    getPublic(enc?: Encoding): BasePoint;
+    getPublic(enc?: Encoding): Point;
     getPrivate(enc: 'hex'): string;
     getPrivate(enc?: Encoding): BasePoint;
-    derive(pub: BasePoint): BasePoint;
+    derive(pub: Point): BasePoint;
     sign(msg: Message, enc?: Encoding, options?: ECKeyPairOptions): ECSignature;
     verify(msg: Message, signature: ECSignature): boolean;
     inspect(): String;
@@ -170,7 +170,8 @@ export declare class ECSignature {
     r: BN;
     s: BN;
     constructor(options: ECSignatureOptions, enc?: Encoding);
-    toDER(enc?: Encoding);
+    toDER(enc?: 'hex'): string;
+    toDER(enc?: Encoding): Buffer;
 }
 
 export interface CurveConf {
@@ -263,6 +264,11 @@ export declare class ShortCurve extends BaseCurve {
 }
 
 export type PointType = 'projective' | 'affine';
+
+export declare type Point = BasePoint | Buffer | string | {
+    x: Buffer | string | Array,
+    y: Buffer | string | Array,
+}
 
 export declare class BasePoint {
     curve: BaseCurve;

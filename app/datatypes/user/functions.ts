@@ -1,5 +1,7 @@
 import { State } from "..";
 import { ElectionId, Election, getElection, isElectionActive, getVotes } from "../elections";
+import { ElectionPermissionRequest } from "./types";
+import { ec } from "~/encryption";
 
 export function getPublicKey(state: State) {
     return state.user.publicKey;
@@ -55,4 +57,17 @@ export function arePermissionsRequested(state: State) {
     const status = getPermissionRequestApiStatus(state);
     return status !== "Idle" &&
            status !== "Fetching";
+}
+
+// utils
+export function calculatePermissionRequestSignature(request: ElectionPermissionRequest, privateKey: string) {
+    const keyPair = ec.keyFromPrivate(privateKey, "hex");
+    const str =
+        request.electionId +
+        request.emailAddress +
+        request.firstName +
+        request.lastName +
+        request.dateOfBirth +
+        request.electionAdmin;
+    return keyPair.sign(str).toDER("hex");
 }

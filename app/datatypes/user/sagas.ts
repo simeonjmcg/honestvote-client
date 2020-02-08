@@ -12,8 +12,9 @@ import { promptPass, APP_RETURN_PASS, getEndpoint, AppReturnPassAction } from '.
 import { areKeysGenerated, generateNewUserKeys, loadPrivateKey, loadPublicKey } from '~/encryption';
 import { ECKeyPair } from 'elliptic';
 import { getPublicKey } from './functions';
-import { Vote } from '../votes';
-import { ballotSubmissionFailure, ballotSubmissionSuccessful } from './actions';
+import { Vote, calculateVoteSignature } from '../votes';
+import { ballotSubmissionFailure, ballotSubmissionSuccessful, retreivePrivate } from './actions';
+import { USER_RETURN_PRIVATE, UserReturnPrivateAction } from './types';
 
 export function* userSaga() {
     yield takeEvery(USER_RETREIVE_PUBLIC, userRetreivePublicSaga);
@@ -89,7 +90,10 @@ export function* ballotSubmissionSaga(action: UserSubmitBallotAction) {
             signature: "",
             receivers: action.payload.receivers,
         };
-        yield call(axios.post, `${endpoint}/election/${action.payload.electionId}/vote`, { vote });
+        yield put(retreivePrivate());
+        const returnPrivate: UserReturnPrivateAction = yield take(USER_RETURN_PRIVATE);
+        vote.signature = calculateVoteSignature(vote, returnPrivate.payload);
+        yield call(axios.post, `${endpoint}/election/${action.payload.electionId}/vote`, vote);
         yield put(ballotSubmissionSuccessful());
     } catch(e) {
         yield put(ballotSubmissionFailure());

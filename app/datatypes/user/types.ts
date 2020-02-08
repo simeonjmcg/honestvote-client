@@ -21,7 +21,12 @@ export const initialUserState: UserState = {
 
 export interface ElectionPermissionRequest {
   electionId: ElectionId;
-  email: string; // may either be plain text, or encrypted with electionId's public key
+  emailAddress: string; // may either be plain text, or encrypted with electionId's public key
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  electionName: string;
+  electionAdmin: string;
 }
 
 /** UserPermissions are the permissions granted to a given user */
@@ -59,7 +64,6 @@ export interface UserStorePublicAction {
 
 export interface UserRetreivePrivateAction {
     type: typeof USER_RETREIVE_PRIVATE;
-    payload: string;
 }
 
 export interface UserReturnPrivateAction {
@@ -73,7 +77,7 @@ export interface UserReturnPrivateFailedAction {
 
 export interface UserRequestPermissionsAction {
   type: typeof USER_REQUEST_PERMISSIONS;
-  payload: ElectionPermissionRequest;
+  payload: { electionId: string, emailAddress: string, firstName: string, lastName: string, dateOfBirth: string };
 }
 
 export interface UserSuccessPermissionsAction {
