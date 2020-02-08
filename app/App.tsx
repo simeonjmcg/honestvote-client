@@ -12,10 +12,7 @@ import { ElectionsPage } from './pages/elections/ElectionsPage';
 import { ElectionPage } from './pages/elections/election/ElectionPage';
 import { BallotPage } from './pages/elections/election/ballot/BallotPage';
 
-import { AdminDashboardPage } from './pages/admin/AdminDashboardPage';
 import { AdminCreatePage } from './pages/admin/AdminCreatePage';
-import { AdminEditPage } from './pages/admin/AdminEditPage';
-import { AdminAllElectionsPage } from './pages/admin/AdminAllElectionsPage';
 
 import { RegistrationPage } from './pages/elections/election/registration/RegistrationPage';
 import { PromptPassModal } from './pages/PromptPassModal';
@@ -80,10 +77,7 @@ export function App() {
                         <Route exact path="/election/:id/ballot" component={BallotPage} />
                         <Route exact path="/election/:id/registration" component={RegistrationPage} />
                         <Route exact path="/election/:id" component={ElectionPage} />
-                        <Route exact path="/admin/dashboard" component={AdminDashboardPage} />
                         <Route exact path="/admin/create" component={AdminCreatePage} />
-                        <Route exact path="/admin/allelections" component={AdminAllElectionsPage} />
-                        <Route exact path="/admin/edit" component={AdminEditPage} />
                     </Switch>
                 </Router>
             </ThemeProvider>

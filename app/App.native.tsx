@@ -7,10 +7,7 @@ import { ElectionsPage } from './pages/elections/ElectionsPage';
 import { ElectionPage } from './pages/elections/election/ElectionPage';
 import { BallotPage } from './pages/elections/election/ballot/BallotPage';
 
-import { AdminDashboardPage } from './pages/admin/AdminDashboardPage';
 import { AdminCreatePage } from './pages/admin/AdminCreatePage';
-import { AdminAllElectionsPage } from './pages/admin/AdminAllElectionsPage';
-import { AdminEditPage } from './pages/admin/AdminEditPage';
 
 import { View, Modal, StyleSheet } from 'react-native';
 import { PromptPassModal } from './pages/PromptPassModal';
@@ -25,10 +22,7 @@ const MainNavigator = createStackNavigator({
   Ballot: { screen: BallotPage },
   Registration: { screen: RegistrationPage },
   
-  AdminDashboard: { screen: AdminDashboardPage },
   AdminCreate: { screen: AdminCreatePage },
-  AdminAllElections: { screen: AdminAllElectionsPage },
-  AdminEdit: { screen: AdminEditPage },
 });
 
 const Navigation = createAppContainer(MainNavigator);
