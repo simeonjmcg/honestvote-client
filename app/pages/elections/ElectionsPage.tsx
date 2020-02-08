@@ -29,7 +29,7 @@ export function ElectionsPage () {
                             to={`/election/${row.id}`}
                             route="Election" params={{id: row.id}}
                             title={row.institutionName}
-                            description={row.displayName}
+                            description={row.electionName}
                             right={<Text>{openedStateString(row)}</Text>}/>;
                 })}
             </Card>

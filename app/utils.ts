@@ -1,7 +1,6 @@
 import { AppId } from "./datatypes/types";
 import { NavigationStackProp } from "react-navigation-stack";
 import { match } from "react-router";
-import { Vote, Ticket } from "./datatypes";
 
 /** Utility function to get a parameter from either react router or react navigator */
 export function getParamFromProps (match: match<any> | null, navigation: NavigationStackProp, field: string): string | undefined{
@@ -44,22 +43,19 @@ export function mapIdList<T extends IdObject>(idArray: AppId[], array: T[]) {
                   .filter(notUndefined);
 }
 
-/** Utility function to count votes */
-export function countVotes(votes: Vote[]) {
-    return votes.length;
+/** takes a list of string-number maps and returns a map with the values of given key are summed. */
+export function sumMapValues(mapList: {[key: string]: number}[]) {
+    return mapList.reduce((map, item) => {
+        for (const k in item) map[k] = (map[k] || 0) + item[k];
+        return map;
+    });
 }
 
-/** sum votes for a given ticket */
-export function sumTicketsVotes(tickets: Ticket[]) {
-    return tickets.map(t => countVotes(t.votes))
-                  .reduce((a, v) => a + v, 0); // sum
+/** takes map and transformation function and returns a list determined by function */
+export function mapMapArray<T1, T2>(map: {[key: string]: T1}, fn: (value: T1, key: string, index: number) => T2) {
+    return Object.keys(map).map((key, index) => fn(map[key], key, index));
 }
 
-<<<<<<< Updated upstream
-/** Sort tickets according to votes */
-export function sortTickets(tickets: Ticket[]) {
-    return tickets.sort((t1, t2) => countVotes(t2.votes) - countVotes(t1.votes));
-=======
 /** takes array and transformation function and returns map determined by function */
 export function mapKey<T1, T2>(array: T1[], fn: (value: T1, index: number) => { value: T2, key: string }) {
     return array.reduce<{[key: string]: T2}>((map, value, index) => {
@@ -111,5 +107,4 @@ export function slugify(input: string) {
         .replace(/\-\-+/g, '-') // Replace multiple - with single -
         .replace(/^-+/, '') // Trim - from start of text
         .replace(/-+$/, ''); // Trim - from end of text
->>>>>>> Stashed changes
 }

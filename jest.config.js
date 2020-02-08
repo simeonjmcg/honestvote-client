@@ -16,6 +16,11 @@ module.exports = {
     "@testing-library/jest-dom/extend-expect"
   ],
 
+  // A map from regular expressions to module names that allow to stub out resources with a single module
+  moduleNameMapper: {
+    "~/(.*)": "<rootDir>/app/$1"
+  },
+
   // Test spec file resolution pattern
   // Matches parent folder `__tests__` and filename
   // should contain `test` or `spec`.

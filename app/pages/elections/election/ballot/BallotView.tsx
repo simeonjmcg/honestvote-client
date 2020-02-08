@@ -1,46 +1,41 @@
 import React, { useState } from 'react';
-import { Election, Ticket, ActionTypes, submitBallot } from '~/datatypes';
+import { Election, ElectionPosition, Candidate } from '~/datatypes';
 import { View, Header5, Subtitle1, Button } from '~/components';
-import { BallotEntryView } from './BallotEntryView';
-import { Dialog } from '~/components/Dialog';
-import { Header6 } from '~/components/text/Header6.native';
-import { BallotEntryConfirmView } from './BallotEntryConfirmView';
-import { useDispatch } from 'react-redux';
-import { Dispatch } from 'redux';
-import { ButtonGroup } from '~/components/ButtonGroup';
+import { BallotPositionView } from './BallotPositionView';
+import { BallotConfirmModal } from './BallotConfirmModal';
 
 export interface BallotViewProps {
     election: Election;
 }
 
+export interface BallotSelection {
+    position: ElectionPosition;
+    candidate: Candidate;
+}
+
 function BallotView ({election}: BallotViewProps) {
-    const dispatch = useDispatch<Dispatch<ActionTypes>>();
     const [ dialogVisible, setDialogVisible ] = useState(false);
-    const [ selectedTickets, setSelectedTickets ] = useState<Ticket[]>([]);
+    const [ selections, setSelections ] = useState<{[id: string]: BallotSelection}>({});
     return (
         <View>
             <Header5>{election.institutionName}</Header5>
-            <Subtitle1>{election.displayName} - {election.term}</Subtitle1>
+            <Subtitle1>{election.electionName} - {election.description}</Subtitle1>
             <View>
-                {election.ticketEntries.map((entry, idx) => 
-                    <BallotEntryView key={idx} ticketEntry={entry} 
-                        selected={selectedTickets[idx]?.id}
-                        onChange={ticket => setSelectedTickets({...selectedTickets, [idx]: ticket})}
-                        />)}
+                {election.positions.map((position) => 
+                    <BallotPositionView key={position.id} position={position} 
+                        selected={selections[position.id]?.candidate.id}
+                        onChange={candidate => setSelections({ ...selections, 
+                            [position.id]: { position, candidate },
+                        })} />)}
             </View>
             <View direction={"row"}>
-                <Button onPress={() => setDialogVisible(true)}>Submit</Button>
+                <Button onPress={() => setDialogVisible(true)} type="contained" color="primary">Submit</Button>
             </View>
-            <Dialog open={dialogVisible} actions={<ButtonGroup>
-                <Button onPress={() => dispatch(submitBallot(election.id, selectedTickets.map(t => t.id)))}>Submit Ballot</Button>
-                <Button onPress={() => setDialogVisible(false)}>Revise Ballot</Button>
-            </ButtonGroup>}
-                onClose={() => setDialogVisible(false)}
-                title={<Header6>Please confirm your selections</Header6>}>
-                {election.ticketEntries.map((entry, idx) => 
-                    selectedTickets[idx] != undefined ?
-                        <BallotEntryConfirmView key={idx} ticketEntry={entry} ticket={selectedTickets[idx]} /> : undefined)}
-            </Dialog>
+            <BallotConfirmModal
+                election={election}
+                visible={dialogVisible}
+                selections={selections}
+                onClose={() => setDialogVisible(false)}/>
         </View>
     );
 }

@@ -1,31 +1,14 @@
 {
+    "status": "OK",
+    "timestamp": "Tue Jan 14 04:41:44 GMT 2020",
     "data": [{
         "id": "election1",
-        "displayName": "Executive Board",
+        "electionName": "Executive Board",
         "institutionName": "West Chester University",
-        "term": "Spring 2020",
-        "startDate": 1578459600000,
-        "endDate":   1579582799000,
-        "emailDomain": "@wcupa.edu$",
-        "type": 0,
-        "ticketEntries": [
-            {
-                "id": "ticketentry1",
-                "allowedElectionPositions": ["position1"],
-                "tickets": [ "ticket1", "ticket2" ]
-            }, {
-                "id": "ticketentry2",
-                "allowedElectionPositions": ["position2"],
-                "tickets": [ "ticket3", "ticket4", "ticket5" ]
-            }, {
-                "id": "ticketentry3",
-                "allowedElectionPositions": ["position3"],
-                "tickets": [ "ticket6", "ticket7", "ticket8" ]
-            }
-        ],
-        "options": {
-            "canHaveMultiTicket": false,
-            "candidateCanRunForMultiple": false
-        }
+        "description": "Spring 2020",
+        "startDate": "Fri Jan 10 00:00:00 GMT 2020",
+        "endDate": "Mon Jan 20 00:00:00 GMT 2020",
+        "signature": "fakesig",
+        "sender": "admin1"
     }]
 }

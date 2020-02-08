@@ -2,6 +2,7 @@ export * from './text';
 
 export * from './Button';
 export * from './ButtonLink';
+export * from './ButtonGroup';
 export * from './Card';
 export * from './Dialog';
 export * from './Link';

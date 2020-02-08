@@ -6,7 +6,7 @@ import {
 } from "./types";
 
 /** reducer for App */
-export function appReducer(
+export function app(
         state: AppState = initialAppState,
         action: AppActionTypes): AppState {
     switch(action.type) {

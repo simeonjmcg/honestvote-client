@@ -1,10 +1,8 @@
 import { AppId, ApiState } from "../types";
-import { ElectionPositionId } from "../positions/types";
-import { TicketId } from "../tickets/types";
 
 /** state for Elections */
 export interface ElectionsState {
-  elections: Election[];
+  elections: (ElectionInfo | Election)[];
   apiState: ApiState;
 }
 
@@ -17,50 +15,43 @@ export const initialElectionsState: ElectionsState = {
 /** ElectionId is an identifier for an Election */
 export type ElectionId = AppId;
 
-/** TicketEntryId is an identifier for a TicketEntry */
-export type TicketEntryId = AppId;
-
 /** ElectionInfo is a brief description of a given election without including the whole structure */
 export interface ElectionInfo {
   id: ElectionId;
-  displayName: string;
+  electionName: string;
   institutionName: string;
-  term: string;
-  startDate?: number;
-  endDate: number;
-  type: ElectionType;
+  description: string;
+  startDate: string;
+  endDate: string;
+  sender: string;
+  signature: string;
 }
 
 /** Election is a given election */
 export interface Election extends ElectionInfo {
   emailDomain: string;
-  ticketEntries: TicketEntry[];
-  options?: ElectionOptions;
+  allowedCandidates: string[];
+  positions: ElectionPosition[];
 }
 
-/** ElectionOptions are options that apply to a given Election */
-export interface ElectionOptions {
-  canHaveMultiTicket?: boolean;
-  candidateCanRunForMultiple?: boolean;
+/** ElectionPositionId is an identifier for an ElectionPosition */
+export type ElectionPositionId = AppId;
+
+/** ElectionPosition is a particular position */
+export interface ElectionPosition {
+  id: ElectionPositionId;
+  positionName: string;
+  candidates: Candidate[];
 }
 
-/** The ElectionType is an enumeration of different possible election types */
-export enum ElectionType {
-  FirstPastThePost,
-  InstantRunoff,
-  MultiRunoff,
-}
+/** CandidateId is an identifier for a Candidate */
+export type CandidateId = AppId;
 
-/** 
- * TicketEntry is an entry in an election.
- * For instance, this would define an entry such as "President", or even
- * "President and Vice-President", running on the same ticket.
- */
-export interface TicketEntry {
-  id: TicketEntryId;
-  displayName?: string;
-  allowedElectionPositions: ElectionPositionId[];
-  tickets: TicketId[];
+
+/** Candidate is a candidate user that is publicly identified, and is able to run in an election */
+export interface Candidate {
+  id: CandidateId;
+  name: string;
 }
 
 export const ELECTIONS_REQUEST = 'ELECTIONS_REQUEST';
@@ -76,7 +67,7 @@ export interface ElectionsRequestAction {
 }
 export interface ElectionsSuccessAction {
     type: typeof ELECTIONS_SUCCESS;
-    payload: Election[];
+    payload: ElectionInfo[];
 }
 export interface ElectionsFailureAction {
     type: typeof ELECTIONS_FAILURE;

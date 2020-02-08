@@ -1,0 +1,31 @@
+{
+  "status": "OK",
+  "timestamp": "Tue Jan 14 04:41:44 GMT 2020",
+  "data":  [
+    { "voterId": "voter1",  "signature": "fakesig", "electionId": "election1", "receivers": { "position1": "candidate1", "position2": "candidate3"} },
+    { "voterId": "voter2",  "signature": "fakesig", "electionId": "election1", "receivers": { "position1": "candidate1", "position2": "candidate3"} },
+    { "voterId": "voter3",  "signature": "fakesig", "electionId": "election1", "receivers": { "position1": "candidate1", "position2": "candidate3"} },
+    { "voterId": "voter4",  "signature": "fakesig", "electionId": "election1", "receivers": { "position1": "candidate2" } },
+    { "voterId": "voter5",  "signature": "fakesig", "electionId": "election1", "receivers": { "position1": "candidate2" } },
+    { "voterId": "voter6",  "signature": "fakesig", "electionId": "election1", "receivers": { "position1": "candidate2", "position3": "candidate6"} },
+    { "voterId": "voter7",  "signature": "fakesig", "electionId": "election1", "receivers": { "position1": "candidate1", "position2": "candidate3", "position3": "candidate6"} },
+    { "voterId": "voter8",  "signature": "fakesig", "electionId": "election1", "receivers": { "position1": "candidate1", "position2": "candidate3", "position3": "candidate6"} },
+    { "voterId": "voter9",  "signature": "fakesig", "electionId": "election1", "receivers": { "position1": "candidate1", "position2": "candidate3", "position3": "candidate6"} },
+    { "voterId": "voter10", "signature": "fakesig", "electionId": "election1", "receivers": { "position1": "candidate1", "position2": "candidate4" } },
+    { "voterId": "voter11", "signature": "fakesig", "electionId": "election1", "receivers": { "position2": "candidate4", "position3": "candidate6" } },
+    { "voterId": "voter12", "signature": "fakesig", "electionId": "election1", "receivers": { "position2": "candidate5", "position3": "candidate6" } },
+    { "voterId": "voter13", "signature": "fakesig", "electionId": "election1", "receivers": { "position2": "candidate5" } },
+    { "voterId": "voter14", "signature": "fakesig", "electionId": "election1", "receivers": { "position2": "candidate5", "position3": "candidate7" } },
+    { "voterId": "voter15", "signature": "fakesig", "electionId": "election1", "receivers": { "position2": "candidate5" } },
+    { "voterId": "voter16", "signature": "fakesig", "electionId": "election1", "receivers": { "position1": "candidate3", "position2": "candidate5", "position3": "candidate6"} },
+    { "voterId": "voter17", "signature": "fakesig", "electionId": "election1", "receivers": { "position2": "candidate4", "position3": "candidate6" } },
+    { "voterId": "voter18", "signature": "fakesig", "electionId": "election1", "receivers": { "position2": "candidate5", "position3": "candidate7" } },
+    { "voterId": "voter19", "signature": "fakesig", "electionId": "election1", "receivers": { "position2": "candidate5", "position3": "candidate7" } },
+    { "voterId": "voter20", "signature": "fakesig", "electionId": "election1", "receivers": { "position2": "candidate5", "position3": "candidate8" } },
+    { "voterId": "voter21", "signature": "fakesig", "electionId": "election1", "receivers": { "position2": "candidate5", "position3": "candidate7" } },
+    { "voterId": "voter22", "signature": "fakesig", "electionId": "election1", "receivers": { "position2": "candidate4", "position3": "candidate8" } },
+    { "voterId": "voter23", "signature": "fakesig", "electionId": "election1", "receivers": { "position2": "candidate5", "position3": "candidate8" } },
+    { "voterId": "voter24", "signature": "fakesig", "electionId": "election1", "receivers": { "position2": "candidate5", "position3": "candidate8" } },
+    { "voterId": "voter25", "signature": "fakesig", "electionId": "election1", "receivers": { "position3": "candidate8" } }
+  ]
+}

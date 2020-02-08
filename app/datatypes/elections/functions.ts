@@ -1,7 +1,7 @@
 import { State } from "../types";
-import { ElectionId, Election, ElectionInfo } from "./types";
-import { findId, mapIdList } from "~/utils";
-import { Ticket, getTickets } from "../tickets";
+import { ElectionId, Election, ElectionInfo, Candidate, ElectionPositionId } from "./types";
+import { findId, mapKeyValueMap, sumMapValues } from "~/utils";
+import { Vote } from "../votes";
 
 // selectors
 export function getElections(state: State) {
@@ -26,52 +26,38 @@ export function areElectionsLoaded(state: State) {
            status !== "Fetching";
 }
 
-export function getIsElectionStarted(election: Election | ElectionId, timestamp: number = Date.now()) {
+export function getIsElectionStarted(election: Election | ElectionId, timestamp: number | string = Date.now()) {
     return (state: State) => {
         const e = typeof election === "object" ? election : getElection(election)(state);
         return e != undefined && isElectionStarted(e, timestamp)
     }
 }
 
-export function getIsElectionEnded(election: Election | ElectionId, timestamp: number = Date.now()) {
+export function getIsElectionEnded(election: Election | ElectionId, timestamp: number | string = Date.now()) {
     return (state: State) => {
         const e = typeof election === "object" ? election : getElection(election)(state);
         return e != undefined && isElectionEnded(e, timestamp)
     }
 }
 
-export function getIsElectionActive(election: Election | ElectionId, timestamp: number = Date.now()) {
+export function getIsElectionActive(election: Election | ElectionId, timestamp: number | string = Date.now()) {
     return (state: State) => {
         const e = typeof election === "object" ? election : getElection(election)(state);
         return e != undefined && isElectionActive(e, timestamp)
     }
 }
 
-export function getElectionVotes(election: Election | ElectionId) {
-    return (state: State) => {
-        const e = typeof election === "object" ? election : getElection(election)(state);
-        const tickets = getTickets(state);
-        return e != undefined && mapElectionAndTicketsToVotes(e, tickets);
-    }
-}
-
 // util functions
-export function isElectionStarted(election: ElectionInfo, timestamp: number = Date.now()) {
-    return election.startDate == undefined || election.startDate < timestamp;
+export function isElectionStarted(election: ElectionInfo, timestamp: number | string = Date.now()) {
+    return election.startDate == undefined || new Date(election.startDate) < new Date(timestamp);
 }
 
-export function isElectionEnded(election: ElectionInfo, timestamp: number = Date.now()) {
-    return election.endDate < timestamp;
+export function isElectionEnded(election: ElectionInfo, timestamp: number | string = Date.now()) {
+    return new Date(election.endDate) < new Date(timestamp);
 }
 
-export function isElectionActive(e: ElectionInfo, timestamp: number = Date.now()) {
+export function isElectionActive(e: ElectionInfo, timestamp: number | string = Date.now()) {
     return isElectionStarted(e, timestamp) && !isElectionEnded(e, timestamp);
-}
-
-export function mapElectionAndTicketsToVotes(election: Election, tickets: Ticket[]) {
-    return election.ticketEntries
-        .flatMap(entry => mapIdList(entry.tickets, tickets))
-        .flatMap(t => t.votes);
 }
 
 export function openedStateString(election: ElectionInfo): string {
@@ -86,4 +72,16 @@ export function openedStateString(election: ElectionInfo): string {
         return `${startStr} - ${endStr}`;
     }
     return `Closes ${endStr}`;
+}
+
+export function countVotesByPositionId(votes: Vote[], positionId: ElectionPositionId) {
+    return votes.filter(vote => vote.receivers[positionId] != undefined).length;
+}
+
+export function voteCountByCandidate(votes: Vote[]) {
+    return sumMapValues(votes.map(vote => mapKeyValueMap(vote.receivers, (value) => ({ key: value, value: 1 }))));
+}
+
+export function sortCandidatesByVoteCount(candidates: Candidate[], voteCount: { [key: string ]: number}) {
+    return candidates.sort((c1, c2) => (voteCount[c2.id] ?? 0) - (voteCount[c1.id] ?? 0));
 }
