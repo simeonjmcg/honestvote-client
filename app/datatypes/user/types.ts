@@ -1,6 +1,7 @@
 import { ApiState } from "../types";
 import { ElectionId } from "../elections";
 
+
 /** state for user */
 export interface UserState {
   publicKey: string | null;

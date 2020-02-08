@@ -1,7 +1,7 @@
 import {
     ElectionPermissionRequest,
 } from "./types";
-import { ElectionId, CandidateId } from "../elections";
+import { ElectionId, CandidateId, ElectionPositionId } from "../elections";
 
 export const USER_RETREIVE_PUBLIC = 'USER_RETREIVE_PUBLIC';
 export const USER_STORE_PUBLIC = 'USER_STORE_PUBLIC';
@@ -70,7 +70,7 @@ export interface UserConfirmPermissionAction {
 
 export interface UserSubmitBallotAction {
   type: typeof USER_SUBMIT_BALLOT;
-  payload: {electionId: ElectionId, receivers: {[key: string]: CandidateId} };
+  payload: {electionId: ElectionId, receivers: {key: ElectionPositionId, id: CandidateId}[] };
 }
 
 export interface UserSuccessBallotAction {
@@ -157,7 +157,7 @@ export function permissionRequestConfirmed(electionId: ElectionId): UserActionTy
 }
 
 /** Submit ballot for election */
-export function submitBallot(electionId: ElectionId, receivers: {[key: string]: CandidateId}): UserActionTypes {
+export function submitBallot(electionId: ElectionId, receivers: { key: ElectionPositionId, id: CandidateId }[]): UserActionTypes {
     return { type: USER_SUBMIT_BALLOT, payload: { receivers, electionId } };
 }
 

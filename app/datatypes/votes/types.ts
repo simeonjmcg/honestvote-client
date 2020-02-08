@@ -1,5 +1,5 @@
 import { AppId, ApiState } from "../types";
-import { CandidateId, ElectionId } from "../elections/types";
+import { CandidateId, ElectionId, ElectionPositionId } from "../elections/types";
 
 /** state for Voters */
 export interface VotesState {
@@ -20,7 +20,7 @@ export type VoterId = AppId;
 export interface Vote {
   sender: VoterId;
   electionId: ElectionId;
-  receivers: { [key: string]: CandidateId };
+  receivers: { key: ElectionPositionId, id: CandidateId }[];
   signature: string;
 }
 
