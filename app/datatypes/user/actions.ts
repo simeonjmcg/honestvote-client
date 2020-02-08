@@ -70,8 +70,8 @@ export function permissionRequestConfirmed(userPermissions: UserPermissions): Us
 }
 
 /** Submit ballot for election */
-export function submitBallot(electionId: ElectionId, candidates: CandidateId[]): UserActionTypes {
-    return { type: USER_SUBMIT_BALLOT, payload: { candidates, electionId } };
+export function submitBallot(electionId: ElectionId, receivers: {[key: string]: CandidateId}): UserActionTypes {
+    return { type: USER_SUBMIT_BALLOT, payload: { receivers, electionId } };
 }
 
 /** Ballot submission for election successful */

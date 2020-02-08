@@ -23,6 +23,8 @@ export interface ElectionInfo {
   description: string;
   startDate: string;
   endDate: string;
+  sender: string;
+  signature: string;
 }
 
 /** Election is a given election */

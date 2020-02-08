@@ -18,9 +18,9 @@ export type VoterId = AppId;
 
 /** Vote is a vote that can go toward a particular candidate */
 export interface Vote {
-  voterId: VoterId;
+  sender: VoterId;
   electionId: ElectionId;
-  candidateId: CandidateId;
+  receivers: { [key: string]: CandidateId };
   signature: string;
 }
 
@@ -28,6 +28,8 @@ export interface Vote {
 export const VOTES_REQUEST = 'VOTES_REQUEST';
 export const VOTES_SUCCESS = 'VOTES_SUCCESS';
 export const VOTES_FAILURE = 'VOTES_FAILURE';
+
+export const VOTE_SUCCESS = 'VOTE_SUCCESS';
 
 export interface VotesRequestAction {
     type: typeof VOTES_REQUEST;
@@ -41,7 +43,12 @@ export interface VotesFailureAction {
     type: typeof VOTES_FAILURE;
     payload: { electionId: ElectionId };
 }
+export interface VoteSuccessAction {
+    type: typeof VOTE_SUCCESS;
+    payload: { electionId: ElectionId, vote: Vote };
+}
 
 export type VotesActionTypes = VotesRequestAction
                              | VotesSuccessAction
-                             | VotesFailureAction;
+                             | VotesFailureAction
+                             | VoteSuccessAction;

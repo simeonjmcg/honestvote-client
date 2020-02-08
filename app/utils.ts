@@ -1,7 +1,6 @@
 import { AppId } from "./datatypes/types";
 import { NavigationStackProp } from "react-navigation-stack";
 import { match } from "react-router";
-import { Vote, Candidate } from "./datatypes";
 
 /** Utility function to get a parameter from either react router or react navigator */
 export function getParamFromProps (match: match<any> | null, navigation: NavigationStackProp, field: string): string | undefined{
@@ -44,26 +43,52 @@ export function mapIdList<T extends IdObject>(idArray: AppId[], array: T[]) {
                   .filter(notUndefined);
 }
 
-/** Utility function to count votes */
-export function countVotes(votes: Vote[]) {
-    return votes.length;
+/** takes a list of string-number maps and returns a map with the values of given key are summed. */
+export function sumMapValues(mapList: {[key: string]: number}[]) {
+    return mapList.reduce((map, item) => {
+        for (const k in item) map[k] = (map[k] || 0) + item[k];
+        return map;
+    });
+}
+
+/** takes map and transformation function and returns a list determined by function */
+export function mapMapArray<T1, T2>(map: {[key: string]: T1}, fn: (value: T1, key: string, index: number) => T2) {
+    return Object.keys(map).map((key, index) => fn(map[key], key, index));
+}
+
+/** takes array and transformation function and returns map determined by function */
+export function mapKey<T1, T2>(array: T1[], fn: (value: T1, index: number) => { value: T2, key: string }) {
+    return array.reduce<{[key: string]: T2}>((map, value, index) => {
+        const r = fn(value, index);
+        map[r.key] = r.value;
+        return map;
+    }, {});
+}
+
+/** takes map and transformation function and returns new map, with both key and value remapped */
+export function mapKeyValueMap<T1, T2>(map: {[key: string]: T1}, fn: (value: T1, key: string) => {key: string, value: T2}) {
+    return Object.keys(map).reduce<{[key: string]: T2}>((newmap, key) => {
+        const r = fn(map[key], key);
+        newmap[r.key] = r.value;
+        return newmap;
+    }, {});
+}
+
+/** takes map and transformation function and returns new map, with a given value remapped to given key */
+export function mapValueMap<T1, T2>(map: {[key: string]: T1}, fn: (item: T1, key: string) => T2) {
+    return mapKeyValueMap(map, (value, key) => ({ value: fn(value, key), key }));
 }
 
 /** Accessor function for id */
 export function getId<T extends IdObject>(obj: T) { return obj.id; }
 
 /** Maps list to map by id */
-export function groupById<T>(list: T[], accessor: (o: T) => AppId) {
+export function groupById<T>(list: T[], accessor: (object: T) => AppId) {
     const byId: {[key: string]: T[]} = {};
-    list.forEach(v => {
-        const id = accessor(v);
+    list.forEach(item => {
+        const id = accessor(item);
         if (!(id in byId)) byId[id] = [];
-        byId[id].push(v);
+        byId[id].push(item);
     });
     return byId;
 } 
-
-/** Sort candidates according to votes */
-export function sortCandidatesByVotes(candidates: Candidate[], votes: {[key: string]: Vote[]}) {
-    return candidates.sort((t1, t2) => votes[t2.id].length - votes[t1.id].length);
-}

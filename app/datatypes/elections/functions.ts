@@ -1,6 +1,7 @@
 import { State } from "../types";
-import { ElectionId, Election, ElectionInfo } from "./types";
-import { findId } from "~/utils";
+import { ElectionId, Election, ElectionInfo, Candidate, ElectionPositionId } from "./types";
+import { findId, mapKeyValueMap, sumMapValues } from "~/utils";
+import { Vote } from "../votes";
 
 // selectors
 export function getElections(state: State) {
@@ -71,4 +72,16 @@ export function openedStateString(election: ElectionInfo): string {
         return `${startStr} - ${endStr}`;
     }
     return `Closes ${endStr}`;
+}
+
+export function countVotesByPositionId(votes: Vote[], positionId: ElectionPositionId) {
+    return votes.filter(vote => vote.receivers[positionId] != undefined).length;
+}
+
+export function voteCountByCandidate(votes: Vote[]) {
+    return sumMapValues(votes.map(vote => mapKeyValueMap(vote.receivers, (value) => ({ key: value, value: 1 }))));
+}
+
+export function sortCandidatesByVoteCount(candidates: Candidate[], voteCount: { [key: string ]: number}) {
+    return candidates.sort((c1, c2) => (voteCount[c2.id] ?? 0) - (voteCount[c1.id] ?? 0));
 }
