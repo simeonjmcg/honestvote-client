@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { NavigationStackScreenProps } from "react-navigation-stack";
 import { RouteChildrenProps } from "react-router";
 import { Page, TextField, Card, Header5, Button, ButtonLink, View} from '~/components';
@@ -7,23 +7,13 @@ import { PRIMARY_COLOR } from '~/theme';
 // NavigationStack for native, Router for web
 export type AdminPageProps = NavigationStackScreenProps & RouteChildrenProps;
 
-
-//RetrieveAdminKey, InstututionName, 
-
-function AdminCreate{ state: }
-
-
-
 export function AdminCreatePage () {
         
     return (
         <Page>  
             <ButtonLink
                 to={`/admin/dashboard`}
-                route="AdminDashboardPage"
-                params={{
-
-                }}>
+                route="AdminDashboardPage">
                 Back to Admin Dashboard
             </ButtonLink>
             
@@ -36,7 +26,7 @@ export function AdminCreatePage () {
 
                     <Header5>Positions</Header5>
                     {/*  <TextField label="Position Name"></TextField>} */}
-                    <Button onPress={  }>Add Position</Button>
+                    <Button>Add Position</Button>
 
                     <Header5>Candidates</Header5>
                     {/* <TextField label="Candidate Name"></TextField> */}
