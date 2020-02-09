@@ -1,9 +1,12 @@
 import {
-    AppState, initialAppState, AppActionTypes,
+    AppState, initialAppState,
+} from "./types";
+import {
+     AppActionTypes,
     APP_SET_TITLE,
     APP_PROMPT_PASS, APP_RETURN_PASS, APP_CANCEL_PASS,
     APP_REQUEST_CLOSEST_NODE, APP_SUCCESS_CLOSEST_NODE, APP_FAILURE_CLOSEST_NODE,
-} from "./types";
+} from "./actions";
 
 /** reducer for App */
 export function app(
