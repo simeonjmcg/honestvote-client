@@ -2,7 +2,7 @@ import {
     ElectionsState, initialElectionsState, ElectionActionTypes,
     ELECTION_REQUEST, ELECTION_SUCCESS, ELECTION_FAILURE,
     ELECTIONS_REQUEST, ELECTIONS_SUCCESS, ELECTIONS_FAILURE,
-} from "./types";
+} from ".";
 import { updateIdArray } from "../../utils";
 
 /** reducer for Elections */

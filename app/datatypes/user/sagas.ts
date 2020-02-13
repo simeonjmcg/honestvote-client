@@ -7,14 +7,16 @@ import {
     storePublic,
     returnPrivate, returnPrivateFailed,
     permissionRequestSuccessful, permissionRequestFailure,
-} from './';
+} from '.';
 import { promptPass, APP_RETURN_PASS, getEndpoint, AppReturnPassAction } from '../app';
 import { areKeysGenerated, generateNewUserKeys, loadPrivateKey, loadPublicKey } from '~/encryption';
 import { ECKeyPair } from 'elliptic';
 import { getPublicKey } from './functions';
 import { Vote, calculateVoteSignature } from '../votes';
-import { ballotSubmissionFailure, ballotSubmissionSuccessful, retreivePrivate } from './actions';
-import { USER_RETURN_PRIVATE, UserReturnPrivateAction } from './types';
+import {
+    ballotSubmissionFailure, ballotSubmissionSuccessful, retreivePrivate,
+    USER_RETURN_PRIVATE, UserReturnPrivateAction,
+} from './actions';
 
 export function* userSaga() {
     yield takeEvery(USER_RETREIVE_PUBLIC, userRetreivePublicSaga);

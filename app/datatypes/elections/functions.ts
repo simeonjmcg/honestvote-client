@@ -1,6 +1,6 @@
 import { State } from "../types";
 import { ElectionId, Election, ElectionInfo, Candidate, ElectionPositionId } from "./types";
-import { findId, mapKeyValueMap, sumMapValues } from "~/utils";
+import { findId, sumMapValues, mapKey } from "~/utils";
 import { Vote } from "../votes";
 import { ec } from "~/encryption";
 
@@ -76,11 +76,11 @@ export function openedStateString(election: ElectionInfo): string {
 }
 
 export function countVotesByPositionId(votes: Vote[], positionId: ElectionPositionId) {
-    return votes.filter(vote => vote.receivers[positionId] != undefined).length;
+    return votes.filter(vote => vote.receivers.some(pair => pair.key === positionId)).length;
 }
 
 export function voteCountByCandidate(votes: Vote[]) {
-    return sumMapValues(votes.map(vote => mapKeyValueMap(vote.receivers, (value) => ({ key: value, value: 1 }))));
+    return sumMapValues(votes.map(vote => mapKey(vote.receivers, pair => ({ key: pair.id, value: 1 }))));
 }
 
 export function sortCandidatesByVoteCount(candidates: Candidate[], voteCount: { [key: string ]: number}) {

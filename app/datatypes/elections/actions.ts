@@ -1,4 +1,42 @@
-import { ElectionActionTypes, Election, ELECTIONS_REQUEST, ELECTIONS_SUCCESS, ELECTIONS_FAILURE, ELECTION_FAILURE, ELECTION_SUCCESS, ElectionId, ELECTION_REQUEST, ElectionInfo } from "./types";
+import { Election, ElectionId,ElectionInfo } from "./types";
+
+export const ELECTIONS_REQUEST = 'ELECTIONS_REQUEST';
+export const ELECTIONS_SUCCESS = 'ELECTIONS_SUCCESS';
+export const ELECTIONS_FAILURE = 'ELECTIONS_FAILURE';
+
+export const ELECTION_REQUEST = 'ELECTION_REQUEST';
+export const ELECTION_SUCCESS = 'ELECTION_SUCCESS';
+export const ELECTION_FAILURE = 'ELECTION_FAILURE';
+
+export interface ElectionsRequestAction {
+    type: typeof ELECTIONS_REQUEST;
+}
+export interface ElectionsSuccessAction {
+    type: typeof ELECTIONS_SUCCESS;
+    payload: ElectionInfo[];
+}
+export interface ElectionsFailureAction {
+    type: typeof ELECTIONS_FAILURE;
+}
+
+export interface ElectionRequestAction {
+    type: typeof ELECTION_REQUEST;
+    payload: ElectionId;
+}
+export interface ElectionSuccessAction {
+    type: typeof ELECTION_SUCCESS;
+    payload: Election;
+}
+export interface ElectionFailureAction {
+    type: typeof ELECTION_FAILURE;
+}
+
+export type ElectionActionTypes = ElectionsRequestAction
+                                 | ElectionsSuccessAction
+                                 | ElectionsFailureAction
+                                 | ElectionRequestAction
+                                 | ElectionSuccessAction
+                                 | ElectionFailureAction;
 
 /** request the Elections from the backend */
 export function requestElections(): ElectionActionTypes {

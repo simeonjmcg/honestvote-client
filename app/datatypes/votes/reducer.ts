@@ -1,8 +1,8 @@
 import {
     VotesState, initialVotesState, VotesActionTypes,
     VOTES_SUCCESS, VOTES_REQUEST, VOTES_FAILURE,
-    VOTE_SUCCESS,
-} from "./types";
+    VOTE_ADD,
+} from ".";
 
 /** reducer for Votes */
 export function votes(
@@ -17,7 +17,7 @@ export function votes(
                     [action.payload.electionId]: action.payload.votes
                 },
             };
-        case VOTE_SUCCESS:
+        case VOTE_ADD:
             return { ...state, apiState: "Success",
                 votes: {...state.votes, 
                     [action.payload.electionId]: [...state.votes[action.payload.electionId], action.payload.vote ],

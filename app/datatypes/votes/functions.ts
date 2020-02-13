@@ -2,7 +2,6 @@ import { State } from "../types";
 import { ElectionId } from "../elections/types";
 import { Vote } from "./types";
 import { ec } from "~/encryption";
-import { mapMapArray } from "~/utils";
 
 // selectors
 export function getVotes(electionId: ElectionId) {
@@ -25,6 +24,6 @@ export function getAreVotersLoaded(state: State) {
 // utils
 export function calculateVoteSignature(vote: Vote, privateKey: string) {
     const keyPair = ec.keyFromPrivate(privateKey, "hex");
-    const str = vote.electionId + mapMapArray(vote.receivers, (value, key) => key + value).join("");
+    const str = vote.electionId + vote.receivers.map((value) => value.id + value.key).join("");
     return keyPair.sign(str).toDER("hex");
 }
