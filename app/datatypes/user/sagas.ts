@@ -7,7 +7,7 @@ import {
     storePublic,
     returnPrivate, returnPrivateFailed,
     permissionRequestSuccessful, permissionRequestFailure,
-} from './';
+} from '.';
 import { promptPass, APP_RETURN_PASS, getEndpoint, AppReturnPassAction } from '../app';
 import { areKeysGenerated, generateNewUserKeys, loadPrivateKey, loadPublicKey } from '~/encryption';
 import { ECKeyPair } from 'elliptic';

@@ -3,7 +3,7 @@ import { takeEvery, put, /* call */ } from '@redux-saga/core/effects';
 import {
     APP_REQUEST_CLOSEST_NODE,
     //REGISTRATION_ENDPOINT,
-} from './types';
+} from './actions';
 import { closestNodeRequestSuccessful } from './actions';
 
 export function* appSaga() {

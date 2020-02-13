@@ -4,7 +4,7 @@ import {
     storeVotes,
 } from ".";
 import example from "./example-votes.json";
-import { VotesRequestAction } from "./types";
+import { VotesRequestAction } from ".";
 
 export function* votersSaga() {
     yield takeEvery(VOTES_REQUEST, votersRequestSaga);
