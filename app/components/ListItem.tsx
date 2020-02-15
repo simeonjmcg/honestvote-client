@@ -12,7 +12,7 @@ export interface ListItemProps {
 }
 
 export function ListItem ({ title, description, left, right }: ListItemProps) {
-    return <ListItemMaterial style={{listStyle: "none"}}>
+    return <ListItemMaterial>
         {left != undefined ?
             <ListItemIcon>{ left }</ListItemIcon> : undefined}
         <ListItemText primary={title} secondary={description} />
