@@ -82,11 +82,11 @@ export function openedStateString(election: ElectionInfo): string {
 }
 
 export function countVotesByPositionId(votes: Vote[], positionId: ElectionPositionId) {
-    return votes.filter(vote => vote.receivers.some(pair => pair.key === positionId)).length;
+    return votes.filter(vote => vote.receivers && vote.receivers.some(pair => pair.id === positionId)).length;
 }
 
 export function voteCountByCandidate(votes: Vote[]) {
-    return sumMapValues(votes.map(vote => mapKey(vote.receivers, pair => ({ key: pair.id, value: 1 }))));
+    return sumMapValues(votes.map(vote => mapKey(vote.receivers, pair => ({ key: pair.key, value: 1 }))));
 }
 
 export function sortCandidatesByVoteCount(candidates: Candidate[], voteCount: { [key: string ]: number}) {

@@ -10,10 +10,11 @@ import { CandidateView } from './CandidateView';
 export interface PositionViewProps {
     electionId: ElectionId;
     position: ElectionPosition;
+    started?: boolean;
     small?: boolean;
 }
 
-export function PositionView ({ electionId, position, small }: PositionViewProps) {
+export function PositionView ({ electionId, position, started, small }: PositionViewProps) {
     // get redux values
     const votes = useSelector(getVotes(electionId));
     const candidates = position.candidates;
@@ -26,7 +27,7 @@ export function PositionView ({ electionId, position, small }: PositionViewProps
     return (
         <Card minWidth={!small ? 400 : undefined}
             title={
-                <RowItem right={<Text>{totalVotes} votes</Text>}>
+                <RowItem right={started && <Text>{totalVotes} votes</Text>}>
                     <Header6>{position.positionName}</Header6>
                 </RowItem>
             }>
@@ -36,7 +37,7 @@ export function PositionView ({ electionId, position, small }: PositionViewProps
                         max={max}
                         index={idx}
                         votes={votesById[candidate.id] ?? 0}
-                        candidate={candidate} />
+                        candidate={candidate} started={started}/>
             )}
         </Card>
     );

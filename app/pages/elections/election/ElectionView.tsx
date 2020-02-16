@@ -4,6 +4,7 @@ import {
     getIsUserRegistered, getIsPermissionRequestActive,
     getCanUserVote, getIsElectionEnded, getHasUserVoted,
     openedStateString,
+    getIsElectionStarted,
 } from '~/datatypes';
 import { View, Header5, Subtitle1, Text, ButtonLink, Link } from '~/components';
 import { PositionView } from './PositionView';
@@ -24,6 +25,7 @@ function ElectionView ({election}: ElectionViewProps) {
     }, []);
 
     const n = Date.now();
+    const isStarted = useSelector(getIsElectionStarted(election, n));
     const isEnded = useSelector(getIsElectionEnded(election, n));
     const canVote = useSelector(getCanUserVote(election, n));
     const hasVoted = useSelector(getHasUserVoted(election));
@@ -69,7 +71,7 @@ function ElectionView ({election}: ElectionViewProps) {
                     <PositionView key={k}
                         electionId={election.id}
                         position={position}
-                        small={small} />)}
+                        small={small} started={isStarted} />)}
             </View>
         </View>
     );

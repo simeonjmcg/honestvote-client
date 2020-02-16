@@ -3,6 +3,7 @@ import { ElectionId, Election, getElection, isElectionActive, getVotes } from ".
 import { ElectionPermissionRequest } from "./types";
 import { ec } from "~/encryption";
 import { sequence, string } from "~/der-encoding";
+import hash from "hash.js";
 
 export function getPublicKey(state: State) {
     return state.user.publicKey;

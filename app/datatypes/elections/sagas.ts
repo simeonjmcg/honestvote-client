@@ -22,7 +22,7 @@ export function* electionsSaga() {
 
 function* electionRequestSaga(action: ElectionRequestAction) {
     const endpoint: string = yield select(getEndpoint);
-    const response: AxiosResponse<{status: string, data: Election}> = yield call(axios.get, `${endpoint}/election/${action.payload}`);
+    const response: AxiosResponse<{status: string, data: Election}> = yield call(axios.get, `http://${endpoint}/election/${action.payload}`);
     const election = response.data.data;
     election.id = election.signature;
     if (response.status >= 400 || response.data.status !== "OK") {
@@ -34,7 +34,7 @@ function* electionRequestSaga(action: ElectionRequestAction) {
 
 function* electionsRequestSaga() {
     const endpoint: string = yield select(getEndpoint);
-    const response: AxiosResponse<{status: string, data: ElectionInfo[]}> = yield call(axios.get, `${endpoint}/elections`);
+    const response: AxiosResponse<{status: string, data: ElectionInfo[]}> = yield call(axios.get, `http://${endpoint}/elections`, { headers: { 'Cache-Control': 'no-cache' } });
     const elections = response.data.data;
     if (response.status >= 400 || response.data.status !== "OK") {
         yield put(errorElections());
@@ -52,7 +52,7 @@ function* electionSaveSaga(action: ElectionSaveAction) {
     const returnPrivate: UserReturnPrivateAction = yield take(USER_RETURN_PRIVATE);
     election.sender = publicKey;
     election.signature = calculateElectionSignature(action.payload, returnPrivate.payload);
-    const response: AxiosResponse<{status: string}> = yield call(axios.post, `${endpoint}/election`, election);
+    const response: AxiosResponse<{status: string}> = yield call(axios.post, `http://${endpoint}/election`, election);
     if (response.status >= 400 || response.data.status !== "OK") {
         yield put(saveElectionFailure());
         return;

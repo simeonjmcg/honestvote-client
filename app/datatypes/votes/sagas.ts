@@ -15,7 +15,7 @@ export function* votersSaga() {
 
 function* votersRequestSaga(action: VotesRequestAction) {
     const endpoint: string = yield select(getEndpoint);
-    const response: AxiosResponse<{status: string, data: Vote[]}> = yield call(axios.get, `${endpoint}/election/${action.payload.electionId}/votes`);
+    const response: AxiosResponse<{status: string, data: Vote[]}> = yield call(axios.get, `http://${endpoint}/election/${action.payload.electionId}/votes`);
     const votes = response.data.data || [];
     if (response.data.status !== "OK") {
         yield put(errorVotes(action.payload.electionId));
