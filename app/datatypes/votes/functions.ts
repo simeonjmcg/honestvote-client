@@ -2,10 +2,13 @@ import { State } from "../types";
 import { ElectionId } from "../elections/types";
 import { Vote } from "./types";
 import { ec } from "~/encryption";
+import hash from 'hash.js';
+
+import { sequence, string } from "~/der-encoding";
 
 // selectors
 export function getVotes(electionId: ElectionId) {
-    return (state: State) => state.votes.votes[electionId];
+    return (state: State) => state.votes.votes[electionId] ?? [];
 }
 
 export function getVotesApiStatus(state: State) {
@@ -23,7 +26,18 @@ export function getAreVotersLoaded(state: State) {
 }
 // utils
 export function calculateVoteSignature(vote: Vote, privateKey: string) {
+    const v = sequence([
+        /* electionId: */ string(vote.electionId),
+        /* receivers: */ sequence(vote.receivers.map(r =>
+            sequence([
+                /* id: */ string(r.id),
+                /* key: */ string(r.key),
+            ])),
+        ),
+    ]);
+
+    const h = hash.sha256().update(v.toBytes()).digest();
+
     const keyPair = ec.keyFromPrivate(privateKey, "hex");
-    const str = vote.electionId + vote.receivers.map((value) => value.id + value.key).join("");
-    return keyPair.sign(str).toDER("hex");
+    return keyPair.sign(h).toDER("hex");
 }

@@ -3,6 +3,7 @@ import { ElectionId, Election, ElectionInfo, Candidate, ElectionPositionId } fro
 import { findId, sumMapValues, mapKey } from "~/utils";
 import { Vote } from "../votes";
 import { ec } from "~/encryption";
+import { sequence, string } from "~/der-encoding";
 
 // selectors
 export function getElections(state: State) {
@@ -19,6 +20,11 @@ export function getElectionsApiStatus(state: State) {
 
 export function areElectionsLoading(state: State) {
     return getElectionsApiStatus(state) === "Fetching";
+}
+
+export function isElectionsFetchFailed(state: State) {
+    const status = getElectionsApiStatus(state);
+    return status === "Failed";
 }
 
 export function areElectionsLoaded(state: State) {
@@ -90,18 +96,21 @@ export function sortCandidatesByVoteCount(candidates: Candidate[], voteCount: { 
 // utils
 export function calculateElectionSignature(election: Election, privateKey: string) {
     const keyPair = ec.keyFromPrivate(privateKey, "hex");
-    const str =
-        election.electionName +
-        election.institutionName +
-        election.description +
-        election.startDate +
-        election.endDate +
-        election.emailDomain +
-        election.positions.map(position =>
-            position.id +
-            position.positionName +
-            position.candidates.map(candidate =>
-                candidate.id +
-                candidate.name).join("")).join("");
-    return keyPair.sign(str).toDER("hex");
+    const el = sequence([
+        string(election.electionName),
+        string(election.institutionName),
+        string(election.description),
+        string(election.startDate),
+        string(election.endDate),
+        string(election.emailDomain),
+        sequence(election.positions.map(p => sequence([
+            string(p.id),
+            string(p.positionName),
+            sequence(p.candidates.map(c => sequence([
+                string(c.id),
+                string(c.name),
+            ]))),
+        ]))),
+    ]);
+    return keyPair.sign(el.toBytes()).toDER("hex");
 }

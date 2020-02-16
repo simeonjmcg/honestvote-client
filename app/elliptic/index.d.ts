@@ -284,6 +284,8 @@ export declare class BasePoint {
     dblp(k: number): BasePoint;
     toBuffer(): Buffer;
     toArray(): Array;
+    getX(): BN;
+    getY(): BN;
 }
 
 export declare class EPoint extends BasePoint {

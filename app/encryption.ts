@@ -5,9 +5,10 @@ import { ModeOfOperation } from "aes-js";
 import { getItem, setItem } from '~/storage';
 import { cryptoRandomBytes } from '~/platformUtils';
 import { StorageKeys } from './datatypes';
+import { string, sequence } from './der-encoding';
 
 // initialize elliptic key encryption object
-export const ec = new EC('secp256k1');
+export const ec = new EC('p256');
 
 /** Generate a key from pass and salt for use in symmetric encryption */
 export async function generateSymmetricKey(pass: string, salt: Uint8Array) {
@@ -108,15 +109,22 @@ export async function generateNewUserKeys(pass: string) {
     // convert components to hex string for storage
     const salt = bytesToHex(saltBytes);
     const passCheck = bytesToHex(passCheckBytes);
-    const publicKey = keyPair.getPublic('hex');
+    const publicKey = keyPair.getPublic();
+    const publicKeyDER = publicToDER(publicKey.getX().toString(), publicKey.getY().toString());
     const encryptedPrivateKey = bytesToHex(encryptedPrivateKeyBytes);
     const initializationVector = bytesToHex(initializationVectorBytes);
 
     // store data in persistent storage
     setItem(StorageKeys.PassSalt, salt);
     setItem(StorageKeys.PassCheck, passCheck);
-    setItem(StorageKeys.PublicKey, publicKey);
+    setItem(StorageKeys.PublicKey, publicKeyDER);
     setItem(StorageKeys.PrivateKeyEncrypted, encryptedPrivateKey);
     setItem(StorageKeys.InitializationVector, initializationVector);
     return keyPair;
+}
+
+export function publicToDER(x: string, y: string) {
+    return bytesToHex(sequence([
+        string(x), string(y),
+    ]).toBytes());
 }

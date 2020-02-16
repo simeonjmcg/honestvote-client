@@ -12,8 +12,8 @@ export function* appSaga() {
 
 export function* closestNodeRequestSaga() {
     /*
-    const response: AxiosResponse<{data: string}> = yield call(axios.get, `${REGISTRATION_ENDPOINT}/find-node`);
+    const response: AxiosResponse<{data: string}> = yield call(axios.get, `${REGISTRATION_ENDPOINT}/endpoint`);
     yield put(saveClosestNode(response.data.data));
     */
-    yield put(closestNodeRequestSuccessful("http://portainer.honestvote.io:7001"));
+    yield put(closestNodeRequestSuccessful("http://portainer.honestvote.io:7003"));
 }

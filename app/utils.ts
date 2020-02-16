@@ -48,7 +48,7 @@ export function sumMapValues(mapList: {[key: string]: number}[]) {
     return mapList.reduce((map, item) => {
         for (const k in item) map[k] = (map[k] || 0) + item[k];
         return map;
-    });
+    }, {});
 }
 
 /** takes map and transformation function and returns a list determined by function */

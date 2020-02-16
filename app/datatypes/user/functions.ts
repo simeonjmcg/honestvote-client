@@ -2,6 +2,7 @@ import { State } from "..";
 import { ElectionId, Election, getElection, isElectionActive, getVotes } from "../elections";
 import { ElectionPermissionRequest } from "./types";
 import { ec } from "~/encryption";
+import { sequence, string } from "~/der-encoding";
 
 export function getPublicKey(state: State) {
     return state.user.publicKey;
@@ -60,14 +61,16 @@ export function arePermissionsRequested(state: State) {
 }
 
 // utils
-export function calculatePermissionRequestSignature(request: ElectionPermissionRequest, privateKey: string) {
+export function calculateRegistrationSignature(request: ElectionPermissionRequest, privateKey: string) {
     const keyPair = ec.keyFromPrivate(privateKey, "hex");
-    const str =
-        request.electionId +
-        request.emailAddress +
-        request.firstName +
-        request.lastName +
-        request.dateOfBirth +
-        request.electionAdmin;
-    return keyPair.sign(str).toDER("hex");
+    const sig = sequence([
+            // string(request.emailAddress),
+            string(request.firstName),
+            string(request.lastName),
+            string(request.dateOfBirth),
+            string(request.electionId),
+    ]);
+    const h = hash.sha256().update(sig.toBytes()).digest();
+
+    return keyPair.sign(h).toDER("hex");
 }
