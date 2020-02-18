@@ -34,7 +34,7 @@ function* electionRequestSaga(action: ElectionRequestAction) {
 
 function* electionsRequestSaga() {
     const endpoint: string = yield select(getEndpoint);
-    const response: AxiosResponse<{status: string, data: ElectionInfo[]}> = yield call(axios.get, `http://${endpoint}/elections`, { headers: { 'Cache-Control': 'no-cache' } });
+    const response: AxiosResponse<{status: string, data: ElectionInfo[]}> = yield call(axios.get, `http://${endpoint}/elections`);
     const elections = response.data.data;
     if (response.status >= 400 || response.data.status !== "OK") {
         yield put(errorElections());
