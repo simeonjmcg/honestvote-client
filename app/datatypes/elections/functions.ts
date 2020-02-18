@@ -90,7 +90,7 @@ export function voteCountByCandidate(votes: Vote[]) {
 }
 
 export function sortCandidatesByVoteCount(candidates: Candidate[], voteCount: { [key: string ]: number}) {
-    return candidates.sort((c1, c2) => (voteCount[c2.id] ?? 0) - (voteCount[c1.id] ?? 0));
+    return candidates.sort((c1, c2) => (voteCount[c2.key] ?? 0) - (voteCount[c1.key] ?? 0));
 }
 
 // utils
@@ -107,7 +107,7 @@ export function calculateElectionSignature(election: Election, privateKey: strin
             string(p.id),
             string(p.positionName),
             sequence(p.candidates.map(c => sequence([
-                string(c.id),
+                string(c.key),
                 string(c.name),
             ]))),
         ]))),

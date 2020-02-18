@@ -14,9 +14,9 @@ export function BallotPositionView ({ position, selected, onChange }: BallotPosi
     return (
         <Card title={<Header6>{position.positionName}</Header6>}>
             {candidates.map((candidate, idx) =>
-                <BallotChoiceView key={idx}
+               <BallotChoiceView key={idx}
                     candidate={candidate}
-                    selected={selected === candidate.id}
+                    selected={selected === candidate.key}
                     onPress={() => onChange?.(candidate)} />
             )}
         </Card>

@@ -1,7 +1,7 @@
 import {
     USER_SUBMIT_BALLOT, USER_SUCCESS_BALLOT, USER_FAILURE_BALLOT,
     UserActionTypes, UserState, initialUserState, USER_STORE_PUBLIC,
-    USER_REQUEST_PERMISSIONS, USER_SUCCESS_PERMISSIONS, USER_FAILURE_PERMISSIONS, USER_RESET_REQUEST_PERMISSIONS, USER_CONFIRM_PERMISSION,
+    USER_REQUEST_PERMISSIONS, USER_SUCCESS_REQUEST_PERMISSIONS, USER_FAILURE_REQUEST_PERMISSIONS, USER_RESET_REQUEST_PERMISSIONS, USER_CONFIRM_PERMISSION,
 } from ".";
 
 /** reducer for user */
@@ -24,9 +24,9 @@ export function user(
                 activePermissionRequest: state.activePermissionRequest.includes(id) ?
                     state.activePermissionRequest: [...state.activePermissionRequest, id],
             };
-        case USER_SUCCESS_PERMISSIONS:
+        case USER_SUCCESS_REQUEST_PERMISSIONS:
             return { ...state, permissionRequestStatus: "Success" };
-        case USER_FAILURE_PERMISSIONS:
+        case USER_FAILURE_REQUEST_PERMISSIONS:
             return { ...state, permissionRequestStatus: "Failed" };
         case USER_CONFIRM_PERMISSION:
             return { ...state,

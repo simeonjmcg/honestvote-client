@@ -7,6 +7,7 @@ import {
     storePublic,
     returnPrivate, returnPrivateFailed,
     permissionRequestSuccessful, permissionRequestFailure,
+    permissionRetreivalSuccessful, permissionRetreivalFailure,
 } from '.';
 import { promptPass, APP_RETURN_PASS, getEndpoint, AppReturnPassAction } from '../app';
 import { areKeysGenerated, generateNewUserKeys, loadPrivateKey, loadPublicKey } from '~/encryption';
@@ -15,7 +16,7 @@ import { getPublicKey, calculateRegistrationSignature } from './functions';
 import { Vote, calculateVoteSignature } from '../votes';
 import {
     ballotSubmissionFailure, ballotSubmissionSuccessful, retreivePrivate,
-    USER_RETURN_PRIVATE, UserReturnPrivateAction,
+    USER_RETURN_PRIVATE, UserReturnPrivateAction, USER_RETREIVE_PERMISSIONS,
 } from './actions';
 import { getElection, Election } from '../elections';
 import { ElectionPermissionRequest } from './types';
@@ -24,6 +25,7 @@ export function* userSaga() {
     yield takeEvery(USER_RETREIVE_PUBLIC, userRetreivePublicSaga);
     yield takeEvery(USER_RETREIVE_PRIVATE, userRetreivePrivateSaga);
     yield takeEvery(USER_REQUEST_PERMISSIONS, permissionsRequestSaga);
+    yield takeEvery(USER_RETREIVE_PERMISSIONS, userRetreivePermissionsSaga);
     yield takeEvery(USER_SUBMIT_BALLOT, ballotSubmissionSaga);
 }
 
@@ -64,6 +66,15 @@ function* userRetreivePrivateSaga() {
     }
 }
 
+export function* userRetreivePermissionsSaga() {
+    const publicKey: string | null = yield select(getPublicKey);
+    const endpoint: string | null = yield select(getEndpoint);
+    const response: AxiosResponse<{status: string}> = yield call(axios.get, `http://${endpoint}/userpermissions/${publicKey}`);
+    if (response.status >= 400 || response.data.status !== "OK") {
+        yield put(permissionRetreivalFailure());
+    }
+    yield put(permissionRetreivalSuccessful());
+}
 export function* permissionsRequestSaga(action: UserRequestPermissionsAction) {
     const { electionId, emailAddress, firstName, lastName, dateOfBirth } = action.payload;
     const publicKey: string | null = yield select(getPublicKey);

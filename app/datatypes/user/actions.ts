@@ -8,10 +8,14 @@ export const USER_RETURN_PRIVATE = 'USER_RETURN_PRIVATE';
 export const USER_RETURN_PRIVATE_FAILED = 'USER_RETURN_PRIVATE_FAILED';
 
 export const USER_REQUEST_PERMISSIONS = 'USER_REQUEST_PERMISSIONS';
-export const USER_SUCCESS_PERMISSIONS = 'USER_SUCCESS_PERMISSIONS';
-export const USER_FAILURE_PERMISSIONS = 'USER_FAILURE_PERMISSIONS';
+export const USER_SUCCESS_REQUEST_PERMISSIONS = 'USER_REQUEST_SUCCESS_PERMISSIONS';
+export const USER_FAILURE_REQUEST_PERMISSIONS = 'USER_REQUEST_FAILURE_PERMISSIONS';
 
 export const USER_RESET_REQUEST_PERMISSIONS = 'USER_RESET_REQUEST_PERMISSIONS';
+
+export const USER_RETREIVE_PERMISSIONS = 'USER_RETREIVE_PERMISSIONS';
+export const USER_SUCCESS_RETREIVAL_PERMISSIONS = 'USER_SUCCESS_RETREIVAL_PERMISSIONS';
+export const USER_FAILURE_RETREIVAL_PERMISSIONS = 'USER_FAILURE_RETREIVAL_PERMISSIONS';
 
 export const USER_CONFIRM_PERMISSION = 'USER_CONFIRM_PERMISSION';
 
@@ -46,17 +50,29 @@ export interface UserRequestPermissionsAction {
   payload: { electionId: string, emailAddress: string, firstName: string, lastName: string, dateOfBirth: string };
 }
 
-export interface UserSuccessPermissionsAction {
-  type: typeof USER_SUCCESS_PERMISSIONS;
+export interface UserSuccessRequestPermissionsAction {
+  type: typeof USER_SUCCESS_REQUEST_PERMISSIONS;
 }
 
-export interface UserFailurePermissionsAction {
-  type: typeof USER_FAILURE_PERMISSIONS;
+export interface UserFailureRequestPermissionsAction {
+  type: typeof USER_FAILURE_REQUEST_PERMISSIONS;
 }
 
 export interface UserResetRequestPermissionsAction {
   type: typeof USER_RESET_REQUEST_PERMISSIONS;
   payload: ElectionId;
+}
+
+export interface UserRetreivePermissionsAction {
+  type: typeof USER_RETREIVE_PERMISSIONS;
+}
+
+export interface UserSuccessPermissionsAction {
+  type: typeof USER_SUCCESS_RETREIVAL_PERMISSIONS;
+}
+
+export interface UserFailurePermissionsAction {
+  type: typeof USER_FAILURE_RETREIVAL_PERMISSIONS;
 }
 
 export interface UserConfirmPermissionAction {
@@ -82,9 +98,12 @@ export type UserActionTypes = UserRetreivePublicAction
                             | UserRetreivePrivateAction
                             | UserReturnPrivateAction
                             | UserReturnPrivateFailedAction
-                            | UserRequestPermissionsAction
+                            | UserRetreivePermissionsAction
                             | UserSuccessPermissionsAction
                             | UserFailurePermissionsAction
+                            | UserRequestPermissionsAction
+                            | UserSuccessRequestPermissionsAction
+                            | UserFailureRequestPermissionsAction
                             | UserResetRequestPermissionsAction
                             | UserConfirmPermissionAction
                             | UserSubmitBallotAction
@@ -132,18 +151,33 @@ export function resetRequestElectionPermissions(electionId: ElectionId): UserAct
 
 
 /** Request permissions for election */
+export function retreiveElectionPermissions(): UserActionTypes {
+    return { type: USER_RETREIVE_PERMISSIONS };
+}
+
+/** Retreival permissions for election succcessful */
+export function permissionRetreivalSuccessful(): UserActionTypes {
+    return { type: USER_SUCCESS_RETREIVAL_PERMISSIONS };
+}
+
+/** Retreival of permissions for election failed */
+export function permissionRetreivalFailure(): UserActionTypes {
+    return { type: USER_FAILURE_RETREIVAL_PERMISSIONS };
+}
+
+/** Request permissions for election */
 export function requestElectionPermissions(electionId: ElectionId, emailAddress: string, firstName: string, lastName: string, dateOfBirth: string): UserActionTypes {
     return { type: USER_REQUEST_PERMISSIONS, payload: { electionId, emailAddress, firstName, lastName, dateOfBirth } };
 }
 
 /** Request permissions for election */
 export function permissionRequestSuccessful(): UserActionTypes {
-    return { type: USER_SUCCESS_PERMISSIONS };
+    return { type: USER_SUCCESS_REQUEST_PERMISSIONS };
 }
 
 /** Request of permissions for election failed */
 export function permissionRequestFailure(): UserActionTypes {
-    return { type: USER_FAILURE_PERMISSIONS };
+    return { type: USER_FAILURE_REQUEST_PERMISSIONS };
 }
 
 /** Request of permissions for election has been confirmed */
@@ -158,10 +192,10 @@ export function submitBallot(electionId: ElectionId, receivers: { key: ElectionP
 
 /** Ballot submission for election successful */
 export function ballotSubmissionSuccessful(): UserActionTypes {
-    return { type: USER_SUCCESS_PERMISSIONS };
+    return { type: USER_SUCCESS_REQUEST_PERMISSIONS };
 }
 
 /** Ballot for election failed */
 export function ballotSubmissionFailure(): UserActionTypes {
-    return { type: USER_FAILURE_PERMISSIONS };
+    return { type: USER_FAILURE_REQUEST_PERMISSIONS };
 }
