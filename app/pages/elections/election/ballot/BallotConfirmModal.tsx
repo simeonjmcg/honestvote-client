@@ -36,7 +36,7 @@ export function BallotConfirmModal ({ election, visible, selections, onClose}: B
             onClose={onClose}
             title={"Please confirm your selections"}>
             {mapMapArray(selections, (value, key) => <View key={key}>
-                <Header6>{value.position.positionName}</Header6>
+                <Header6>{value.position.displayName}</Header6>
                 <Subtitle1>{value.candidate.name}</Subtitle1>
             </View>)}
         </Dialog>

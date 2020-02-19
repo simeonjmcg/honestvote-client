@@ -12,7 +12,7 @@ export interface BallotPositionViewProps {
 export function BallotPositionView ({ position, selected, onChange }: BallotPositionViewProps) {
     const candidates = position.candidates;
     return (
-        <Card title={<Header6>{position.positionName}</Header6>}>
+        <Card title={<Header6>{position.displayName}</Header6>}>
             {candidates.map((candidate, idx) =>
                <BallotChoiceView key={idx}
                     candidate={candidate}

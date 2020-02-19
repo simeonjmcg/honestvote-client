@@ -23,12 +23,12 @@ export function PositionView ({ electionId, position, started, small }: Position
     const votesById = voteCountByCandidate(votes);
     const orderedCandidates = sortCandidatesByVoteCount(candidates, votesById);
     const max = orderedCandidates.length !== 0 ?
-        votesById[orderedCandidates[0].key] ?? 0 : 0;
+        votesById[orderedCandidates[0].name] ?? 0 : 0;
     return (
         <Card minWidth={!small ? 400 : undefined}
             title={
                 <RowItem right={started && <Text>{totalVotes} votes</Text>}>
-                    <Header6>{position.positionName}</Header6>
+                    <Header6>{position.displayName}</Header6>
                 </RowItem>
             }>
             {orderedCandidates.map((candidate, idx) =>
@@ -36,7 +36,7 @@ export function PositionView ({ electionId, position, started, small }: Position
                         total={totalVotes}
                         max={max}
                         index={idx}
-                        votes={votesById[candidate.key] ?? 0}
+                        votes={votesById[candidate.name] ?? 0}
                         candidate={candidate} started={started}/>
             )}
         </Card>

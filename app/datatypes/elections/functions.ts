@@ -105,7 +105,7 @@ export function calculateElectionSignature(election: Election, privateKey: strin
         string(election.emailDomain),
         sequence(election.positions.map(p => sequence([
             string(p.id),
-            string(p.positionName),
+            string(p.displayName),
             sequence(p.candidates.map(c => sequence([
                 string(c.key),
                 string(c.name),

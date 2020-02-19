@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "redux";
-import { ActionTypes, requestClosestNode, retreivePublicKey } from "~/datatypes";
+import { ActionTypes, requestClosestNode, retreivePublicKey, retreiveElectionPermissions } from "~/datatypes";
 
 /** Hooks for anything that is common between all screens on all platforms */
 export function useCommon() {
@@ -9,5 +9,6 @@ export function useCommon() {
     useEffect(() => {
         dispatch(requestClosestNode());
         dispatch(retreivePublicKey());
+        dispatch(retreiveElectionPermissions());
     }, []);
 }

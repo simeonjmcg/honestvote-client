@@ -69,6 +69,7 @@ export interface UserRetreivePermissionsAction {
 
 export interface UserSuccessPermissionsAction {
   type: typeof USER_SUCCESS_RETREIVAL_PERMISSIONS;
+  payload: { canVote: ElectionId[] };
 }
 
 export interface UserFailurePermissionsAction {
@@ -156,8 +157,8 @@ export function retreiveElectionPermissions(): UserActionTypes {
 }
 
 /** Retreival permissions for election succcessful */
-export function permissionRetreivalSuccessful(): UserActionTypes {
-    return { type: USER_SUCCESS_RETREIVAL_PERMISSIONS };
+export function permissionRetreivalSuccessful(permissions: { canVote: ElectionId[]}): UserActionTypes {
+    return { type: USER_SUCCESS_RETREIVAL_PERMISSIONS, payload: permissions };
 }
 
 /** Retreival of permissions for election failed */

@@ -18,7 +18,7 @@ import {
     ballotSubmissionFailure, ballotSubmissionSuccessful, retreivePrivate,
     USER_RETURN_PRIVATE, UserReturnPrivateAction, USER_RETREIVE_PERMISSIONS,
 } from './actions';
-import { getElection, Election } from '../elections';
+import { getElection, Election, ElectionId } from '../elections';
 import { ElectionPermissionRequest } from './types';
 
 export function* userSaga() {
@@ -69,11 +69,11 @@ function* userRetreivePrivateSaga() {
 export function* userRetreivePermissionsSaga() {
     const publicKey: string | null = yield select(getPublicKey);
     const endpoint: string | null = yield select(getEndpoint);
-    const response: AxiosResponse<{status: string}> = yield call(axios.get, `http://${endpoint}/userpermissions/${publicKey}`);
+    const response: AxiosResponse<{status: string, data: { canVote: ElectionId[] }}> = yield call(axios.get, `http://${endpoint}/userpermissions/${publicKey}`);
     if (response.status >= 400 || response.data.status !== "OK") {
         yield put(permissionRetreivalFailure());
     }
-    yield put(permissionRetreivalSuccessful());
+    yield put(permissionRetreivalSuccessful(response.data.data));
 }
 export function* permissionsRequestSaga(action: UserRequestPermissionsAction) {
     const { electionId, emailAddress, firstName, lastName, dateOfBirth } = action.payload;

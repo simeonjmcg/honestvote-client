@@ -40,7 +40,7 @@ export type ElectionPositionId = AppId;
 /** ElectionPosition is a particular position */
 export interface ElectionPosition {
   id: ElectionPositionId;
-  positionName: string;
+  displayName: string;
   candidates: Candidate[];
 }
 
