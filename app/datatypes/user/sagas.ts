@@ -37,9 +37,9 @@ function* userRetreivePublicSaga() {
         // No key exists, prompt for pass and generate.
         yield put(promptPass("Please enter a new passcode to use when voting", true));
         const { payload: pass }: AppReturnPassAction = yield take(APP_RETURN_PASS);
-        const keyPair: ECKeyPair = yield call(generateNewUserKeys, pass);
-        const publicKey = keyPair.getPublic('hex');
-        yield put(storePublic(publicKey));
+        yield call(generateNewUserKeys, pass);
+        const publicKey: string | null = yield call(loadPublicKey);
+        yield put(storePublic(publicKey || ""));
     }
 }
 

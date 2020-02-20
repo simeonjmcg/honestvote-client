@@ -1,4 +1,4 @@
-import { ec as EC } from 'elliptic';
+import { ec as EC, ECKeyPair } from 'elliptic';
 import { scrypt } from 'scrypt-js';
 import { Buffer } from 'buffer';
 import { ModeOfOperation } from "aes-js";
@@ -109,8 +109,7 @@ export async function generateNewUserKeys(pass: string) {
     // convert components to hex string for storage
     const salt = bytesToHex(saltBytes);
     const passCheck = bytesToHex(passCheckBytes);
-    const publicKey = keyPair.getPublic();
-    const publicKeyDER = publicToDER(publicKey.getX().toString(), publicKey.getY().toString());
+    const publicKeyDER = publicAsDER(keyPair);
     const encryptedPrivateKey = bytesToHex(encryptedPrivateKeyBytes);
     const initializationVector = bytesToHex(initializationVectorBytes);
 
@@ -123,8 +122,9 @@ export async function generateNewUserKeys(pass: string) {
     return keyPair;
 }
 
-export function publicToDER(x: string, y: string) {
+export function publicAsDER(keyPair: ECKeyPair) {
+    const pt = keyPair.getPublic();
     return bytesToHex(sequence([
-        string(x), string(y),
+        string(pt.getX().toString()), string(pt.getY().toString()),
     ]).toBytes());
 }
