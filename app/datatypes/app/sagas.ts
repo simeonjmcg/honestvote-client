@@ -19,7 +19,8 @@ export function* closestNodeRequestSaga() {
     const response: AxiosResponse<{data: string}> = yield call(axios.get, `${REGISTRATION_ENDPOINT}/endpoint`);
     yield put(saveClosestNode(response.data.data));
     */
-    yield put(closestNodeRequestSuccessful("portainer.honestvote.io:7003"));
+    // yield put(closestNodeRequestSuccessful("portainer.honestvote.io:7003"));
+    yield put(closestNodeRequestSuccessful("localhost:7003"));
 }
 export let websocket: WebSocket;
 export function* closestNodeSuccessfulSaga(action: AppSuccessClosestNodeAction) {
