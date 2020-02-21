@@ -13,10 +13,9 @@ EXPOSE 8080
 RUN apk update
 RUN apk upgrade
 RUN apk add --no-cache bash git openssh
-RUN git clone https://github.com/simeonjmcg/honestvote-client
 
-WORKDIR /app/honestvote-client
-RUN npm install
+
+COPY . .
 
 # start app
 CMD npm run web
