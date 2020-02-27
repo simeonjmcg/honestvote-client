@@ -4,19 +4,19 @@ import {
     USER_RETREIVE_PUBLIC, USER_RETREIVE_PRIVATE,
     USER_REQUEST_PERMISSIONS, UserRequestPermissionsAction,
     USER_SUBMIT_BALLOT, UserSubmitBallotAction,
-    storePublic,
+    storePublic, getPublicKey,
     returnPrivate, returnPrivateFailed,
     permissionRequestSuccessful, permissionRequestFailure,
     permissionRetreivalSuccessful, permissionRetreivalFailure,
+    calculateRegistrationSignature,
 } from '.';
 import { promptPass, APP_RETURN_PASS, getEndpoint, AppReturnPassAction } from '../app';
 import { areKeysGenerated, generateNewUserKeys, loadPrivateKey, loadPublicKey } from '~/encryption';
 import { ECKeyPair } from 'elliptic';
-import { getPublicKey, calculateRegistrationSignature } from './functions';
 import { Vote, calculateVoteSignature } from '../votes';
 import {
     ballotSubmissionFailure, ballotSubmissionSuccessful, retreivePrivate,
-    USER_RETURN_PRIVATE, UserReturnPrivateAction, USER_RETREIVE_PERMISSIONS,
+    USER_RETURN_PRIVATE, UserReturnPrivateAction, USER_RETREIVE_PERMISSIONS, USER_STORE_PUBLIC,
 } from './actions';
 import { getElection, Election, ElectionId } from '../elections';
 import { ElectionPermissionRequest } from './types';
@@ -67,9 +67,12 @@ function* userRetreivePrivateSaga() {
 }
 
 export function* userRetreivePermissionsSaga() {
+    if (!(yield select(getPublicKey))) {
+        yield take(USER_STORE_PUBLIC);
+    }
     const publicKey: string | null = yield select(getPublicKey);
     const endpoint: string | null = yield select(getEndpoint);
-    const response: AxiosResponse<{status: string, data: { canVote: ElectionId[] }}> = yield call(axios.get, `https://${endpoint}/userpermissions/${publicKey}`);
+    const response: AxiosResponse<{status: string, data: ElectionId[] }> = yield call(axios.get, `https://${endpoint}/userpermissions/${publicKey}`);
     if (response.status >= 400 || response.data.status !== "OK") {
         yield put(permissionRetreivalFailure());
     }

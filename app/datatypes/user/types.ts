@@ -6,6 +6,7 @@ import { ElectionId } from "../elections";
 export interface UserState {
   publicKey: string | null;
   activePermissionRequest: ElectionId[];
+  permissionRetreivalStatus: ApiState;
   permissionRequestStatus: ApiState;
   ballotSubmissionStatus: ApiState;
   permissions: UserPermissions;
@@ -15,6 +16,7 @@ export interface UserState {
 export const initialUserState: UserState = {
   publicKey: null,
   activePermissionRequest: [],
+  permissionRetreivalStatus: "Idle",
   permissionRequestStatus: "Idle",
   ballotSubmissionStatus: "Idle",
   permissions: { canVote: [] },

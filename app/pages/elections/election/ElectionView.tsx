@@ -38,7 +38,7 @@ function ElectionView ({election}: ElectionViewProps) {
             {<Text>{openedStateString(election)}</Text>}
             {canVote ?
                 <View direction="row">
-                    <ButtonLink
+                    <ButtonLink type="contained" color="primary"
                         to={`/election/${election.id}/ballot`}
                         route="Ballot"
                         params={{id: election.id}}>
@@ -50,10 +50,12 @@ function ElectionView ({election}: ElectionViewProps) {
             isRegistrationPending && !isEnded ?
                 <Text>
                     Registration is pending. You may need to check your email, or
+                    {" "}
                     <Link 
                         to={`/election/${election.id}/registration`}
                         route="Registration"
                         params={{id: election.id}}>click here</Link>
+                    {" "}
                     to resubmit registration request.
                 </Text> :
             !isRegistered && !isEnded?

@@ -1,5 +1,5 @@
 // import axios, { AxiosResponse } from 'axios';
-import { takeEvery, put, take, /* call */ } from '@redux-saga/core/effects';
+import { takeEvery, put, take, select, /* call */ } from '@redux-saga/core/effects';
 import {
     APP_REQUEST_CLOSEST_NODE, APP_SUCCESS_CLOSEST_NODE, AppSuccessClosestNodeAction,
     //REGISTRATION_ENDPOINT,
@@ -7,7 +7,7 @@ import {
 import { closestNodeRequestSuccessful } from './actions';
 import { WebsocketTypes } from '../types';
 import { store } from '../reduxStore';
-import { retreivePublicKey, USER_STORE_PUBLIC, UserStorePublicAction } from '../user';
+import { USER_STORE_PUBLIC, getPublicKey } from '../user';
 
 export function* appSaga() {
     yield takeEvery(APP_REQUEST_CLOSEST_NODE, closestNodeRequestSaga);
@@ -26,9 +26,10 @@ export function* closestNodeSuccessfulSaga(action: AppSuccessClosestNodeAction) 
     if (websocket !== undefined) {
         websocket.close();
     }
-    yield put(retreivePublicKey());
-    const a: UserStorePublicAction = yield take(USER_STORE_PUBLIC);
-    const publicKey = a.payload;
+    if (!(yield select(getPublicKey))) {
+        yield take(USER_STORE_PUBLIC);
+    }
+    const publicKey: string | null = yield select(getPublicKey);
     websocket = new WebSocket(`wss://${action.payload}/websocket/${publicKey}`);
     websocket.addEventListener("message", ({ data: d }: MessageEvent) => {
         const data = d as WebsocketTypes;
