@@ -69,7 +69,7 @@ function* userRetreivePrivateSaga() {
 export function* userRetreivePermissionsSaga() {
     const publicKey: string | null = yield select(getPublicKey);
     const endpoint: string | null = yield select(getEndpoint);
-    const response: AxiosResponse<{status: string, data: { canVote: ElectionId[] }}> = yield call(axios.get, `http://${endpoint}/userpermissions/${publicKey}`);
+    const response: AxiosResponse<{status: string, data: { canVote: ElectionId[] }}> = yield call(axios.get, `https://${endpoint}/userpermissions/${publicKey}`);
     if (response.status >= 400 || response.data.status !== "OK") {
         yield put(permissionRetreivalFailure());
     }
@@ -88,7 +88,7 @@ export function* permissionsRequestSaga(action: UserRequestPermissionsAction) {
     }
     yield put(retreivePrivate());
     const returnPrivate: UserReturnPrivateAction = yield take(USER_RETURN_PRIVATE);
-    const response: AxiosResponse<{status: string}> = yield call(axios.post, `http://${endpoint}/election/${electionId}/register`, {
+    const response: AxiosResponse<{status: string}> = yield call(axios.post, `https://${endpoint}/election/${electionId}/register`, {
         // TODO: remap electionName to electionId
         publicKey, emailAddress, firstName, lastName, dateOfBirth,
         electionName: electionId, electionAdmin: election.sender,
@@ -116,7 +116,7 @@ export function* ballotSubmissionSaga(action: UserSubmitBallotAction) {
     yield put(retreivePrivate());
     const returnPrivate: UserReturnPrivateAction = yield take(USER_RETURN_PRIVATE);
     vote.signature = calculateVoteSignature(vote, returnPrivate.payload);
-    const response: AxiosResponse<{status: string}> = yield call(axios.post, `http://${endpoint}/election/${action.payload.electionId}/vote`, vote);
+    const response: AxiosResponse<{status: string}> = yield call(axios.post, `https://${endpoint}/election/${action.payload.electionId}/vote`, vote);
     if (response.status >= 400 || response.data.status !== "OK") {
         yield put(ballotSubmissionFailure());
         return;

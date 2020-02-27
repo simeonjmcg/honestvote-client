@@ -19,7 +19,7 @@ export function* closestNodeRequestSaga() {
     const response: AxiosResponse<{data: string}> = yield call(axios.get, `${REGISTRATION_ENDPOINT}/endpoint`);
     yield put(saveClosestNode(response.data.data));
     */
-    yield put(closestNodeRequestSuccessful("portainer.honestvote.io:7003"));
+    yield put(closestNodeRequestSuccessful("api.honestvote.io"));
 }
 export let websocket: WebSocket;
 export function* closestNodeSuccessfulSaga(action: AppSuccessClosestNodeAction) {
@@ -29,7 +29,7 @@ export function* closestNodeSuccessfulSaga(action: AppSuccessClosestNodeAction) 
     yield put(retreivePublicKey());
     const a: UserStorePublicAction = yield take(USER_STORE_PUBLIC);
     const publicKey = a.payload;
-    websocket = new WebSocket(`ws://${action.payload}/websocket/${publicKey}`);
+    websocket = new WebSocket(`wss://${action.payload}/websocket/${publicKey}`);
     websocket.addEventListener("message", ({ data: d }: MessageEvent) => {
         const data = d as WebsocketTypes;
         if (typeof data !== "object" || data == null)
