@@ -90,7 +90,7 @@ export function voteCountByCandidate(votes: Vote[]) {
 }
 
 export function sortCandidatesByVoteCount(candidates: Candidate[], voteCount: { [key: string ]: number}) {
-    return candidates.sort((c1, c2) => (voteCount[c2.key] ?? 0) - (voteCount[c1.key] ?? 0));
+    return candidates.sort((c1, c2) => (voteCount[c2.name] ?? 0) - (voteCount[c1.name] ?? 0));
 }
 
 // utils

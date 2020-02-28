@@ -60,8 +60,8 @@ function RegistrationPage( {match, navigation}: RegistrationPageProps ){
                     <Subtitle1>{election.description || "Unknown"}</Subtitle1>
                     <View>
                         <TextField label="Email" onValueChange = {setEmail} />
-                        {/* <TextField label="First Name" onValueChange = {setFirstName} />      */ }
-                        {/* <TextField label="Last Name" onValueChange = {setLastName} />        */ }
+                        {/* <TextField label="First Name"    onValueChange = {setFirstName} />   */ }
+                        {/* <TextField label="Last Name"     onValueChange = {setLastName} />    */ }
                         {/* <TextField label="Date of Birth" onValueChange = {setDateOfBirth} /> */ }
                     </View>                             
                     <View direction="row">
