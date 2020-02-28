@@ -28,9 +28,9 @@ function RegistrationPage( {match, navigation}: RegistrationPageProps ){
     const isRequested = id != undefined ? useSelector(getIsPermissionRequestActive(id)) : false;
 
     const [email, setEmail] = useState(""); 
-    const [firstName, setFirstName] = useState(""); 
-    const [lastName, setLastName] = useState(""); 
-    const [dateOfBirth, setDateOfBirth] = useState(""); 
+    // const [firstName, setFirstName] = useState("");
+    // const [lastName, setLastName] = useState(""); 
+    // const [dateOfBirth, setDateOfBirth] = useState(""); 
 
     // this is the onMount function
     useEffect(() => {
@@ -60,13 +60,13 @@ function RegistrationPage( {match, navigation}: RegistrationPageProps ){
                     <Subtitle1>{election.description || "Unknown"}</Subtitle1>
                     <View>
                         <TextField label="Email" onValueChange = {setEmail} />
-                        <TextField label="First Name" onValueChange = {setFirstName} />
-                        <TextField label="Last Name" onValueChange = {setLastName} />
-                        <TextField label="Date of Birth" onValueChange = {setDateOfBirth} />
+                        {/* <TextField label="First Name" onValueChange = {setFirstName} />      */ }
+                        {/* <TextField label="Last Name" onValueChange = {setLastName} />        */ }
+                        {/* <TextField label="Date of Birth" onValueChange = {setDateOfBirth} /> */ }
                     </View>                             
                     <View direction="row">
                         <Button type="contained" onPress = {() => {
-                            dispatch(requestElectionPermissions(election.id, email, firstName, lastName, dateOfBirth));
+                            dispatch(requestElectionPermissions(election.id, email, "", "", ""));  // firstName, lastName, dateOfBirth));
                         }}>Register</Button>
                     </View>
                 </> :
