@@ -20,7 +20,7 @@ export function votes(
         case VOTE_ADD:
             return { ...state, apiState: "Success",
                 votes: {...state.votes, 
-                    [action.payload.electionId]: [...state.votes[action.payload.electionId], action.payload.vote ],
+                    [action.payload.electionId]: [...state.votes[action.payload.electionId], action.payload ],
                 },
             };
         case VOTES_FAILURE:

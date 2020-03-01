@@ -30,8 +30,8 @@ export function calculateVoteSignature(vote: Vote, privateKey: string) {
         /* electionId: */ string(vote.electionId),
         /* receivers: */ sequence(vote.receivers.map(r =>
             sequence([
-                /* id: */ string(r.id),
-                /* key: */ string(r.key),
+                /* id: */ string(r.positionId),
+                /* key: */ string(r.candidateName),
             ])),
         ),
     ]);

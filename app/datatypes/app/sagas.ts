@@ -31,8 +31,15 @@ export function* closestNodeSuccessfulSaga(action: AppSuccessClosestNodeAction) 
     }
     const publicKey: string | null = yield select(getPublicKey);
     websocket = new WebSocket(`wss://${action.payload}/websocket/${publicKey}`);
-    websocket.addEventListener("message", ({ data: d }: MessageEvent) => {
-        const data = d as WebsocketTypes;
+    websocket.addEventListener("open", () => {
+        console.log("Websocket connection established: ", websocket);
+    });
+    websocket.addEventListener("close", () => {
+        console.log("Websocket connection closed: ", websocket);
+    });
+    websocket.addEventListener("message", (event: MessageEvent) => {
+        console.log("Websocket got a thing: ", websocket, event);
+        const data = JSON.parse(event.data) as WebsocketTypes;
         if (typeof data !== "object" || data == null)
             return;
         // specifically whitelisting redux actions from websocket
