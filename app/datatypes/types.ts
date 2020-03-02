@@ -43,7 +43,7 @@ export type AppId = string;
 /** registration endpoint */
 // export const REGISTRATION_ENDPOINT = "http://127.0.0.1:8080";
 /** Websocket endpoint */
-export const WS_ENDPOINT = "wss://localhost:8080/ws";
+export const WS_ENDPOINT = "ws://localhost:8080/ws";
 
 export type WebsocketTypes = VoteAddAction | UserConfirmPermissionAction;
 export type ActionTypes = AppActionTypes
