@@ -2,6 +2,8 @@ import { State } from "../types";
 import { ElectionId, Election, ElectionInfo, Candidate, ElectionPositionId } from "./types";
 import { findId, sumMapValues, mapKey } from "~/utils";
 import { Vote } from "../votes";
+import { ec } from "~/encryption";
+import { sequence, string } from "~/der-encoding";
 
 // selectors
 export function getElections(state: State) {
@@ -18,6 +20,11 @@ export function getElectionsApiStatus(state: State) {
 
 export function areElectionsLoading(state: State) {
     return getElectionsApiStatus(state) === "Fetching";
+}
+
+export function isElectionsFetchFailed(state: State) {
+    const status = getElectionsApiStatus(state);
+    return status === "Failed";
 }
 
 export function areElectionsLoaded(state: State) {
@@ -75,13 +82,35 @@ export function openedStateString(election: ElectionInfo): string {
 }
 
 export function countVotesByPositionId(votes: Vote[], positionId: ElectionPositionId) {
-    return votes.filter(vote => vote.receivers.some(pair => pair.key === positionId)).length;
+    return votes.filter(vote => vote.receivers && vote.receivers.some(pair => pair.positionId === positionId)).length;
 }
 
 export function voteCountByCandidate(votes: Vote[]) {
-    return sumMapValues(votes.map(vote => mapKey(vote.receivers, pair => ({ key: pair.id, value: 1 }))));
+    return sumMapValues(votes.map(vote => mapKey(vote.receivers, pair => ({ key: pair.candidateName, value: 1 }))));
 }
 
 export function sortCandidatesByVoteCount(candidates: Candidate[], voteCount: { [key: string ]: number}) {
-    return candidates.sort((c1, c2) => (voteCount[c2.id] ?? 0) - (voteCount[c1.id] ?? 0));
+    return candidates.sort((c1, c2) => (voteCount[c2.name] ?? 0) - (voteCount[c1.name] ?? 0));
+}
+
+// utils
+export function calculateElectionSignature(election: Election, privateKey: string) {
+    const keyPair = ec.keyFromPrivate(privateKey, "hex");
+    const el = sequence([
+        string(election.electionName),
+        string(election.institutionName),
+        string(election.description),
+        string(election.startDate),
+        string(election.endDate),
+        string(election.emailDomain),
+        sequence(election.positions.map(p => sequence([
+            string(p.id),
+            string(p.displayName),
+            sequence(p.candidates.map(c => sequence([
+                string(c.key),
+                string(c.name),
+            ]))),
+        ]))),
+    ]);
+    return keyPair.sign(el.toBytes()).toDER("hex");
 }

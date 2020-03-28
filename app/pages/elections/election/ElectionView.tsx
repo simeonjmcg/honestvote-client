@@ -4,6 +4,7 @@ import {
     getIsUserRegistered, getIsPermissionRequestActive,
     getCanUserVote, getIsElectionEnded, getHasUserVoted,
     openedStateString,
+    getIsElectionStarted,
 } from '~/datatypes';
 import { View, Header5, Subtitle1, Text, ButtonLink, Link } from '~/components';
 import { PositionView } from './PositionView';
@@ -24,6 +25,7 @@ function ElectionView ({election}: ElectionViewProps) {
     }, []);
 
     const n = Date.now();
+    const isStarted = useSelector(getIsElectionStarted(election, n));
     const isEnded = useSelector(getIsElectionEnded(election, n));
     const canVote = useSelector(getCanUserVote(election, n));
     const hasVoted = useSelector(getHasUserVoted(election));
@@ -36,7 +38,7 @@ function ElectionView ({election}: ElectionViewProps) {
             {<Text>{openedStateString(election)}</Text>}
             {canVote ?
                 <View direction="row">
-                    <ButtonLink
+                    <ButtonLink type="contained" color="primary"
                         to={`/election/${election.id}/ballot`}
                         route="Ballot"
                         params={{id: election.id}}>
@@ -48,10 +50,12 @@ function ElectionView ({election}: ElectionViewProps) {
             isRegistrationPending && !isEnded ?
                 <Text>
                     Registration is pending. You may need to check your email, or
+                    {" "}
                     <Link 
                         to={`/election/${election.id}/registration`}
                         route="Registration"
                         params={{id: election.id}}>click here</Link>
+                    {" "}
                     to resubmit registration request.
                 </Text> :
             !isRegistered && !isEnded?
@@ -69,7 +73,7 @@ function ElectionView ({election}: ElectionViewProps) {
                     <PositionView key={k}
                         electionId={election.id}
                         position={position}
-                        small={small} />)}
+                        small={small} started={isStarted} />)}
             </View>
         </View>
     );

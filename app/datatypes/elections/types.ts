@@ -40,7 +40,7 @@ export type ElectionPositionId = AppId;
 /** ElectionPosition is a particular position */
 export interface ElectionPosition {
   id: ElectionPositionId;
-  positionName: string;
+  displayName: string;
   candidates: Candidate[];
 }
 
@@ -50,6 +50,6 @@ export type CandidateId = AppId;
 
 /** Candidate is a candidate user that is publicly identified, and is able to run in an election */
 export interface Candidate {
-  id: CandidateId;
+  key: CandidateId;
   name: string;
 }

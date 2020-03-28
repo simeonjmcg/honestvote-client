@@ -23,7 +23,7 @@ function BallotView ({election}: BallotViewProps) {
             <View>
                 {election.positions.map((position) => 
                     <BallotPositionView key={position.id} position={position} 
-                        selected={selections[position.id]?.candidate.id}
+                        selected={selections[position.id]?.candidate.key}
                         onChange={candidate => setSelections({ ...selections, 
                             [position.id]: { position, candidate },
                         })} />)}

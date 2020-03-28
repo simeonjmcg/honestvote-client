@@ -13,7 +13,7 @@ export interface BallotChoiceViewProps {
 export function BallotChoiceView ({candidate, onPress, selected}: BallotChoiceViewProps) {
     return (
         <View>
-            <RowItem left={<View><Radio value={candidate.id} checked={selected} onPress={onPress} /></View>}>
+            <RowItem left={<View><Radio value={candidate.key} checked={selected} onPress={onPress} /></View>}>
                 <Text onPress={onPress}>{candidate.name}</Text>
             </RowItem>
         </View>

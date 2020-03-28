@@ -1,5 +1,9 @@
 import { State } from "..";
 import { ElectionId, Election, getElection, isElectionActive, getVotes } from "../elections";
+import { ElectionPermissionRequest } from "./types";
+import { ec } from "~/encryption";
+import { sequence, string } from "~/der-encoding";
+import hash from "hash.js";
 
 export function getPublicKey(state: State) {
     return state.user.publicKey;
@@ -55,4 +59,19 @@ export function arePermissionsRequested(state: State) {
     const status = getPermissionRequestApiStatus(state);
     return status !== "Idle" &&
            status !== "Fetching";
+}
+
+// utils
+export function calculateRegistrationSignature(request: ElectionPermissionRequest, privateKey: string) {
+    const keyPair = ec.keyFromPrivate(privateKey, "hex");
+    const sig = sequence([
+            // string(request.emailAddress),
+            string(request.firstName),
+            string(request.lastName),
+            string(request.dateOfBirth),
+            string(request.electionId),
+    ]);
+    const h = hash.sha256().update(sig.toBytes()).digest();
+
+    return keyPair.sign(h).toDER("hex");
 }

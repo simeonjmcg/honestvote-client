@@ -6,6 +6,7 @@ import { ElectionId } from "../elections";
 export interface UserState {
   publicKey: string | null;
   activePermissionRequest: ElectionId[];
+  permissionRetreivalStatus: ApiState;
   permissionRequestStatus: ApiState;
   ballotSubmissionStatus: ApiState;
   permissions: UserPermissions;
@@ -15,6 +16,7 @@ export interface UserState {
 export const initialUserState: UserState = {
   publicKey: null,
   activePermissionRequest: [],
+  permissionRetreivalStatus: "Idle",
   permissionRequestStatus: "Idle",
   ballotSubmissionStatus: "Idle",
   permissions: { canVote: [] },
@@ -22,7 +24,12 @@ export const initialUserState: UserState = {
 
 export interface ElectionPermissionRequest {
   electionId: ElectionId;
-  email: string; // may either be plain text, or encrypted with electionId's public key
+  emailAddress: string; // may either be plain text, or encrypted with electionId's public key
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  electionName: string;
+  electionAdmin: string;
 }
 
 /** UserPermissions are the permissions granted to a given user */

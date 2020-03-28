@@ -29,8 +29,10 @@ function RegistrationPage( {match, navigation}: RegistrationPageProps ){
     const [ error, setError ] = useState<string | undefined>(undefined);
 
     const canUserVote = id != undefined ? useSelector(getIsUserRegistered(id)) : false;
-
     const [email, setEmail] = useState(""); 
+    // const [firstName, setFirstName] = useState("");
+    // const [lastName, setLastName] = useState(""); 
+    // const [dateOfBirth, setDateOfBirth] = useState(""); 
     //let regexEmail = new RegExp ('@wcupa.edu$');
     // this is the onMount function
     useEffect(() => {
@@ -63,13 +65,16 @@ function RegistrationPage( {match, navigation}: RegistrationPageProps ){
                     </View>   
                     <Text color="red">{ error }</Text>                          
                     <View direction="row">
-                        <Button onPress = {() => {
+                        <Button type="contained" onPress = {() => {
                             let regexEmail = new RegExp (election.emailDomain);
                             if (regexEmail.test(email)) {
-                                dispatch(requestElectionPermissions ( election.id, email ));
+                                dispatch(requestElectionPermissions(election.id, email, "", "", ""));  // firstName, lastName, dateOfBirth));
                             } else {
                                 setError("Email Not Valid.");
                             }
+                        {/* <TextField label="First Name"    onValueChange = {setFirstName} />   */ }
+                        {/* <TextField label="Last Name"     onValueChange = {setLastName} />    */ }
+                        {/* <TextField label="Date of Birth" onValueChange = {setDateOfBirth} /> */ }
                         }}>Register</Button>
                     </View>
                 </> :

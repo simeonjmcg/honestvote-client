@@ -10,10 +10,11 @@ import { CandidateView } from './CandidateView';
 export interface PositionViewProps {
     electionId: ElectionId;
     position: ElectionPosition;
+    started?: boolean;
     small?: boolean;
 }
 
-export function PositionView ({ electionId, position, small }: PositionViewProps) {
+export function PositionView ({ electionId, position, started, small }: PositionViewProps) {
     // get redux values
     const votes = useSelector(getVotes(electionId));
     const candidates = position.candidates;
@@ -22,12 +23,12 @@ export function PositionView ({ electionId, position, small }: PositionViewProps
     const votesById = voteCountByCandidate(votes);
     const orderedCandidates = sortCandidatesByVoteCount(candidates, votesById);
     const max = orderedCandidates.length !== 0 ?
-        votesById[orderedCandidates[0].id] ?? 0 : 0;
+        votesById[orderedCandidates[0].name] ?? 0 : 0;
     return (
         <Card minWidth={!small ? 400 : undefined}
             title={
-                <RowItem right={<Text>{totalVotes} votes</Text>}>
-                    <Header6>{position.positionName}</Header6>
+                <RowItem right={started && <Text>{totalVotes} votes</Text>}>
+                    <Header6>{position.displayName}</Header6>
                 </RowItem>
             }>
             {orderedCandidates.map((candidate, idx) =>
@@ -35,8 +36,8 @@ export function PositionView ({ electionId, position, small }: PositionViewProps
                         total={totalVotes}
                         max={max}
                         index={idx}
-                        votes={votesById[candidate.id] ?? 0}
-                        candidate={candidate} />
+                        votes={votesById[candidate.name] ?? 0}
+                        candidate={candidate} started={started}/>
             )}
         </Card>
     );

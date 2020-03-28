@@ -7,7 +7,7 @@ import { Dispatch } from 'redux';
 import {
     ActionTypes,
     requestElection, setTitle,
-    getElection, areElectionsLoaded, requestVotes,
+    getElection, areElectionsLoaded, requestVotes, isElectionsFetchFailed,
 } from '~/datatypes';
 import { Text, Page } from '~/components';
 import { getParamFromProps } from '~/utils';
@@ -31,12 +31,15 @@ function ElectionPage ({match, navigation}: ElectionPageProps) {
             dispatch(requestVotes(id));
         }
     }, []);
+    const isLoadFailed = useSelector(isElectionsFetchFailed);
     const isLoaded = useSelector(areElectionsLoaded);
     const election = id !== undefined ? useSelector(getElection(id))
         : undefined;
     return (
         <Page>
-            { !isLoaded ?
+            { isLoadFailed ?
+                <Text>Elections could not be retreived!</Text> :
+                !isLoaded ?
                 <Text>Loading...</Text> : 
               election && "positions" in election ?
                 <ElectionView election={election} /> :

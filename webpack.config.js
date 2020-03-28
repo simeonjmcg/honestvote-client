@@ -21,6 +21,9 @@ module.exports = {
     rules: RULES,
   },
   devServer: {
+    host: '0.0.0.0',
+    port: 8080,
+    disableHostCheck: true,
     historyApiFallback: true,
   },
   plugins: [

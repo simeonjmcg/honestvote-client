@@ -23,7 +23,7 @@ export interface VotesFailureAction {
 }
 export interface VoteAddAction {
     type: typeof VOTE_ADD;
-    payload: { electionId: ElectionId, vote: Vote };
+    payload: Vote;
 }
 
 export type VotesActionTypes = VotesRequestAction
@@ -42,8 +42,8 @@ export function storeVotes(electionId: ElectionId, votes: Vote[]): VotesActionTy
 }
 
 /** store Votes in to the redux store */
-export function addVote(electionId: ElectionId, vote: Vote): VotesActionTypes {
-    return { type: VOTE_ADD,  payload: { electionId, vote } };
+export function addVote(vote: Vote): VotesActionTypes {
+    return { type: VOTE_ADD,  payload: vote };
 }
 
 /** fail storage of Votes in the redux store */
