@@ -5,7 +5,6 @@ import { ModeOfOperation } from "aes-js";
 import { getItem, setItem } from '~/storage';
 import { cryptoRandomBytes } from '~/platformUtils';
 import { StorageKeys } from './datatypes';
-import { string, sequence } from './der-encoding';
 
 // initialize elliptic key encryption object
 export const ec = new EC('p256');
@@ -109,7 +108,7 @@ export async function generateNewUserKeys(pass: string) {
     // convert components to hex string for storage
     const salt = bytesToHex(saltBytes);
     const passCheck = bytesToHex(passCheckBytes);
-    const publicKeyDER = publicAsDER(keyPair);
+    const publicKeyDER = encodePublic(keyPair);
     const encryptedPrivateKey = bytesToHex(encryptedPrivateKeyBytes);
     const initializationVector = bytesToHex(initializationVectorBytes);
 
@@ -122,9 +121,6 @@ export async function generateNewUserKeys(pass: string) {
     return keyPair;
 }
 
-export function publicAsDER(keyPair: ECKeyPair) {
-    const pt = keyPair.getPublic();
-    return bytesToHex(sequence([
-        string(pt.getX().toString()), string(pt.getY().toString()),
-    ]).toBytes());
+export function encodePublic(keyPair: ECKeyPair) {
+    return keyPair.getPublic(true, "hex");
 }
