@@ -9,8 +9,8 @@ export interface VotesState {
 
 /** Initial redux state of the application */
 export const initialVotesState: VotesState = {
-  votes: {},
-  apiState: "Idle",
+    votes: {},
+    apiState: "Idle",
 };
 
 /** VoterId is an identifier for a Voter */

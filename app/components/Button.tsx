@@ -1,6 +1,6 @@
-import React from 'react';
-import {Button as MaterialButton } from '@material-ui/core';
-import { createUseStyles } from 'react-jss';
+import React from "react";
+import { Button as MaterialButton } from "@material-ui/core";
+import { createUseStyles } from "react-jss";
 
 export interface ButtonProps {
     children?: string;

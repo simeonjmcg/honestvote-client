@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from "axios";
 import { takeEvery, put, select, call } from "@redux-saga/core/effects";
 import {
     VOTES_REQUEST,
@@ -7,7 +7,7 @@ import {
 import { VotesRequestAction } from ".";
 import { Vote } from "./types";
 import { getEndpoint } from "../app";
-import { errorVotes } from './actions';
+import { errorVotes } from "./actions";
 
 export function* votersSaga() {
     yield takeEvery(VOTES_REQUEST, votersRequestSaga);

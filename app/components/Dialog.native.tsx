@@ -1,6 +1,6 @@
-import React from 'react';
-import { Dialog as NativeDialog } from 'react-native-paper';
-import { DialogProps } from './Dialog';
+import React from "react";
+import { Dialog as NativeDialog } from "react-native-paper";
+import { DialogProps } from "./Dialog";
 
 export function Dialog ({ title, children, actions, open, onClose }: DialogProps) {
     return (

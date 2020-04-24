@@ -24,7 +24,7 @@ export function getIsUserRegistered(election: ElectionId | Election) {
         if (id == null) return false;
         const electionId = typeof election === "object" ? election.id : election;
         return state.user.permissions.canVote.includes(electionId);
-    }
+    };
 }
 
 export function getHasUserVoted(election: ElectionId | Election) {
@@ -34,7 +34,7 @@ export function getHasUserVoted(election: ElectionId | Election) {
         const eid = typeof election === "object" ? election.id : election;
         const votes = getVotes(eid)(state);
         return votes.some(v => v.sender == id);
-    }
+    };
 }
 
 export function getCanUserVote(election: Election | ElectionId, timestamp: number = Date.now()) {
@@ -45,7 +45,7 @@ export function getCanUserVote(election: Election | ElectionId, timestamp: numbe
         return isElectionActive(e, timestamp) &&
             getIsUserRegistered(e.id)(state) &&
             !getHasUserVoted(election)(state);
-    }
+    };
 }
 export function getPermissionRequestApiStatus(state: State) {
     return state.user.permissionRequestStatus;
@@ -65,11 +65,11 @@ export function arePermissionsRequested(state: State) {
 export function calculateRegistrationSignature(request: ElectionPermissionRequest, privateKey: string) {
     const keyPair = ec.keyFromPrivate(privateKey, "hex");
     const sig = sequence([
-            // string(request.emailAddress),
-            string(request.firstName),
-            string(request.lastName),
-            string(request.dateOfBirth),
-            string(request.electionId),
+        // string(request.emailAddress),
+        string(request.firstName),
+        string(request.lastName),
+        string(request.dateOfBirth),
+        string(request.electionId),
     ]);
     const h = hash.sha256().update(sig.toBytes()).digest();
 

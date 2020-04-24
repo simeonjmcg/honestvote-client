@@ -1,6 +1,6 @@
-import React from 'react';
-import { CardProps } from './Card';
-import { StyleSheet, View } from 'react-native';
+import React from "react";
+import { CardProps } from "./Card";
+import { StyleSheet, View } from "react-native";
 
 const style = StyleSheet.create({
     card: {

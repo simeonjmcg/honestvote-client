@@ -7,7 +7,7 @@ import {
     storeElections, 
 } from "./";
 import { getEndpoint } from "../app";
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from "axios";
 import { saveElectionSuccessful, saveElectionFailure, ElectionSaveAction, errorElections } from "./actions";
 import { getPublicKey, retreivePrivate, UserReturnPrivateAction, USER_RETURN_PRIVATE } from "../user";
 import { calculateElectionSignature } from "./functions";

@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import {
     Dialog as MaterialDialog, 
     DialogTitle, DialogContent, DialogActions,
-} from '@material-ui/core';
+} from "@material-ui/core";
 
 export interface DialogProps {
     title?: React.ReactNode;

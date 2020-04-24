@@ -1,6 +1,6 @@
-import React from 'react';
-import { List } from 'react-native-paper';
-import { ListItemProps } from './ListItem'
+import React from "react";
+import { List } from "react-native-paper";
+import { ListItemProps } from "./ListItem";
 
 export function ListItem ({ title, description, left, right }: ListItemProps) {
     return (

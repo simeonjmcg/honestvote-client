@@ -1,0 +1,6 @@
+// .eslintignore
+dist/*
+deployments/*
+android/*
+ios/*
+src/*.d.ts

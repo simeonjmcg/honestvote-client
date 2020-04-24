@@ -1,6 +1,6 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { RowItemProps } from './RowItem';
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { RowItemProps } from "./RowItem";
 
 const styles = StyleSheet.create({
     ticketRow: {

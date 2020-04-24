@@ -11,9 +11,9 @@ export async function cryptoRandomBytes(bytes: number) {
 }
 
 /** Redirect to link */
-export function useRedirect({to}: {to: string, route: string, params: {[key: string]: string} }) {
+export function useRedirect({ to }: {to: string, route: string, params: {[key: string]: string} }) {
     const history = useHistory();
     return () => {
         history.push(to);
-    }
+    };
 }

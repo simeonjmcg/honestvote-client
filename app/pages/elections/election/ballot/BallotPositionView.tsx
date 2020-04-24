@@ -1,7 +1,7 @@
-import React from 'react';
-import { Header6, Card } from '~/components';
-import { BallotChoiceView } from './BallotChoiceView';
-import { ElectionPosition, Candidate, CandidateId } from '~/datatypes';
+import React from "react";
+import { Header6, Card } from "~/components";
+import { BallotChoiceView } from "./BallotChoiceView";
+import { ElectionPosition, Candidate, CandidateId } from "~/datatypes";
 
 export interface BallotPositionViewProps {
     position: ElectionPosition
@@ -14,7 +14,7 @@ export function BallotPositionView ({ position, selected, onChange }: BallotPosi
     return (
         <Card title={<Header6>{position.displayName}</Header6>}>
             {candidates.map((candidate, idx) =>
-               <BallotChoiceView key={idx}
+                <BallotChoiceView key={idx}
                     candidate={candidate}
                     selected={selected === candidate.key}
                     onPress={() => onChange?.(candidate)} />

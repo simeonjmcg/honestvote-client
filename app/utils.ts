@@ -1,9 +1,17 @@
 import { AppId } from "./datatypes/types";
 import { NavigationStackProp } from "react-navigation-stack";
-import { match } from "react-router";
+
+export interface RouteMatch {
+    params: {
+        [key: string]: string;
+    };
+    isExact: boolean;
+    path: string;
+    url: string;
+}
 
 /** Utility function to get a parameter from either react router or react navigator */
-export function getParamFromProps (match: match<any> | null, navigation: NavigationStackProp, field: string): string | undefined{
+export function getParamFromProps (match: RouteMatch | null, navigation: NavigationStackProp, field: string): string | undefined{
     return match?.params[field] ??
            navigation?.getParam(field);
 }
@@ -40,7 +48,7 @@ export function updateIdArray<T extends IdObject>(array: T[], item: T) {
 /** map idArray to the correct ids from array */
 export function mapIdList<T extends IdObject>(idArray: AppId[], array: T[]) {
     return idArray.map(pid => findId(array, pid))
-                  .filter(notUndefined);
+        .filter(notUndefined);
 }
 
 /** takes a list of string-number maps and returns a map with the values of given key are summed. */

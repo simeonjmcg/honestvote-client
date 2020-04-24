@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Dispatch } from 'redux';
-import { useSelector, useDispatch } from 'react-redux';
-import { Card, Button, Text, View, Header5, ButtonGroup, TextField } from '~/components';
-import { isPromptingNewPass, AppActionTypes, returnPass, cancelPass, getPromptMessage } from '~/datatypes';
+import React, { useState } from "react";
+import { Dispatch } from "redux";
+import { useSelector, useDispatch } from "react-redux";
+import { Card, Button, Text, View, Header5, ButtonGroup, TextField } from "~/components";
+import { isPromptingNewPass, AppActionTypes, returnPass, cancelPass, getPromptMessage } from "~/datatypes";
 
 function PromptPassModal () {
     const dispatch = useDispatch<Dispatch<AppActionTypes>>();

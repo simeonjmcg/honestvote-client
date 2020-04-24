@@ -1,7 +1,7 @@
-import React from 'react';
-import { useNavigation } from 'react-navigation-hooks';
-import { Text, StyleSheet } from 'react-native';
-import { LinkProps } from './Link';
+import React from "react";
+import { useNavigation } from "react-navigation-hooks";
+import { Text, StyleSheet } from "react-native";
+import { LinkProps } from "./Link";
 
 const style = StyleSheet.create({
     link: {

@@ -8,14 +8,14 @@ export interface AppState {
   passPromptMessage: string;
   closestNodeRequestStatus: ApiState;
   endpoint: string | null;
-};
+}
 
 /** Initial redux state of the application */
 export const initialAppState: AppState = {
-  title: "Elections",
-  promptingPass: false,
-  createPass: false,
-  passPromptMessage: "",
-  closestNodeRequestStatus: "Idle",
-  endpoint: null,
+    title: "Elections",
+    promptingPass: false,
+    createPass: false,
+    passPromptMessage: "",
+    closestNodeRequestStatus: "Idle",
+    endpoint: null,
 };

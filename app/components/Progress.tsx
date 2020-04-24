@@ -1,6 +1,6 @@
-import React from 'react';
-import { createUseStyles } from 'react-jss';
-import { SECONDARY_COLOR } from '../theme';
+import React from "react";
+import { createUseStyles } from "react-jss";
+import { SECONDARY_COLOR } from "../theme";
 
 export interface ProgressProps {
     width?: number | string;
@@ -35,7 +35,7 @@ export function Progress ({ width, progress }: ProgressProps) {
     const style = useStyles();
     return (
         <div className={style.progress} style={{ width }}>
-            <div className={style.progressInner} style={{width: (progress * 100) + "%"}} />
+            <div className={style.progressInner} style={{ width: (progress * 100) + "%" }} />
         </div>
     );
 }

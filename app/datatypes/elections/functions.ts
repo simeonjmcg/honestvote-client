@@ -36,22 +36,22 @@ export function areElectionsLoaded(state: State) {
 export function getIsElectionStarted(election: Election | ElectionId, timestamp: number | string = Date.now()) {
     return (state: State) => {
         const e = typeof election === "object" ? election : getElection(election)(state);
-        return e != undefined && isElectionStarted(e, timestamp)
-    }
+        return e != undefined && isElectionStarted(e, timestamp);
+    };
 }
 
 export function getIsElectionEnded(election: Election | ElectionId, timestamp: number | string = Date.now()) {
     return (state: State) => {
         const e = typeof election === "object" ? election : getElection(election)(state);
-        return e != undefined && isElectionEnded(e, timestamp)
-    }
+        return e != undefined && isElectionEnded(e, timestamp);
+    };
 }
 
 export function getIsElectionActive(election: Election | ElectionId, timestamp: number | string = Date.now()) {
     return (state: State) => {
         const e = typeof election === "object" ? election : getElection(election)(state);
-        return e != undefined && isElectionActive(e, timestamp)
-    }
+        return e != undefined && isElectionActive(e, timestamp);
+    };
 }
 
 // util functions

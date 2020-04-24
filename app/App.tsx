@@ -1,20 +1,20 @@
-import React from 'react';
-import { Provider, useSelector } from 'react-redux'
-import { store } from './datatypes/reduxStore';
-import { makeStyles } from '@material-ui/core/styles';
-import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, ThemeProvider, responsiveFontSizes, Modal } from '@material-ui/core';
-import { getTitle, isPromptingPass } from './datatypes';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { PRIMARY_COLOR, SECONDARY_COLOR } from './theme';
+import React from "react";
+import { Provider, useSelector } from "react-redux";
+import { store } from "./datatypes/reduxStore";
+import { makeStyles } from "@material-ui/core/styles";
+import { Route, BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
+import { AppBar, Toolbar, Typography, ThemeProvider, responsiveFontSizes, Modal } from "@material-ui/core";
+import { getTitle, isPromptingPass } from "./datatypes";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { PRIMARY_COLOR, SECONDARY_COLOR } from "./theme";
 
-import { ElectionsPage } from './pages/elections/ElectionsPage';
-import { ElectionPage } from './pages/elections/election/ElectionPage';
-import { BallotPage } from './pages/elections/election/ballot/BallotPage';
+import { ElectionsPage } from "./pages/elections/ElectionsPage";
+import { ElectionPage } from "./pages/elections/election/ElectionPage";
+import { BallotPage } from "./pages/elections/election/ballot/BallotPage";
 
-import { RegistrationPage } from './pages/elections/election/registration/RegistrationPage';
-import { PromptPassModal } from './pages/PromptPassModal';
-import { useCommon } from './pages/common-hooks';
+import { RegistrationPage } from "./pages/elections/election/registration/RegistrationPage";
+import { PromptPassModal } from "./pages/PromptPassModal";
+import { useCommon } from "./pages/common-hooks";
 
 const theme = responsiveFontSizes(createMuiTheme({
     palette: {
@@ -28,11 +28,11 @@ const useStyles = makeStyles(_ => ({
         flexGrow: 1,
     },
     prompt: {
-        height: '100%',
+        height: "100%",
         paddingTop: 200,
-        display: 'flex',
-        alignItems: 'start',
-        justifyContent: 'center',
+        display: "flex",
+        alignItems: "start",
+        justifyContent: "center",
     },
 }));
 function ApplicationBar() {

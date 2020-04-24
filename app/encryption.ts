@@ -1,13 +1,13 @@
-import { ec as EC, ECKeyPair } from 'elliptic';
-import { scrypt } from 'scrypt-js';
-import { Buffer } from 'buffer';
+import { ec as EC, ECKeyPair } from "elliptic";
+import { scrypt } from "scrypt-js";
+import { Buffer } from "buffer";
 import { ModeOfOperation } from "aes-js";
-import { getItem, setItem } from '~/storage';
-import { cryptoRandomBytes } from '~/platformUtils';
-import { StorageKeys } from './datatypes';
+import { getItem, setItem } from "~/storage";
+import { cryptoRandomBytes } from "~/platformUtils";
+import { StorageKeys } from "./datatypes";
 
 // initialize elliptic key encryption object
-export const ec = new EC('p256');
+export const ec = new EC("p256");
 
 /** Generate a key from pass and salt for use in symmetric encryption */
 export async function generateSymmetricKey(pass: string, salt: Uint8Array) {
@@ -72,7 +72,7 @@ export async function loadPrivateKey(pass: string) {
     const key = await generateSymmetricKey(pass, saltBytes);
 
     const passCheckDecryptedBytes = aesDecrypt(key, initializationVectorBytes)(passCheckBytes);
-    if (bytesToHex(passCheckDecryptedBytes) !== '00000000000000000000000000000000') {
+    if (bytesToHex(passCheckDecryptedBytes) !== "00000000000000000000000000000000") {
         return null; // Pass was incorrect
     }
 

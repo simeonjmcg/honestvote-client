@@ -1,6 +1,6 @@
-import React from 'react';
-import { Container } from '@material-ui/core';
-import { createUseStyles } from 'react-jss';
+import React from "react";
+import { Container } from "@material-ui/core";
+import { createUseStyles } from "react-jss";
 
 export interface PageProps {
     children?: React.ReactNode;

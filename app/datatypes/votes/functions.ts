@@ -2,7 +2,7 @@ import { State } from "../types";
 import { ElectionId } from "../elections/types";
 import { Vote } from "./types";
 import { ec } from "~/encryption";
-import hash from 'hash.js';
+import hash from "hash.js";
 
 import { sequence, string } from "~/der-encoding";
 

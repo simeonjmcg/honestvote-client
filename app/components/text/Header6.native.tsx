@@ -1,6 +1,6 @@
-import React from 'react';
-import { Text, StyleSheet } from 'react-native';
-import { Header6Props } from './Header6';
+import React from "react";
+import { Text, StyleSheet } from "react-native";
+import { Header6Props } from "./Header6";
 
 const style = StyleSheet.create({
     header6: {

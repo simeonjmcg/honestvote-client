@@ -1,7 +1,7 @@
-import React from 'react';
-import { List as ListMaterial } from '@material-ui/core';
+import React from "react";
+import { List as ListMaterial } from "@material-ui/core";
 
-export interface ListProps<Data = any> {
+export interface ListProps<Data> {
     data: Data[];
     renderRow: (row: Data, index?: number) => React.ReactElement | null;
     keyExtractor?: (item: Data, index: number) => string;

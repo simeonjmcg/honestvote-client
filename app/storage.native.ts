@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from "@react-native-community/async-storage";
 
 /** gets an item from persistant storage from key */
 export async function getItem(key: string) {

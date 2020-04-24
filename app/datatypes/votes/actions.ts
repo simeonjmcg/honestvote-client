@@ -3,11 +3,11 @@ import {
 } from "./types";
 import { ElectionId } from "../elections/types";
 
-export const VOTES_REQUEST = 'VOTES_REQUEST';
-export const VOTES_SUCCESS = 'VOTES_SUCCESS';
-export const VOTES_FAILURE = 'VOTES_FAILURE';
+export const VOTES_REQUEST = "VOTES_REQUEST";
+export const VOTES_SUCCESS = "VOTES_SUCCESS";
+export const VOTES_FAILURE = "VOTES_FAILURE";
 
-export const VOTE_ADD = 'VOTE_ADD';
+export const VOTE_ADD = "VOTE_ADD";
 
 export interface VotesRequestAction {
     type: typeof VOTES_REQUEST;

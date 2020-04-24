@@ -2,9 +2,9 @@ import {
     AppActionTypes, AppState, initialAppState,
     UserActionTypes, UserState, initialUserState,
     ElectionActionTypes, ElectionsState, initialElectionsState,
-} from './';
-import { VotesState, initialVotesState, VotesActionTypes, VoteAddAction } from './votes';
-import { UserConfirmPermissionAction } from './user';
+} from "./";
+import { VotesState, initialVotesState, VotesActionTypes, VoteAddAction } from "./votes";
+import { UserConfirmPermissionAction } from "./user";
 
 /** Full redux state of the application */
 export interface State {
@@ -30,11 +30,11 @@ export const initialState: State = {
 
 /** Keys for persistant local storage */
 export const enum StorageKeys {
-  PassCheck            = '@pass_check', // nonce encrypted by passcode, salt and iv, used to verify correct passcode
-  PassSalt             = '@pass_salt',
-  PublicKey            = '@public_key', // plaintext public key
-  InitializationVector = '@initialization_vector',
-  PrivateKeyEncrypted  = '@private_key_encrypted',
+  PassCheck            = "@pass_check", // nonce encrypted by passcode, salt and iv, used to verify correct passcode
+  PassSalt             = "@pass_salt",
+  PublicKey            = "@public_key", // plaintext public key
+  InitializationVector = "@initialization_vector",
+  PrivateKeyEncrypted  = "@private_key_encrypted",
 }
 
 /** AppId is a generic string identifier used throughout the program */

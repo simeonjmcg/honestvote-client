@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { createUseStyles } from 'react-jss';
+import React, { useEffect } from "react";
+import { createUseStyles } from "react-jss";
 
 /** Properties of View */
 export interface ViewProps {
@@ -26,7 +26,7 @@ export function View ({ children, wrap, stretch, direction, width, centerSelf, o
             window.addEventListener("resize", onResize);
             return () => {
                 window.removeEventListener("resize", onResize);
-            }
+            };
         });
     }
     return (

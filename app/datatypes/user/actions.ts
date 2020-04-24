@@ -1,27 +1,27 @@
 import { ElectionId, VoteReceiver } from "../elections";
 
-export const USER_RETREIVE_PUBLIC = 'USER_RETREIVE_PUBLIC';
-export const USER_STORE_PUBLIC = 'USER_STORE_PUBLIC';
+export const USER_RETREIVE_PUBLIC = "USER_RETREIVE_PUBLIC";
+export const USER_STORE_PUBLIC = "USER_STORE_PUBLIC";
 
-export const USER_RETREIVE_PRIVATE = 'USER_RETREIVE_PRIVATE';
-export const USER_RETURN_PRIVATE = 'USER_RETURN_PRIVATE';
-export const USER_RETURN_PRIVATE_FAILED = 'USER_RETURN_PRIVATE_FAILED';
+export const USER_RETREIVE_PRIVATE = "USER_RETREIVE_PRIVATE";
+export const USER_RETURN_PRIVATE = "USER_RETURN_PRIVATE";
+export const USER_RETURN_PRIVATE_FAILED = "USER_RETURN_PRIVATE_FAILED";
 
-export const USER_REQUEST_PERMISSIONS = 'USER_REQUEST_PERMISSIONS';
-export const USER_SUCCESS_REQUEST_PERMISSIONS = 'USER_REQUEST_SUCCESS_PERMISSIONS';
-export const USER_FAILURE_REQUEST_PERMISSIONS = 'USER_REQUEST_FAILURE_PERMISSIONS';
+export const USER_REQUEST_PERMISSIONS = "USER_REQUEST_PERMISSIONS";
+export const USER_SUCCESS_REQUEST_PERMISSIONS = "USER_REQUEST_SUCCESS_PERMISSIONS";
+export const USER_FAILURE_REQUEST_PERMISSIONS = "USER_REQUEST_FAILURE_PERMISSIONS";
 
-export const USER_RESET_REQUEST_PERMISSIONS = 'USER_RESET_REQUEST_PERMISSIONS';
+export const USER_RESET_REQUEST_PERMISSIONS = "USER_RESET_REQUEST_PERMISSIONS";
 
-export const USER_RETREIVE_PERMISSIONS = 'USER_RETREIVE_PERMISSIONS';
-export const USER_SUCCESS_RETREIVAL_PERMISSIONS = 'USER_SUCCESS_RETREIVAL_PERMISSIONS';
-export const USER_FAILURE_RETREIVAL_PERMISSIONS = 'USER_FAILURE_RETREIVAL_PERMISSIONS';
+export const USER_RETREIVE_PERMISSIONS = "USER_RETREIVE_PERMISSIONS";
+export const USER_SUCCESS_RETREIVAL_PERMISSIONS = "USER_SUCCESS_RETREIVAL_PERMISSIONS";
+export const USER_FAILURE_RETREIVAL_PERMISSIONS = "USER_FAILURE_RETREIVAL_PERMISSIONS";
 
-export const USER_CONFIRM_PERMISSION = 'USER_CONFIRM_PERMISSION';
+export const USER_CONFIRM_PERMISSION = "USER_CONFIRM_PERMISSION";
 
-export const USER_SUBMIT_BALLOT  = 'USER_SUBMIT_BALLOT';
-export const USER_SUCCESS_BALLOT = 'USER_SUCCESS_BALLOT';
-export const USER_FAILURE_BALLOT = 'USER_FAILURE_BALLOT';
+export const USER_SUBMIT_BALLOT  = "USER_SUBMIT_BALLOT";
+export const USER_SUCCESS_BALLOT = "USER_SUCCESS_BALLOT";
+export const USER_FAILURE_BALLOT = "USER_FAILURE_BALLOT";
 
 export interface UserRetreivePublicAction {
     type: typeof USER_RETREIVE_PUBLIC;
@@ -128,7 +128,7 @@ export function storePublic(publicKey: string): UserActionTypes {
 export function retreivePrivate(): UserActionTypes {
     return {
         type: USER_RETREIVE_PRIVATE,
-     };
+    };
 }
 
 /** return with private key from the storage API */
@@ -136,14 +136,14 @@ export function returnPrivate(privateKey: string): UserActionTypes {
     return {
         type: USER_RETURN_PRIVATE,
         payload: privateKey,
-     };
+    };
 }
 
 /** return with private key failed */
 export function returnPrivateFailed(): UserActionTypes {
     return {
         type: USER_RETURN_PRIVATE_FAILED,
-     };
+    };
 }
 
 export function resetRequestElectionPermissions(electionId: ElectionId): UserActionTypes {

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Election, ElectionPosition, Candidate } from '~/datatypes';
-import { View, Header5, Subtitle1, Button } from '~/components';
-import { BallotPositionView } from './BallotPositionView';
-import { BallotConfirmModal } from './BallotConfirmModal';
+import React, { useState } from "react";
+import { Election, ElectionPosition, Candidate } from "~/datatypes";
+import { View, Header5, Subtitle1, Button } from "~/components";
+import { BallotPositionView } from "./BallotPositionView";
+import { BallotConfirmModal } from "./BallotConfirmModal";
 
 export interface BallotViewProps {
     election: Election;
@@ -13,7 +13,7 @@ export interface BallotSelection {
     candidate: Candidate;
 }
 
-function BallotView ({election}: BallotViewProps) {
+function BallotView ({ election }: BallotViewProps) {
     const [ dialogVisible, setDialogVisible ] = useState(false);
     const [ selections, setSelections ] = useState<{[id: string]: BallotSelection}>({});
     return (

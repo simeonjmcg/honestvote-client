@@ -1,5 +1,5 @@
-import React from 'react';
-import { createUseStyles } from 'react-jss';
+import React from "react";
+import { createUseStyles } from "react-jss";
 
 export interface RowItemProps {
     left?: React.ReactNode;

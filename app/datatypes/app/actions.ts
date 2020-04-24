@@ -1,10 +1,10 @@
-export const APP_SET_TITLE = 'APP_SET_TITLE';
-export const APP_PROMPT_PASS = 'APP_PROMPT_PASS';
-export const APP_CANCEL_PASS = 'APP_CANCEL_PASS';
-export const APP_RETURN_PASS = 'APP_RETURN_PASS';
-export const APP_REQUEST_CLOSEST_NODE = 'APP_REQUEST_CLOSEST_NODE';
-export const APP_SUCCESS_CLOSEST_NODE = 'APP_SUCCESS_CLOSEST_NODE';
-export const APP_FAILURE_CLOSEST_NODE = 'APP_FAILURE_CLOSEST_NODE';
+export const APP_SET_TITLE = "APP_SET_TITLE";
+export const APP_PROMPT_PASS = "APP_PROMPT_PASS";
+export const APP_CANCEL_PASS = "APP_CANCEL_PASS";
+export const APP_RETURN_PASS = "APP_RETURN_PASS";
+export const APP_REQUEST_CLOSEST_NODE = "APP_REQUEST_CLOSEST_NODE";
+export const APP_SUCCESS_CLOSEST_NODE = "APP_SUCCESS_CLOSEST_NODE";
+export const APP_FAILURE_CLOSEST_NODE = "APP_FAILURE_CLOSEST_NODE";
 
 export interface AppSetTitleAction {
   type: typeof APP_SET_TITLE;
@@ -53,7 +53,7 @@ export function setTitle(title: string): AppActionTypes {
 
 /** Prompt user to enter a pass */
 export function promptPass(message: string, createPass: boolean = false): AppActionTypes {
-    return { type: APP_PROMPT_PASS, payload: { createPass, message} };
+    return { type: APP_PROMPT_PASS, payload: { createPass, message } };
 }
 
 /** Return from a password entry */

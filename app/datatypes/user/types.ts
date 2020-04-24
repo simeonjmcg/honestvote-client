@@ -10,16 +10,16 @@ export interface UserState {
   permissionRequestStatus: ApiState;
   ballotSubmissionStatus: ApiState;
   permissions: UserPermissions;
-};
+}
 
 /** Initial redux state of the application */
 export const initialUserState: UserState = {
-  publicKey: null,
-  activePermissionRequest: [],
-  permissionRetreivalStatus: "Idle",
-  permissionRequestStatus: "Idle",
-  ballotSubmissionStatus: "Idle",
-  permissions: { canVote: [] },
+    publicKey: null,
+    activePermissionRequest: [],
+    permissionRetreivalStatus: "Idle",
+    permissionRequestStatus: "Idle",
+    ballotSubmissionStatus: "Idle",
+    permissions: { canVote: [] },
 };
 
 export interface ElectionPermissionRequest {

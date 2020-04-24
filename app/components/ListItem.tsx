@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import {
     ListItem as ListItemMaterial,
     ListItemText, ListItemIcon, ListItemSecondaryAction
-} from '@material-ui/core';
+} from "@material-ui/core";
 
 export interface ListItemProps {
     title: string | React.ReactElement;

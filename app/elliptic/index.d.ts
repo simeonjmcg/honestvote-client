@@ -2,20 +2,20 @@
 // Project: https://github.com/indutny/elliptic
 // Definitions by: Simeon McGraw <https://github.com/SimeonJMcG>
 
-import BN from 'bn.js';
-import hash from 'hash.js';
+import BN from "bn.js";
+import hash from "hash.js";
 
 /*~ Different presets for elliptic keys
  */
 export type CurvePreset = 
-      'secp256k1'
-    | 'p192'
-    | 'p224'
-    | 'p256'
-    | 'p384'
-    | 'p521'
-    | 'curve25519'
-    | 'ed25519';
+      "secp256k1"
+    | "p192"
+    | "p224"
+    | "p256"
+    | "p384"
+    | "p521"
+    | "curve25519"
+    | "ed25519";
 export type Message = string | number[] | ArrayBuffer | Uint8Array;
 declare class EDDSA {
     curve: BaseCurve;
@@ -23,7 +23,7 @@ declare class EDDSA {
     pointClass: SPoint | EPoint | MPoint | JPoint;
     encodingLength: number;
     hash: Hash;
-    constructor(curve: 'ed25519');
+    constructor(curve: "ed25519");
     sign(message: Message, secret: Message | EDDSAKeyPair): EDDSASignature;
     verify(message: Message, sig: EDDSASignature | Message | EDDSASignatureParams, pub: Message | BasePoint | EDDSAKeyPair): boolean;
     hashInt(): BN;
@@ -122,10 +122,10 @@ export interface ECKeyPairOptions {
     pubEnc?: Encoding;
 }
 
-export type Encoding = 'hex' | 'utf8' | number;
-export type ValidationReason = 'Invalid public key'
-                             | 'Public key is not a point'
-                             | 'Public key * N != O';
+export type Encoding = "hex" | "utf8" | number;
+export type ValidationReason = "Invalid public key"
+                             | "Public key is not a point"
+                             | "Public key * N != O";
 export interface ValidationResult {
     result: boolean;
     reason: ValidationReason;
@@ -148,11 +148,11 @@ export declare class ECKeyPair {
     static fromPublic(ec: EC, pub: Point, enc?: Encoding): ECKeyPair;
     static fromPrivate(ec: EC, priv: Point, enc?: Encoding): ECKeyPair;
     validate(): ValidationResult;
-    getPublic(compact: boolean, enc: 'hex'): string;
+    getPublic(compact: boolean, enc: "hex"): string;
     getPublic(compact?: boolean, enc?: Encoding): BasePoint;
-    getPublic(enc: 'hex'): string;
+    getPublic(enc: "hex"): string;
     getPublic(enc?: Encoding): Point;
-    getPrivate(enc: 'hex'): string;
+    getPrivate(enc: "hex"): string;
     getPrivate(enc?: Encoding): BasePoint;
     derive(pub: Point): BasePoint;
     sign(msg: Message, enc?: Encoding, options?: ECKeyPairOptions): ECSignature;
@@ -170,7 +170,7 @@ export declare class ECSignature {
     r: BN;
     s: BN;
     constructor(options: ECSignatureOptions, enc?: Encoding);
-    toDER(enc?: 'hex'): string;
+    toDER(enc?: "hex"): string;
     toDER(enc?: Encoding): Buffer;
 }
 
@@ -182,7 +182,7 @@ export interface CurveConf {
     gRed?: boolean;
 }
 
-export type CurveType = 'edwards' | 'mont' | 'short';
+export type CurveType = "edwards" | "mont" | "short";
 export declare class BaseCurve {
     type: CurveType;
     p: BN;
@@ -207,7 +207,7 @@ export declare class EdwardsCurve extends BaseCurve {
     twisted: boolean;
     mOneA: boolean;
     extended: boolean;
-    type: 'edwards';
+    type: "edwards";
     a: BN;
     c: BN;
     c2: BN;
@@ -229,7 +229,7 @@ export interface MontCurveConf extends CurveConf {
 }
 
 export declare class MontCurve extends BaseCurve {
-    type: 'mont';
+    type: "mont";
     a: BN;
     b: BN;
     i4: BN;
@@ -248,7 +248,7 @@ export interface ShortCurveConf extends CurveConf {
 }
 
 export declare class ShortCurve extends BaseCurve {
-    type: 'short';
+    type: "short";
     a: BN;
     b: BN;
     tinv: BN;
@@ -263,7 +263,7 @@ export declare class ShortCurve extends BaseCurve {
     pointFromJSON(obj: [string, string, string], red?: boolean);
 }
 
-export type PointType = 'projective' | 'affine';
+export type PointType = "projective" | "affine";
 
 export declare type Point = BasePoint | Buffer | string | {
     x: Buffer | string | Array,
@@ -289,7 +289,7 @@ export declare class BasePoint {
 }
 
 export declare class EPoint extends BasePoint {
-    type: 'projective';
+    type: "projective";
     x: BN;
     y: BN;
     z: BN;
@@ -314,7 +314,7 @@ export declare class EPoint extends BasePoint {
 export declare class MPoint extends BasePoint {
     x: BN;
     z: BN;
-    type: 'projective';
+    type: "projective";
     // constructor(curve: BaseCurve, x: BN | string | number, z: BN | string | number);
     precompute(): void;
     static fromJSON(curve: BaseCurve, obj: [string, string?]): MPoint;
@@ -333,7 +333,7 @@ export declare class MPoint extends BasePoint {
 export declare class SPoint extends BasePoint {
     x: BN;
     y: BN;
-    type: 'projective';
+    type: "projective";
     // constructor(curve: BaseCurve, x: BN | string, y: BN | string, isRed?: boolean);
     toJSON(): string;
     static fromJSON(curve: BaseCurve, obj: [string, string, string], red?: boolean): SPoint;

@@ -1,13 +1,13 @@
 // import axios, { AxiosResponse } from 'axios';
-import { takeEvery, put, take, select, /* call */ } from '@redux-saga/core/effects';
+import { takeEvery, put, take, select, /* call */ } from "@redux-saga/core/effects";
 import {
     APP_REQUEST_CLOSEST_NODE, APP_SUCCESS_CLOSEST_NODE, AppSuccessClosestNodeAction,
     //REGISTRATION_ENDPOINT,
-} from './actions';
-import { closestNodeRequestSuccessful } from './actions';
-import { WebsocketTypes } from '../types';
-import { store } from '../reduxStore';
-import { USER_STORE_PUBLIC, getPublicKey } from '../user';
+} from "./actions";
+import { closestNodeRequestSuccessful } from "./actions";
+import { WebsocketTypes } from "../types";
+import { store } from "../reduxStore";
+import { USER_STORE_PUBLIC, getPublicKey } from "../user";
 
 export function* appSaga() {
     yield takeEvery(APP_REQUEST_CLOSEST_NODE, closestNodeRequestSaga);
@@ -44,12 +44,12 @@ export function* closestNodeSuccessfulSaga(action: AppSuccessClosestNodeAction) 
             return;
         // specifically whitelisting redux actions from websocket
         switch (data.type) {
-            case "VOTE_ADD":
-                store.dispatch({ type: data.type, payload: data.payload });
-                return;
-            case "USER_CONFIRM_PERMISSION":
-                store.dispatch({ type: data.type, payload: data.payload });
-                return;
+        case "VOTE_ADD":
+            store.dispatch({ type: data.type, payload: data.payload });
+            return;
+        case "USER_CONFIRM_PERMISSION":
+            store.dispatch({ type: data.type, payload: data.payload });
+            return;
         }
     });
 

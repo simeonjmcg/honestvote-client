@@ -1,5 +1,5 @@
-import axios, { AxiosResponse } from 'axios';
-import { takeEvery, put, take, call, select } from '@redux-saga/core/effects';
+import axios, { AxiosResponse } from "axios";
+import { takeEvery, put, take, call, select } from "@redux-saga/core/effects";
 import { 
     USER_RETREIVE_PUBLIC, USER_RETREIVE_PRIVATE,
     USER_REQUEST_PERMISSIONS, UserRequestPermissionsAction,
@@ -9,17 +9,17 @@ import {
     permissionRequestSuccessful, permissionRequestFailure,
     permissionRetreivalSuccessful, permissionRetreivalFailure,
     calculateRegistrationSignature,
-} from '.';
-import { promptPass, APP_RETURN_PASS, getEndpoint, AppReturnPassAction } from '../app';
-import { areKeysGenerated, generateNewUserKeys, loadPrivateKey, loadPublicKey } from '~/encryption';
-import { ECKeyPair } from 'elliptic';
-import { Vote, calculateVoteSignature } from '../votes';
+} from ".";
+import { promptPass, APP_RETURN_PASS, getEndpoint, AppReturnPassAction } from "../app";
+import { areKeysGenerated, generateNewUserKeys, loadPrivateKey, loadPublicKey } from "~/encryption";
+import { ECKeyPair } from "elliptic";
+import { Vote, calculateVoteSignature } from "../votes";
 import {
     ballotSubmissionFailure, ballotSubmissionSuccessful, retreivePrivate,
     USER_RETURN_PRIVATE, UserReturnPrivateAction, USER_RETREIVE_PERMISSIONS, USER_STORE_PUBLIC,
-} from './actions';
-import { getElection, Election, ElectionId } from '../elections';
-import { ElectionPermissionRequest } from './types';
+} from "./actions";
+import { getElection, Election, ElectionId } from "../elections";
+import { ElectionPermissionRequest } from "./types";
 
 export function* userSaga() {
     yield takeEvery(USER_RETREIVE_PUBLIC, userRetreivePublicSaga);
@@ -61,7 +61,7 @@ function* userRetreivePrivateSaga() {
         yield put(promptPass("Please enter a new passcode to use when voting", true));
         const { payload: pass }: AppReturnPassAction = yield take(APP_RETURN_PASS);
         const { getPrivate }: ECKeyPair = yield call(generateNewUserKeys, pass);
-        const privateKey = getPrivate('hex');
+        const privateKey = getPrivate("hex");
         yield put(returnPrivate(privateKey));
     }
 }

@@ -1,7 +1,7 @@
-import React from 'react';
-import { ProgressProps } from './Progress';
-import { ProgressViewIOS, StyleSheet } from 'react-native';
-import { SECONDARY_COLOR } from '../theme';
+import React from "react";
+import { ProgressProps } from "./Progress";
+import { ProgressViewIOS, StyleSheet } from "react-native";
+import { SECONDARY_COLOR } from "../theme";
 
 const style = StyleSheet.create({
     progress: {

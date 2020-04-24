@@ -1,5 +1,5 @@
-import React from 'react';
-import { Typography } from '@material-ui/core';
+import React from "react";
+import { Typography } from "@material-ui/core";
 
 export interface Header6Props {
     children?: React.ReactNode;

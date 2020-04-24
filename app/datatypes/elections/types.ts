@@ -8,8 +8,8 @@ export interface ElectionsState {
 
 /** Initial redux state of the application */
 export const initialElectionsState: ElectionsState = {
-  elections: [],
-  apiState: "Idle",
+    elections: [],
+    apiState: "Idle",
 };
 
 /** ElectionId is an identifier for an Election */

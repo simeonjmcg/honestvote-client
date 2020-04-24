@@ -1,9 +1,9 @@
-import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 import {
     ListItem as ListItemMaterial,
     ListItemText, ListItemIcon, ListItemSecondaryAction,
-} from '@material-ui/core';
+} from "@material-ui/core";
 
 export interface ListItemLinkProps {
     title: string | React.ReactElement;

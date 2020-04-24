@@ -1,29 +1,29 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RouteChildrenProps } from 'react-router';
-import { NavigationStackScreenProps } from 'react-navigation-stack';
-import { Dispatch } from 'redux';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RouteChildrenProps } from "react-router";
+import { NavigationStackScreenProps } from "react-navigation-stack";
+import { Dispatch } from "redux";
 
 import {
     ActionTypes,
     requestElection, setTitle,
     getElection, areElectionsLoaded, requestVotes, isElectionsFetchFailed,
-} from '~/datatypes';
-import { Text, Page } from '~/components';
-import { getParamFromProps } from '~/utils';
-import { PRIMARY_COLOR } from '~/theme';
+} from "~/datatypes";
+import { Text, Page } from "~/components";
+import { getParamFromProps } from "~/utils";
+import { PRIMARY_COLOR } from "~/theme";
 
-import { ElectionView } from './ElectionView';
+import { ElectionView } from "./ElectionView";
 
 // NavigationStack for native, Router for web
 export type ElectionPageProps = NavigationStackScreenProps & RouteChildrenProps;
 
-function ElectionPage ({match, navigation}: ElectionPageProps) {
+function ElectionPage ({ match, navigation }: ElectionPageProps) {
     const dispatch = useDispatch<Dispatch<ActionTypes>>();
     const id = getParamFromProps(match, navigation, "id");
     // this is the onMount function
     useEffect(() => {
-        dispatch(setTitle('Election'));
+        dispatch(setTitle("Election"));
 
         // retrieve data
         if (id !== undefined) {
@@ -40,10 +40,10 @@ function ElectionPage ({match, navigation}: ElectionPageProps) {
             { isLoadFailed ?
                 <Text>Elections could not be retreived!</Text> :
                 !isLoaded ?
-                <Text>Loading...</Text> : 
-              election && "positions" in election ?
-                <ElectionView election={election} /> :
-                <Text>Election not found!</Text>
+                    <Text>Loading...</Text> : 
+                    election && "positions" in election ?
+                        <ElectionView election={election} /> :
+                        <Text>Election not found!</Text>
             }
         </Page>
     );
@@ -51,7 +51,7 @@ function ElectionPage ({match, navigation}: ElectionPageProps) {
 ElectionPage.navigationOptions = {
     title: "Election",
     headerStyle: {
-      backgroundColor: PRIMARY_COLOR,
+        backgroundColor: PRIMARY_COLOR,
     },
-}
+};
 export { ElectionPage };
