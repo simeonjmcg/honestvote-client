@@ -1,5 +1,5 @@
-import { slugify } from "~/utils";
-import { ElectionPosition } from "~/datatypes";
+import {slugify} from "~/utils";
+import {ElectionPosition} from "~/datatypes";
 
 export type AdminCreateState = ElectionPosition[];
 interface AddPosition {
@@ -30,7 +30,7 @@ export type AdminCreateActions = AddPosition  | DeletePosition  | SetPosition |
                                  AddCandidate | DeleteCandidate | SetCandidate;
 
 export function adminCreate(state: AdminCreateState, action: AdminCreateActions): AdminCreateState {
-    switch(action.type) {
+    switch (action.type) {
         case "add-position":
             return [...state, {id: "", displayName: "", candidates: [{key: "", name: ""}]}];
         case "delete-position":
@@ -39,20 +39,20 @@ export function adminCreate(state: AdminCreateState, action: AdminCreateActions)
             return state.filter((_, i) => i !== action.payload.positionIndex);
         case "set-position":
             return state.map((pos, i) => i !== action.payload.positionIndex ? pos :
-                { ...pos, id: slugify(action.payload.value), positionName: action.payload.value });
+                {...pos, id: slugify(action.payload.value), positionName: action.payload.value});
         case "add-candidate":
             return state.map((pos, i) => i !== action.payload.positionIndex ? pos :
-                { ...pos, candidates: [...pos.candidates, {key: "", name: ""}]});
+                {...pos, candidates: [...pos.candidates, {key: "", name: ""}]});
         case "delete-candidate":
             return state.map((pos, i) => i !== action.payload.positionIndex ? pos :
-                { ...pos,
+                {...pos,
                     candidates: pos.candidates.filter((_, i) => i !== action.payload.candidateIndex),
                 });
         case "set-candidate":
             return state.map((pos, i) => i !== action.payload.positionIndex ? pos :
-                { ...pos,
+                {...pos,
                     candidates: pos.candidates.map((candidate, i) => i !== action.payload.candidateIndex ? candidate :
-                    { ...candidate, id: slugify(action.payload.value), name: action.payload.value }),
+                    {...candidate, id: slugify(action.payload.value), name: action.payload.value}),
                 });
     }
     return state;

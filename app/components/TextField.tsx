@@ -1,5 +1,5 @@
-import React, { useCallback, ChangeEvent } from "react";
-import { TextField as MaterialTextField } from "@material-ui/core";
+import React, {useCallback, ChangeEvent} from "react";
+import {TextField as MaterialTextField} from "@material-ui/core";
 
 export interface TextFieldProps {
     label?: string;
@@ -7,7 +7,7 @@ export interface TextFieldProps {
     value?: string;
 }
 
-export function TextField ({ label, onValueChange, value }: TextFieldProps) {
+export function TextField ({label, onValueChange, value}: TextFieldProps) {
     const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         if (onValueChange) onValueChange(e.target.value);
     }, [onValueChange]);

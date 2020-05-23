@@ -1,33 +1,33 @@
 import React from "react";
-import { Provider, useSelector } from "react-redux";
-import { store } from "./datatypes/reduxStore";
-import { makeStyles } from "@material-ui/core/styles";
-import { Route, BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
-import { AppBar, Toolbar, Typography, ThemeProvider, responsiveFontSizes, Modal } from "@material-ui/core";
-import { getTitle, isPromptingPass } from "./datatypes";
-import { createMuiTheme } from "@material-ui/core/styles";
-import { PRIMARY_COLOR, SECONDARY_COLOR } from "./theme";
+import {Provider, useSelector} from "react-redux";
+import {store} from "./datatypes/reduxStore";
+import {makeStyles} from "@material-ui/core/styles";
+import {Route, BrowserRouter as Router, Switch, Redirect} from "react-router-dom";
+import {AppBar, Toolbar, Typography, ThemeProvider, responsiveFontSizes, Modal} from "@material-ui/core";
+import {getTitle, isPromptingPass} from "./datatypes";
+import {createMuiTheme} from "@material-ui/core/styles";
+import {PRIMARY_COLOR, SECONDARY_COLOR} from "./theme";
 
-import { ElectionsPage } from "./pages/elections/ElectionsPage";
-import { ElectionPage } from "./pages/elections/election/ElectionPage";
-import { BallotPage } from "./pages/elections/election/ballot/BallotPage";
+import {ElectionsPage} from "./pages/elections/ElectionsPage";
+import {ElectionPage} from "./pages/elections/election/ElectionPage";
+import {BallotPage} from "./pages/elections/election/ballot/BallotPage";
 
-import { AdminCreatePage } from './pages/admin/AdminCreatePage';
-import { AdminDashboardPage } from './pages/admin/AdminDashboardPage';
-import { AdminEditPage } from './pages/admin/AdminEditPage';
+import {AdminCreatePage} from './pages/admin/AdminCreatePage';
+import {AdminDashboardPage} from './pages/admin/AdminDashboardPage';
+import {AdminEditPage} from './pages/admin/AdminEditPage';
 
-import { RegistrationPage } from "./pages/elections/election/registration/RegistrationPage";
-import { PromptPassModal } from "./pages/PromptPassModal";
-import { useCommon } from "./pages/common-hooks";
+import {RegistrationPage} from "./pages/elections/election/registration/RegistrationPage";
+import {PromptPassModal} from "./pages/PromptPassModal";
+import {useCommon} from "./pages/common-hooks";
 
 const theme = responsiveFontSizes(createMuiTheme({
     palette: {
-        primary: { main: PRIMARY_COLOR },
-        secondary: { main: SECONDARY_COLOR },
+        primary: {main: PRIMARY_COLOR},
+        secondary: {main: SECONDARY_COLOR},
     },
 }));
 
-const useStyles = makeStyles(_ => ({
+const useStyles = makeStyles({
     title: {
         flexGrow: 1,
     },
@@ -38,7 +38,7 @@ const useStyles = makeStyles(_ => ({
         alignItems: "start",
         justifyContent: "center",
     },
-}));
+});
 function ApplicationBar() {
     const styles = useStyles();
     return (

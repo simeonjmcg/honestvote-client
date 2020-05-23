@@ -1,7 +1,7 @@
 import React from "react";
-import { ProgressProps } from "./Progress";
-import { ProgressBarAndroid, StyleSheet } from "react-native";
-import { SECONDARY_COLOR } from "../theme";
+import {ProgressProps} from "./Progress";
+import {ProgressBarAndroid, StyleSheet} from "react-native";
+import {SECONDARY_COLOR} from "../theme";
 
 const style = StyleSheet.create({
     progress: {
@@ -9,10 +9,10 @@ const style = StyleSheet.create({
     },
 });
 
-export function Progress ({ width, progress }: ProgressProps) {
+export function Progress ({width, progress}: ProgressProps) {
     return (
         <ProgressBarAndroid
-            style={[{ width }, style.progress]}
+            style={[{width}, style.progress]}
             progress={ progress }
             styleAttr="Horizontal"
             indeterminate={false}

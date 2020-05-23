@@ -1,7 +1,7 @@
 import React from "react";
-import { useNavigation } from "react-navigation-hooks";
-import { Text, StyleSheet } from "react-native";
-import { LinkProps } from "./Link";
+import {useNavigation} from "react-navigation-hooks";
+import {Text, StyleSheet} from "react-native";
+import {LinkProps} from "./Link";
 
 const style = StyleSheet.create({
     link: {
@@ -10,7 +10,7 @@ const style = StyleSheet.create({
     },
 });
 
-export function Link ({ children, route, params }: LinkProps) {
+export function Link ({children, route, params}: LinkProps) {
     const navigation = useNavigation();
     return (
         <Text style={style.link} onPress={() => navigation && navigation.navigate(route, params)}>

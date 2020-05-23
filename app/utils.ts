@@ -1,5 +1,5 @@
-import { AppId } from "./datatypes/types";
-import { NavigationStackProp } from "react-navigation-stack";
+import {AppId} from "./datatypes/types";
+import {NavigationStackProp} from "react-navigation-stack";
 
 export interface RouteMatch {
     params: {
@@ -42,7 +42,7 @@ export function withoutId<T extends IdObject>(array: T[], id: AppId) {
 }
 
 export function updateIdArray<T extends IdObject>(array: T[], item: T) {
-    return [ ...withoutId(array, item.id), item ];
+    return [...withoutId(array, item.id), item];
 }
 
 /** map idArray to the correct ids from array */
@@ -84,7 +84,7 @@ export function mapKeyValueMap<T1, T2>(map: {[key: string]: T1}, fn: (value: T1,
 
 /** takes map and transformation function and returns new map, with a given value remapped to given key */
 export function mapValueMap<T1, T2>(map: {[key: string]: T1}, fn: (item: T1, key: string) => T2) {
-    return mapKeyValueMap(map, (value, key) => ({ value: fn(value, key), key }));
+    return mapKeyValueMap(map, (value, key) => ({value: fn(value, key), key}));
 }
 
 /** Accessor function for id */

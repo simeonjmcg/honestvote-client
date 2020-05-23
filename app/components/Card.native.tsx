@@ -1,6 +1,6 @@
 import React from "react";
-import { CardProps } from "./Card";
-import { StyleSheet, View } from "react-native";
+import {CardProps} from "./Card";
+import {StyleSheet, View} from "react-native";
 
 const style = StyleSheet.create({
     card: {
@@ -25,9 +25,9 @@ const style = StyleSheet.create({
     },
 });
 
-export function Card ({ title, children, minWidth, width }: CardProps) {
+export function Card ({title, children, minWidth, width}: CardProps) {
     return (
-        <View style={[{ minWidth, width }, style.card] }>
+        <View style={[{minWidth, width}, style.card] }>
             <View style={ style.cardHeader }>{ title }</View>
             <View style={ style.cardContent }>{ children }</View>
         </View>

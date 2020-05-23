@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { createUseStyles } from "react-jss";
+import React, {useEffect} from "react";
+import {createUseStyles} from "react-jss";
 
 /** Properties of View */
 export interface ViewProps {
@@ -19,7 +19,7 @@ const useStyles = createUseStyles ({
 });
 
 /** User interface View */
-export function View ({ children, wrap, stretch, direction, width, centerSelf, onResize }: ViewProps) {
+export function View ({children, wrap, stretch, direction, width, centerSelf, onResize}: ViewProps) {
     const style = useStyles();
     if (onResize) {
         useEffect(() => {

@@ -1,5 +1,5 @@
-import { AppId, ApiState } from "../types";
-import { ElectionId, ElectionPositionId } from "../elections/types";
+import {AppId, ApiState} from "../types";
+import {ElectionId, ElectionPositionId} from "../elections/types";
 
 /** state for Voters */
 export interface VotesState {

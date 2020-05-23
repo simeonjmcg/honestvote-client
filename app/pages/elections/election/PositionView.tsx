@@ -1,11 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Text, Card, Header6 } from "~/components";
+import {useSelector} from "react-redux";
+import {Text, Card, Header6} from "~/components";
 import {
     ElectionPosition, ElectionId, getVotes, countVotesByPositionId, voteCountByCandidate, sortCandidatesByVoteCount,
 } from "~/datatypes";
-import { RowItem } from "./components";
-import { CandidateView } from "./CandidateView";
+import {RowItem} from "./components";
+import {CandidateView} from "./CandidateView";
 
 export interface PositionViewProps {
     electionId: ElectionId;
@@ -14,7 +14,7 @@ export interface PositionViewProps {
     small?: boolean;
 }
 
-export function PositionView ({ electionId, position, started, small }: PositionViewProps) {
+export function PositionView ({electionId, position, started, small}: PositionViewProps) {
     // get redux values
     const votes = useSelector(getVotes(electionId));
     const candidates = position.candidates;
@@ -37,7 +37,7 @@ export function PositionView ({ electionId, position, started, small }: Position
                     max={max}
                     index={idx}
                     votes={votesById[candidate.name] ?? 0}
-                    candidate={candidate} started={started}/>
+                    candidate={candidate} started={started}/>,
             )}
         </Card>
     );

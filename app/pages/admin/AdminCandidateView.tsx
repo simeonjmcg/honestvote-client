@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Candidate } from '~/datatypes';
-import { View, TextField, Button, Card} from '~/components';
+import {Candidate} from '~/datatypes';
+import {View, TextField, Button, Card} from '~/components';
 
 
 export interface AdminCandidateViewProps {

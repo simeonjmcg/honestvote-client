@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RouteChildrenProps } from "react-router";
-import { NavigationStackScreenProps } from "react-navigation-stack";
-import { Dispatch } from "redux";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {RouteChildrenProps} from "react-router";
+import {NavigationStackScreenProps} from "react-navigation-stack";
+import {Dispatch} from "redux";
 
-import { Text, Page } from "~/components";
-import { getParamFromProps } from "~/utils";
-import { PRIMARY_COLOR } from "~/theme";
+import {Text, Page} from "~/components";
+import {getParamFromProps} from "~/utils";
+import {PRIMARY_COLOR} from "~/theme";
 import {
     ActionTypes,
     setTitle,
@@ -14,12 +14,12 @@ import {
     getElection, areElectionsLoaded, requestVotes,
 } from "~/datatypes";
 
-import { BallotView } from "./BallotView";
+import {BallotView} from "./BallotView";
 
 // NavigationStack for native, Router for web
 export type BallotPageProps = NavigationStackScreenProps & RouteChildrenProps;
 
-function BallotPage ({ match, navigation }: BallotPageProps) {
+function BallotPage ({match, navigation}: BallotPageProps) {
     const dispatch = useDispatch<Dispatch<ActionTypes>>();
     const id = getParamFromProps(match, navigation, "id");
     // this is the onMount function
@@ -51,4 +51,4 @@ BallotPage.navigationOptions = {
         backgroundColor: PRIMARY_COLOR,
     },
 };
-export { BallotPage };
+export {BallotPage};

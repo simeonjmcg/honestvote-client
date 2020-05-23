@@ -1,4 +1,4 @@
-import { ElectionId, VoteReceiver } from "../elections";
+import {ElectionId, VoteReceiver} from "../elections";
 
 export const USER_RETREIVE_PUBLIC = "USER_RETREIVE_PUBLIC";
 export const USER_STORE_PUBLIC = "USER_STORE_PUBLIC";
@@ -113,7 +113,7 @@ export type UserActionTypes = UserRetreivePublicAction
 
 /** retreive public key from the redux store */
 export function retreivePublicKey(): UserActionTypes {
-    return { type: USER_RETREIVE_PUBLIC };
+    return {type: USER_RETREIVE_PUBLIC};
 }
 
 /** store public key in the redux store */
@@ -147,56 +147,56 @@ export function returnPrivateFailed(): UserActionTypes {
 }
 
 export function resetRequestElectionPermissions(electionId: ElectionId): UserActionTypes {
-    return { type: USER_RESET_REQUEST_PERMISSIONS, payload: electionId };
+    return {type: USER_RESET_REQUEST_PERMISSIONS, payload: electionId};
 }
 
 
 /** Request permissions for election */
 export function retreiveElectionPermissions(): UserActionTypes {
-    return { type: USER_RETREIVE_PERMISSIONS };
+    return {type: USER_RETREIVE_PERMISSIONS};
 }
 
 /** Retreival permissions for election succcessful */
 export function permissionRetreivalSuccessful(permissions: ElectionId[]): UserActionTypes {
-    return { type: USER_SUCCESS_RETREIVAL_PERMISSIONS, payload: permissions };
+    return {type: USER_SUCCESS_RETREIVAL_PERMISSIONS, payload: permissions};
 }
 
 /** Retreival of permissions for election failed */
 export function permissionRetreivalFailure(): UserActionTypes {
-    return { type: USER_FAILURE_RETREIVAL_PERMISSIONS };
+    return {type: USER_FAILURE_RETREIVAL_PERMISSIONS};
 }
 
 /** Request permissions for election */
 export function requestElectionPermissions(electionId: ElectionId, emailAddress: string, firstName: string, lastName: string, dateOfBirth: string): UserActionTypes {
-    return { type: USER_REQUEST_PERMISSIONS, payload: { electionId, emailAddress, firstName, lastName, dateOfBirth } };
+    return {type: USER_REQUEST_PERMISSIONS, payload: {electionId, emailAddress, firstName, lastName, dateOfBirth}};
 }
 
 /** Request permissions for election */
 export function permissionRequestSuccessful(): UserActionTypes {
-    return { type: USER_SUCCESS_REQUEST_PERMISSIONS };
+    return {type: USER_SUCCESS_REQUEST_PERMISSIONS};
 }
 
 /** Request of permissions for election failed */
 export function permissionRequestFailure(): UserActionTypes {
-    return { type: USER_FAILURE_REQUEST_PERMISSIONS };
+    return {type: USER_FAILURE_REQUEST_PERMISSIONS};
 }
 
 /** Request of permissions for election has been confirmed */
 export function permissionRequestConfirmed(electionId: ElectionId): UserActionTypes {
-    return { type: USER_CONFIRM_PERMISSION, payload: electionId };
+    return {type: USER_CONFIRM_PERMISSION, payload: electionId};
 }
 
 /** Submit ballot for election */
 export function submitBallot(electionId: ElectionId, receivers: VoteReceiver[]): UserActionTypes {
-    return { type: USER_SUBMIT_BALLOT, payload: { receivers, electionId } };
+    return {type: USER_SUBMIT_BALLOT, payload: {receivers, electionId}};
 }
 
 /** Ballot submission for election successful */
 export function ballotSubmissionSuccessful(): UserActionTypes {
-    return { type: USER_SUCCESS_REQUEST_PERMISSIONS };
+    return {type: USER_SUCCESS_REQUEST_PERMISSIONS};
 }
 
 /** Ballot for election failed */
 export function ballotSubmissionFailure(): UserActionTypes {
-    return { type: USER_FAILURE_REQUEST_PERMISSIONS };
+    return {type: USER_FAILURE_REQUEST_PERMISSIONS};
 }

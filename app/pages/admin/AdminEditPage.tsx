@@ -1,14 +1,14 @@
-import React, { useEffect, useReducer } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RouteChildrenProps } from 'react-router';
-import { NavigationStackScreenProps } from 'react-navigation-stack';
-import { Dispatch } from 'redux';
-import { adminCreate } from './reducer';
-import { Page, ButtonLink, Text } from '~/components';
-import { getParamFromProps } from '~/utils';
-import { PRIMARY_COLOR } from '~/theme';
-import { ActionTypes, setTitle, requestElection, requestVotes, getElection, areElectionsLoaded} from '~/datatypes';
-import { AdminEditView } from './AdminEditView';
+import React, {useEffect, useReducer} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {RouteChildrenProps} from 'react-router';
+import {NavigationStackScreenProps} from 'react-navigation-stack';
+import {Dispatch} from 'redux';
+import {adminCreate} from './reducer';
+import {Page, ButtonLink, Text} from '~/components';
+import {getParamFromProps} from '~/utils';
+import {PRIMARY_COLOR} from '~/theme';
+import {ActionTypes, setTitle, requestElection, requestVotes, getElection, areElectionsLoaded} from '~/datatypes';
+import {AdminEditView} from './AdminEditView';
 
 
 // NavigationStack for native, Router for web
@@ -17,7 +17,7 @@ export type AdminEditPageProps = NavigationStackScreenProps & RouteChildrenProps
 function AdminEditPage ({match, navigation}: AdminEditPageProps) {
     const dispatchP = useDispatch<Dispatch<ActionTypes>>();
     const id = getParamFromProps(match, navigation, "id");    
-    const [ positions, dispatch ] = useReducer( adminCreate, [{ id: "", displayName: "", candidates: [{key: "", name: ""}]}] );
+    const [positions, dispatch] = useReducer(adminCreate, [{id: "", displayName: "", candidates: [{key: "", name: ""}]}]);
 
     useEffect(() => {
         dispatchP(setTitle('Admin Edit Page'));
@@ -44,10 +44,10 @@ function AdminEditPage ({match, navigation}: AdminEditPageProps) {
                 election && "positions" in election ?
                 <AdminEditView 
                     position = {row} 
-                    onChange = { (positionName) => dispatch({ type: 'set-position', payload: {positionIndex, value: positionName}})}
+                    onChange = { positionName => dispatch({type: 'set-position', payload: {positionIndex, value: positionName}})}
                     onCandidateDelete = {(candidateName, candidateIndex) => dispatch({type: 'delete-candidate', payload: {positionIndex, candidateIndex, value: candidateName}})}
-                    onCandidateChange = {(candidateName, candidateIndex) => dispatch({ type: 'set-candidate', payload: {positionIndex, candidateIndex, value: candidateName}})} /> :
-                    <Text>Election not found!</Text>
+                    onCandidateChange = {(candidateName, candidateIndex) => dispatch({type: 'set-candidate', payload: {positionIndex, candidateIndex, value: candidateName}})} /> :
+                    <Text>Election not found!</Text>,
         )}               
        </Page>
    );
@@ -58,4 +58,4 @@ AdminEditPage.navigationOptions = {
       backgroundColor: PRIMARY_COLOR,
     },
 }
-export { AdminEditPage };
+export {AdminEditPage};

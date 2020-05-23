@@ -1,8 +1,8 @@
-import { createStore, applyMiddleware, compose, StoreEnhancer } from "redux";
-import { reducer } from "./reducer";
-import { initialState } from "./types";
+import {createStore, applyMiddleware, compose, StoreEnhancer} from "redux";
+import {reducer} from "./reducer";
+import {initialState} from "./types";
 import createSagaMiddleware from "redux-saga";
-import { rootSaga } from "./sagas";
+import {rootSaga} from "./sagas";
 
 interface WindowReduxDevTools extends Window {
     __REDUX_DEVTOOLS_EXTENSION__: () => StoreEnhancer;

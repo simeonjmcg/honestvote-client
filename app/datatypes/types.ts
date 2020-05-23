@@ -3,8 +3,8 @@ import {
     UserActionTypes, UserState, initialUserState,
     ElectionActionTypes, ElectionsState, initialElectionsState,
 } from "./";
-import { VotesState, initialVotesState, VotesActionTypes, VoteAddAction } from "./votes";
-import { UserConfirmPermissionAction } from "./user";
+import {VotesState, initialVotesState, VotesActionTypes, VoteAddAction} from "./votes";
+import {UserConfirmPermissionAction} from "./user";
 
 /** Full redux state of the application */
 export interface State {

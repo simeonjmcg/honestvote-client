@@ -1,4 +1,4 @@
-import { AppId, ApiState } from "../types";
+import {AppId, ApiState} from "../types";
 
 /** state for Elections */
 export interface ElectionsState {

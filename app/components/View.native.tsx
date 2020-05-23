@@ -1,9 +1,9 @@
 import React from "react";
-import { View as NativeView } from "react-native";
-import { ViewProps } from "./View";
+import {View as NativeView} from "react-native";
+import {ViewProps} from "./View";
 
 /** User interface View */
-export function View ({ children, wrap, stretch, direction, width, onResize }: ViewProps) {
+export function View ({children, wrap, stretch, direction, width, onResize}: ViewProps) {
     return (
         <NativeView onLayout={onResize} style={{
             flexWrap: wrap ? "wrap" : "nowrap",

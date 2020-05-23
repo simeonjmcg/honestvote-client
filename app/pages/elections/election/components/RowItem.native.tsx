@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
-import { RowItemProps } from "./RowItem";
+import {StyleSheet, View} from "react-native";
+import {RowItemProps} from "./RowItem";
 
 const styles = StyleSheet.create({
     ticketRow: {
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export function RowItem ({ left, children, right }: RowItemProps) {
+export function RowItem ({left, children, right}: RowItemProps) {
     return (
         <View style={styles.ticketRow}>
             {left != undefined ? 

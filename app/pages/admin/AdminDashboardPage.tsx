@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
-import { RouteChildrenProps } from "react-router";
-import { NavigationStackScreenProps } from "react-navigation-stack";
-import { useDispatch, useSelector } from "react-redux";
-import { Dispatch } from "redux";
+import React, {useEffect} from 'react';
+import {RouteChildrenProps} from "react-router";
+import {NavigationStackScreenProps} from "react-navigation-stack";
+import {useDispatch, useSelector} from "react-redux";
+import {Dispatch} from "redux";
 import {
     ActionTypes,
     requestElections, getElections,
 } from "~/datatypes";
-import { Page, Card, Header5, ButtonLink, ListItem,View } from '~/components';
-import { PRIMARY_COLOR } from '~/theme';
+import {Page, Card, Header5, ButtonLink, ListItem, View} from '~/components';
+import {PRIMARY_COLOR} from '~/theme';
 
 // NavigationStack for native, Router for web
 export type AdminPageProps = NavigationStackScreenProps & RouteChildrenProps;

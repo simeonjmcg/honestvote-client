@@ -1,5 +1,5 @@
-import { ApiState } from "../types";
-import { ElectionId } from "../elections";
+import {ApiState} from "../types";
+import {ElectionId} from "../elections";
 
 
 /** state for user */
@@ -19,7 +19,7 @@ export const initialUserState: UserState = {
     permissionRetreivalStatus: "Idle",
     permissionRequestStatus: "Idle",
     ballotSubmissionStatus: "Idle",
-    permissions: { canVote: [] },
+    permissions: {canVote: []},
 };
 
 export interface ElectionPermissionRequest {

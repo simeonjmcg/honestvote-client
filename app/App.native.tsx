@@ -1,23 +1,23 @@
 import React from "react";
-import { Provider, useSelector } from "react-redux";
-import { createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
-import { store, isPromptingPass } from "~/datatypes";
-import { ElectionsPage } from "./pages/elections/ElectionsPage";
-import { ElectionPage } from "./pages/elections/election/ElectionPage";
-import { BallotPage } from "./pages/elections/election/ballot/BallotPage";
-import { View, Modal, StyleSheet } from "react-native";
-import { PromptPassModal } from "./pages/PromptPassModal";
-import { useCommon } from "./pages/common-hooks";
-import { Provider as PaperProvider, DefaultTheme } from "react-native-paper";
+import {Provider, useSelector} from "react-redux";
+import {createAppContainer} from "react-navigation";
+import {createStackNavigator} from "react-navigation-stack";
+import {store, isPromptingPass} from "~/datatypes";
+import {ElectionsPage} from "./pages/elections/ElectionsPage";
+import {ElectionPage} from "./pages/elections/election/ElectionPage";
+import {BallotPage} from "./pages/elections/election/ballot/BallotPage";
+import {View, Modal, StyleSheet} from "react-native";
+import {PromptPassModal} from "./pages/PromptPassModal";
+import {useCommon} from "./pages/common-hooks";
+import {Provider as PaperProvider, DefaultTheme} from "react-native-paper";
 
-import { RegistrationPage } from "./pages/elections/election/registration/RegistrationPage";
+import {RegistrationPage} from "./pages/elections/election/registration/RegistrationPage";
 
 const MainNavigator = createStackNavigator({
-    Elections: { screen: ElectionsPage },
-    Election: { screen: ElectionPage },
-    Ballot: { screen: BallotPage },
-    Registration: { screen: RegistrationPage },
+    Elections: {screen: ElectionsPage},
+    Election: {screen: ElectionPage},
+    Ballot: {screen: BallotPage},
+    Registration: {screen: RegistrationPage},
 });
 
 const Navigation = createAppContainer(MainNavigator);
