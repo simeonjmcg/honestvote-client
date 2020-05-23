@@ -5,9 +5,9 @@ import {Page, TextField, Card, Header5, Button, ButtonLink, View} from '~/compon
 import {adminCreate} from './reducer';
 import {PRIMARY_COLOR} from '~/theme';
 import {AdminPositionView} from './AdminPositionView';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Dispatch} from "redux";
-import {ActionTypes, saveElection} from "~/datatypes";
+import {ActionTypes, saveElection, getElections} from "~/datatypes";
 
 // NavigationStack for native, Router for web
 export type AdminPageProps = NavigationStackScreenProps & RouteChildrenProps;
@@ -19,6 +19,9 @@ export function AdminCreatePage () {
     const [description, setDescription]  = useState(""); 
     const [startDate, setStartDate]  = useState(""); 
     const [endDate, setEndDate]  = useState("");
+    const [emailDomain, setEmailDomain]  = useState("");
+    const election = useSelector(getElections).find(e => e.sender === "");
+    const institutionName = election ? election.institutionName : "";
 
     return (
         <Page>  
@@ -34,6 +37,7 @@ export function AdminCreatePage () {
                     <TextField label="Election Description" onValueChange = {setDescription} ></TextField>
                     <TextField label="Starting Date" onValueChange = {setStartDate} ></TextField>
                     <TextField label="End Date" onValueChange = {setEndDate} ></TextField>
+                    <TextField label="Email Domain" onValueChange = {setEmailDomain} ></TextField>
                 </View>
             </Card>
 
@@ -49,7 +53,7 @@ export function AdminCreatePage () {
                         onCandidateChange = {(candidateName, candidateIndex) => dispatch({type: 'set-candidate', payload: {positionIndex, candidateIndex, value: candidateName}})} />,
                 )}
             </Card>
-            <Button type="contained" onPress={() => reduxDispatch(saveElection({electionName, description, startDate, endDate, positions, sender:"", emailDomain:"", allowedCandidates:[], institutionName: "", id:"", signature:""}))}>Create Election</Button>
+            <Button type="contained" onPress={() => reduxDispatch(saveElection({electionName, description, startDate, endDate, positions, sender:"", emailDomain, allowedCandidates:[], institutionName, id:"", signature:""}))}>Create Election</Button>
         </Page>
     );
 }
