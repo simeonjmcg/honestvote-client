@@ -1,7 +1,7 @@
 import React from "react";
 import {
     ListItem as ListItemMaterial,
-    ListItemText, ListItemIcon, ListItemSecondaryAction
+    ListItemText, ListItemIcon, ListItemSecondaryAction,
 } from "@material-ui/core";
 
 export interface ListItemProps {
@@ -11,7 +11,7 @@ export interface ListItemProps {
     right?: string | React.ReactElement;
 }
 
-export function ListItem ({ title, description, left, right }: ListItemProps) {
+export function ListItem ({title, description, left, right}: ListItemProps) {
     return <ListItemMaterial>
         {left != undefined ?
             <ListItemIcon>{ left }</ListItemIcon> : undefined}

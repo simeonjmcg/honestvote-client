@@ -1,5 +1,5 @@
 import React from "react";
-import { List as ListMaterial } from "@material-ui/core";
+import {List as ListMaterial} from "@material-ui/core";
 
 export interface ListProps<Data> {
     data: Data[];
@@ -7,6 +7,6 @@ export interface ListProps<Data> {
     keyExtractor?: (item: Data, index: number) => string;
 }
 
-export function List <D extends {}>({ data, renderRow }: ListProps<D>) {
+export function List <D extends {}>({data, renderRow}: ListProps<D>) {
     return <ListMaterial>{data.map((row, index) => renderRow(row, index))}</ListMaterial>;
 }

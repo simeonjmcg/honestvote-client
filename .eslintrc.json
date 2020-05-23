@@ -30,22 +30,21 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "object-curly-spacing": [
-            "warn",
-            "always"
-        ],
-        "no-unused-vars": [
-            "warn",
-            {
-                "vars": "all",
-                "args": "none"
-            }
-        ],
+        "object-curly-spacing": ["warn", "never"],
+        "array-bracket-spacing": ["warn", "never"],
+        "keyword-spacing": "warn",
+        "space-infix-ops": "warn",
+        "space-in-parens": ["warn", "never"],
+        "comma-spacing": "warn",
+        "arrow-parens": ["warn", "as-needed"],
+        "comma-dangle": ["warn", "always-multiline"],
+        "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": [
-            "warn",
+            "error",
             {
                 "vars": "all",
-                "args": "none"
+                "args": "after-used",
+                "ignoreRestSiblings": true
             }
         ],
         "@typescript-eslint/no-explicit-any": [

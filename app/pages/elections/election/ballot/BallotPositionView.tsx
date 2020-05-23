@@ -1,7 +1,7 @@
 import React from "react";
-import { Header6, Card } from "~/components";
-import { BallotChoiceView } from "./BallotChoiceView";
-import { ElectionPosition, Candidate, CandidateId } from "~/datatypes";
+import {Header6, Card} from "~/components";
+import {BallotChoiceView} from "./BallotChoiceView";
+import {ElectionPosition, Candidate, CandidateId} from "~/datatypes";
 
 export interface BallotPositionViewProps {
     position: ElectionPosition
@@ -9,7 +9,7 @@ export interface BallotPositionViewProps {
     selected?: CandidateId | undefined;
 }
 
-export function BallotPositionView ({ position, selected, onChange }: BallotPositionViewProps) {
+export function BallotPositionView ({position, selected, onChange}: BallotPositionViewProps) {
     const candidates = position.candidates;
     return (
         <Card title={<Header6>{position.displayName}</Header6>}>
@@ -17,7 +17,7 @@ export function BallotPositionView ({ position, selected, onChange }: BallotPosi
                 <BallotChoiceView key={idx}
                     candidate={candidate}
                     selected={selected === candidate.key}
-                    onPress={() => onChange?.(candidate)} />
+                    onPress={() => onChange?.(candidate)} />,
             )}
         </Card>
     );

@@ -36,7 +36,7 @@ declare class EDDSA {
     decodeInt(bytes: Message): BN;
     isPoint(val: Object): boolean;
 }
-export { EDDSA as eddsa };
+export {EDDSA as eddsa};
 
 export interface EDDSAKeyPairParams {
     secret?: Message;
@@ -101,7 +101,7 @@ declare class EC {
     recoverPubKey(msg: Message, signature: ECSignature, j: number, enc?: Encoding): BasePoint;
     getKeyRecoveryParam(e: Message, signature: ECSignature, Q: BN, enc?: Encoding): number;
 }
-export { EC as ec };
+export {EC as ec};
 
 export interface HmacDRBGOptions {
     hash?: Hash;
@@ -378,5 +378,5 @@ export declare class PresetCurve {
 }
 
 export default {
-    ec, eddsa
+    ec, eddsa,
 };

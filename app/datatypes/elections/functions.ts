@@ -1,9 +1,9 @@
-import { State } from "../types";
-import { ElectionId, Election, ElectionInfo, Candidate, ElectionPositionId } from "./types";
-import { findId, sumMapValues, mapKey } from "~/utils";
-import { Vote } from "../votes";
-import { ec } from "~/encryption";
-import { sequence, string } from "~/der-encoding";
+import {State} from "../types";
+import {ElectionId, Election, ElectionInfo, Candidate, ElectionPositionId} from "./types";
+import {findId, sumMapValues, mapKey} from "~/utils";
+import {Vote} from "../votes";
+import {ec} from "~/encryption";
+import {sequence, string} from "~/der-encoding";
 
 // selectors
 export function getElections(state: State) {
@@ -72,10 +72,10 @@ export function openedStateString(election: ElectionInfo): string {
     if (isElectionEnded(election, n))
         return "Closed";
     const endDate = new Date(election.endDate);
-    const endStr = `${endDate.getMonth()+1}/${endDate.getDate()}`;
+    const endStr = `${endDate.getMonth() + 1}/${endDate.getDate()}`;
     if (election.startDate != undefined && !isElectionStarted(election, n)) {
         const startDate = new Date(election.startDate);
-        const startStr = `${startDate.getMonth()+1}/${startDate.getDate()}`;
+        const startStr = `${startDate.getMonth() + 1}/${startDate.getDate()}`;
         return `${startStr} - ${endStr}`;
     }
     return `Closes ${endStr}`;
@@ -86,17 +86,17 @@ export function countVotesByPositionId(votes: Vote[], positionId: ElectionPositi
 }
 
 export function voteCountByCandidate(votes: Vote[]) {
-    return sumMapValues(votes.map(vote => mapKey(vote.receivers, pair => ({ key: pair.candidateName, value: 1 }))));
+    return sumMapValues(votes.map(vote => mapKey(vote.receivers, pair => ({key: pair.candidateName, value: 1}))));
 }
 
 export function sortCandidatesByVoteCount(candidates: Candidate[], voteCount: { [key: string ]: number}) {
-    return candidates.sort((c1, c2) => (voteCount[c2.name] ?? 0) - (voteCount[c1.name] ?? 0));
+    return candidates.sort((c1, c2) => voteCount[c2.name] ?? 0 - voteCount[c1.name] ?? 0);
 }
 
 // utils
 export function calculateElectionSignature(election: Election, privateKey: string) {
     const keyPair = ec.keyFromPrivate(privateKey, "hex");
-    const el = sequence([
+    const sig = sequence([
         string(election.electionName),
         string(election.institutionName),
         string(election.description),
@@ -112,5 +112,6 @@ export function calculateElectionSignature(election: Election, privateKey: strin
             ]))),
         ]))),
     ]);
-    return keyPair.sign(el.toBytes()).toDER("hex");
+    const h = hash.sha256().update(new Uint8Array(sig.toBER())).digest();
+    return keyPair.sign(h).toDER("hex");
 }

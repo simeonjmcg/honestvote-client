@@ -1,10 +1,10 @@
-import { ec as EC, ECKeyPair } from "elliptic";
-import { scrypt } from "scrypt-js";
-import { Buffer } from "buffer";
-import { ModeOfOperation } from "aes-js";
-import { getItem, setItem } from "~/storage";
-import { cryptoRandomBytes } from "~/platformUtils";
-import { StorageKeys } from "./datatypes";
+import {ec as EC, ECKeyPair} from "elliptic";
+import {scrypt} from "scrypt-js";
+import {Buffer} from "buffer";
+import {ModeOfOperation} from "aes-js";
+import {getItem, setItem} from "~/storage";
+import {cryptoRandomBytes} from "~/platformUtils";
+import {StorageKeys} from "./datatypes";
 
 // initialize elliptic key encryption object
 export const ec = new EC("p256");
@@ -33,9 +33,9 @@ export function aesDecrypt(key: Uint8Array, iv: Uint8Array) {
 
 // Convert a hex string to a byte array
 function hexToBytes(hex: string) {
-    const bytes = new Uint8Array(Math.ceil(hex.length/2));
+    const bytes = new Uint8Array(Math.ceil(hex.length / 2));
     for (let c = 0; c < hex.length; c += 2)
-        bytes[c/2] = parseInt(hex.substr(c, 2), 16);
+        bytes[c / 2] = parseInt(hex.substr(c, 2), 16);
     return bytes;
 }
 
@@ -83,7 +83,7 @@ export async function loadPrivateKey(pass: string) {
 
 /** checks if passCheck is stored in persistent storage */
 export async function areKeysGenerated() {
-    return (await getItem(StorageKeys.PassCheck)) !== null;
+    return await getItem(StorageKeys.PassCheck) !== null;
 }
 
 /** generate a new public/private keypair and encrypt private using given passcode */

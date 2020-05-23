@@ -1,6 +1,6 @@
 import React from "react";
-import { Container } from "@material-ui/core";
-import { createUseStyles } from "react-jss";
+import {Container} from "@material-ui/core";
+import {createUseStyles} from "react-jss";
 
 export interface PageProps {
     children?: React.ReactNode;
@@ -12,8 +12,8 @@ const useStyles = createUseStyles({
     },
 });
 
-export function Page ({ children }: PageProps) {
-    const { page } = useStyles();
+export function Page ({children}: PageProps) {
+    const {page} = useStyles();
     return (
         <Container maxWidth="md" className={page}>
             { children }

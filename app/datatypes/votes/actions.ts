@@ -1,7 +1,7 @@
 import {
     Vote,
 } from "./types";
-import { ElectionId } from "../elections/types";
+import {ElectionId} from "../elections/types";
 
 export const VOTES_REQUEST = "VOTES_REQUEST";
 export const VOTES_SUCCESS = "VOTES_SUCCESS";
@@ -33,20 +33,20 @@ export type VotesActionTypes = VotesRequestAction
 
 /** request the Votes from the backend */
 export function requestVotes(electionId: ElectionId): VotesActionTypes {
-    return { type: VOTES_REQUEST, payload: { electionId } };
+    return {type: VOTES_REQUEST, payload: {electionId}};
 }
 
 /** store Votes in to the redux store */
 export function storeVotes(electionId: ElectionId, votes: Vote[]): VotesActionTypes {
-    return { type: VOTES_SUCCESS,  payload: { electionId, votes } };
+    return {type: VOTES_SUCCESS,  payload: {electionId, votes}};
 }
 
 /** store Votes in to the redux store */
 export function addVote(vote: Vote): VotesActionTypes {
-    return { type: VOTE_ADD,  payload: vote };
+    return {type: VOTE_ADD,  payload: vote};
 }
 
 /** fail storage of Votes in the redux store */
 export function errorVotes(electionId: ElectionId): VotesActionTypes {
-    return { type: VOTES_FAILURE, payload: { electionId } };
+    return {type: VOTES_FAILURE, payload: {electionId}};
 }

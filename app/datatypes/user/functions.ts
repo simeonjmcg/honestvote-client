@@ -1,8 +1,8 @@
-import { State } from "..";
-import { ElectionId, Election, getElection, isElectionActive, getVotes } from "../elections";
-import { ElectionPermissionRequest } from "./types";
-import { ec } from "~/encryption";
-import { sequence, string } from "~/der-encoding";
+import {State} from "..";
+import {ElectionId, Election, getElection, isElectionActive, getVotes} from "../elections";
+import {ElectionPermissionRequest} from "./types";
+import {ec} from "~/encryption";
+import {sequence, string} from "~/der-encoding";
 import hash from "hash.js";
 
 export function getPublicKey(state: State) {
@@ -71,7 +71,7 @@ export function calculateRegistrationSignature(request: ElectionPermissionReques
         string(request.dateOfBirth),
         string(request.electionId),
     ]);
-    const h = hash.sha256().update(sig.toBytes()).digest();
+    const h = hash.sha256().update(new Uint8Array(sig.toBER())).digest();
 
     return keyPair.sign(h).toDER("hex");
 }

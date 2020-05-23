@@ -1,5 +1,5 @@
 import React from "react";
-import { createUseStyles } from "react-jss";
+import {createUseStyles} from "react-jss";
 
 export interface CardProps {
     title?: string | React.ReactElement;
@@ -23,10 +23,10 @@ const useStyles = createUseStyles({
 
     },
 });
-export function Card ({ title, children, minWidth, width }: CardProps) {
+export function Card ({title, children, minWidth, width}: CardProps) {
     const style = useStyles();
     return (
-        <div className={style.card} style={{ minWidth, width }}>
+        <div className={style.card} style={{minWidth, width}}>
             <div className={style.cardHeader}>{ title }</div>
             <div className={style.cardContent}>{ children }</div>
         </div>

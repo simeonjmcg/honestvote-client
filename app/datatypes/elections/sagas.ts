@@ -1,4 +1,4 @@
-import { call, takeEvery, put, select, take } from "@redux-saga/core/effects";
+import {call, takeEvery, put, select, take} from "@redux-saga/core/effects";
 import {
     ELECTION_REQUEST, ElectionRequestAction,
     ELECTIONS_REQUEST,
@@ -6,12 +6,12 @@ import {
     storeElection, errorElection,
     storeElections, 
 } from "./";
-import { getEndpoint } from "../app";
-import axios, { AxiosResponse } from "axios";
-import { saveElectionSuccessful, saveElectionFailure, ElectionSaveAction, errorElections } from "./actions";
-import { getPublicKey, retreivePrivate, UserReturnPrivateAction, USER_RETURN_PRIVATE } from "../user";
-import { calculateElectionSignature } from "./functions";
-import { Election, ElectionInfo } from "./types";
+import {getEndpoint} from "../app";
+import axios, {AxiosResponse} from "axios";
+import {saveElectionSuccessful, saveElectionFailure, ElectionSaveAction, errorElections} from "./actions";
+import {getPublicKey, retreivePrivate, UserReturnPrivateAction, USER_RETURN_PRIVATE} from "../user";
+import {calculateElectionSignature} from "./functions";
+import {Election, ElectionInfo} from "./types";
 
 export function* electionsSaga() {
     yield takeEvery(ELECTION_REQUEST, electionRequestSaga);

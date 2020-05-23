@@ -1,7 +1,7 @@
 import React from "react";
-import { Candidate } from "~/datatypes";
-import { Text, View, Progress } from "~/components";
-import { RowItem } from "./components";
+import {Candidate} from "~/datatypes";
+import {Text, View, Progress} from "~/components";
+import {RowItem} from "./components";
 
 export interface CandidateViewProps {
     index: number;
@@ -12,7 +12,7 @@ export interface CandidateViewProps {
     started?: boolean
 }
 
-export function CandidateView ({ index, candidate, votes, total, max, started }: CandidateViewProps) {
+export function CandidateView ({index, candidate, votes, total, max, started}: CandidateViewProps) {
     const percentage = total === 0 ? 0 : Math.round(votes / total * 100);
     const progress = max === 0 ? 0 : votes / max;
     return (

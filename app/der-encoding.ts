@@ -1,13 +1,14 @@
-import { DERElement } from "asn1-ts";
+import * as asn1js from "asn1js";
 
 export function string(s: string) {
-    const str = new DERElement(0, 0, 19);
-    str.printableString = s;
-    return str;
+    return new asn1js.Utf8String({
+        value: s,
+    });
 }
 
-export function sequence<T extends DERElement>(arr: T[]) {
-    const seq = new DERElement(0, 0, 16);
-    seq.seq = arr;
-    return seq;
+export function sequence<T1 extends asn1js.LocalValueBlock, T2 extends asn1js.BaseBlock<T1>>(arr: T2[]) {
+    return new asn1js.Sequence({
+        value: arr,
+    } as asn1js.BaseBlockParams);
 }
+export default asn1js;

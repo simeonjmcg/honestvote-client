@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RouteChildrenProps } from "react-router";
-import { NavigationStackScreenProps } from "react-navigation-stack";
-import { Dispatch } from "redux";
-import { Election, getIsPermissionRequestActive, getIsUserRegistered, resetRequestElectionPermissions } from "~/datatypes";
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {RouteChildrenProps} from "react-router";
+import {NavigationStackScreenProps} from "react-navigation-stack";
+import {Dispatch} from "redux";
+import {Election, getIsPermissionRequestActive, getIsUserRegistered, resetRequestElectionPermissions} from "~/datatypes";
 import {
     ActionTypes,
     requestElection, setTitle,
     getElection, areElectionsLoaded, requestElectionPermissions,
 } from "~/datatypes";
-import { Text, Page, TextField, Button, View, Header5, Subtitle1, Link } from "~/components";
-import { getParamFromProps } from "~/utils";
-import { PRIMARY_COLOR } from "~/theme";
+import {Text, Page, TextField, Button, View, Header5, Subtitle1, Link} from "~/components";
+import {getParamFromProps} from "~/utils";
+import {PRIMARY_COLOR} from "~/theme";
 
 export type RegistrationPageProps = NavigationStackScreenProps & RouteChildrenProps;
 export interface ElectionViewProps {
     election: Election;
 }
 
-function RegistrationPage( { match, navigation }: RegistrationPageProps ){
+function RegistrationPage({match, navigation}: RegistrationPageProps){
 
     const dispatch = useDispatch<Dispatch<ActionTypes>>();
     const id = getParamFromProps(match, navigation, "id");
@@ -43,7 +43,7 @@ function RegistrationPage( { match, navigation }: RegistrationPageProps ){
             {
                 !isLoaded ? <Text>Loading...</Text> :
                     canUserVote ? <Text>
-                    You are registered for this election. Click <Link to={`/election/${id}`} route="Election" params={{ id: id || "" }}>here</Link> to return to Election page.
+                    You are registered for this election. Click <Link to={`/election/${id}`} route="Election" params={{id: id || ""}}>here</Link> to return to Election page.
                     </Text> :
                         isRequested && election ? <View>
                             <Text>You have successfully requested registration for { election.electionName} please check your email for confirmation.</Text>
@@ -74,4 +74,4 @@ RegistrationPage.navigationOptions = {
         backgroundColor: PRIMARY_COLOR,
     },
 };
-export { RegistrationPage };
+export {RegistrationPage};

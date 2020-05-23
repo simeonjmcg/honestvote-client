@@ -1,4 +1,4 @@
-import { State } from "../types";
+import {State} from "../types";
 
 export function getTitle(state: State) {
     return state.app.title;

@@ -1,10 +1,10 @@
-import { State } from "../types";
-import { ElectionId } from "../elections/types";
-import { Vote } from "./types";
-import { ec } from "~/encryption";
+import {State} from "../types";
+import {ElectionId} from "../elections/types";
+import {Vote} from "./types";
+import {ec} from "~/encryption";
 import hash from "hash.js";
 
-import { sequence, string } from "~/der-encoding";
+import {sequence, string} from "~/der-encoding";
 
 // selectors
 export function getVotes(electionId: ElectionId) {
@@ -26,7 +26,8 @@ export function getAreVotersLoaded(state: State) {
 }
 // utils
 export function calculateVoteSignature(vote: Vote, privateKey: string) {
-    const v = sequence([
+    const keyPair = ec.keyFromPrivate(privateKey, "hex");
+    const sig = sequence([
         /* electionId: */ string(vote.electionId),
         /* receivers: */ sequence(vote.receivers.map(r =>
             sequence([
@@ -36,8 +37,6 @@ export function calculateVoteSignature(vote: Vote, privateKey: string) {
         ),
     ]);
 
-    const h = hash.sha256().update(v.toBytes()).digest();
-
-    const keyPair = ec.keyFromPrivate(privateKey, "hex");
+    const h = hash.sha256().update(new Uint8Array(sig.toBER())).digest();
     return keyPair.sign(h).toDER("hex");
 }

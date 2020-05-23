@@ -1,8 +1,8 @@
 import React from "react";
-import { Dialog as NativeDialog } from "react-native-paper";
-import { DialogProps } from "./Dialog";
+import {Dialog as NativeDialog} from "react-native-paper";
+import {DialogProps} from "./Dialog";
 
-export function Dialog ({ title, children, actions, open, onClose }: DialogProps) {
+export function Dialog ({title, children, actions, open, onClose}: DialogProps) {
     return (
         <NativeDialog visible={open} onDismiss={onClose}>
             {title != undefined ?

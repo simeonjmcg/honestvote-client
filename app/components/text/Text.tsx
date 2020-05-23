@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography } from "@material-ui/core";
+import {Typography} from "@material-ui/core";
 
 export interface TextProps {
     children?: React.ReactNode;
@@ -7,6 +7,6 @@ export interface TextProps {
     onPress?: () => void;
 }
 
-export function Text ({ children, color, onPress }: TextProps) {
-    return <Typography variant="body1" style={{ color }} onClick={onPress}>{ children }</Typography>;
+export function Text ({children, color, onPress}: TextProps) {
+    return <Typography variant="body1" style={{color}} onClick={onPress}>{ children }</Typography>;
 }

@@ -1,4 +1,4 @@
-import { ApiState } from "../types";
+import {ApiState} from "../types";
 
 /** state for App */
 export interface AppState {

@@ -12,7 +12,7 @@ export interface DialogProps {
     onClose?: () => void;
 }
 
-export function Dialog ({ title, children, actions, open, onClose }: DialogProps) {
+export function Dialog ({title, children, actions, open, onClose}: DialogProps) {
     return (
         <MaterialDialog open={open} onClose={onClose}>
             {title != undefined ?

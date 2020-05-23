@@ -1,5 +1,5 @@
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
+import {Link as RouterLink} from "react-router-dom";
 
 export interface LinkProps {
     children: string;
@@ -8,6 +8,6 @@ export interface LinkProps {
     params: {[key: string]: string};
 }
 
-export function Link ({ to, children }: LinkProps) {
+export function Link ({to, children}: LinkProps) {
     return <RouterLink to={to}>{ children }</RouterLink>;
 }

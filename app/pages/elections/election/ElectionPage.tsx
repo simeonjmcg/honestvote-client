@@ -1,24 +1,24 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RouteChildrenProps } from "react-router";
-import { NavigationStackScreenProps } from "react-navigation-stack";
-import { Dispatch } from "redux";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {RouteChildrenProps} from "react-router";
+import {NavigationStackScreenProps} from "react-navigation-stack";
+import {Dispatch} from "redux";
 
 import {
     ActionTypes,
     requestElection, setTitle,
     getElection, areElectionsLoaded, requestVotes, isElectionsFetchFailed,
 } from "~/datatypes";
-import { Text, Page } from "~/components";
-import { getParamFromProps } from "~/utils";
-import { PRIMARY_COLOR } from "~/theme";
+import {Text, Page} from "~/components";
+import {getParamFromProps} from "~/utils";
+import {PRIMARY_COLOR} from "~/theme";
 
-import { ElectionView } from "./ElectionView";
+import {ElectionView} from "./ElectionView";
 
 // NavigationStack for native, Router for web
 export type ElectionPageProps = NavigationStackScreenProps & RouteChildrenProps;
 
-function ElectionPage ({ match, navigation }: ElectionPageProps) {
+function ElectionPage ({match, navigation}: ElectionPageProps) {
     const dispatch = useDispatch<Dispatch<ActionTypes>>();
     const id = getParamFromProps(match, navigation, "id");
     // this is the onMount function
@@ -54,4 +54,4 @@ ElectionPage.navigationOptions = {
         backgroundColor: PRIMARY_COLOR,
     },
 };
-export { ElectionPage };
+export {ElectionPage};

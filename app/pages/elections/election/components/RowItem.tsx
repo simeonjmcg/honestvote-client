@@ -1,5 +1,5 @@
 import React from "react";
-import { createUseStyles } from "react-jss";
+import {createUseStyles} from "react-jss";
 
 export interface RowItemProps {
     left?: React.ReactNode;
@@ -33,7 +33,7 @@ const useStyles = createUseStyles({
     },
 });
 
-export function RowItem ({ left, children, right }: RowItemProps) {
+export function RowItem ({left, children, right}: RowItemProps) {
     const styles = useStyles();
     return (
         <div className={styles.rowItem}>
@@ -47,7 +47,7 @@ export function RowItem ({ left, children, right }: RowItemProps) {
             {right != undefined ?
                 <div className={styles.rowItemRight}>
                     { right }
-                </div>: undefined }
+                </div> : undefined }
         </div>
     );
 }

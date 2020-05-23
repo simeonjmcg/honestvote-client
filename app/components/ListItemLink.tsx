@@ -1,5 +1,5 @@
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
+import {Link as RouterLink} from "react-router-dom";
 import {
     ListItem as ListItemMaterial,
     ListItemText, ListItemIcon, ListItemSecondaryAction,
@@ -15,7 +15,7 @@ export interface ListItemLinkProps {
     params?: {[key: string]: string};
 }
 
-export function ListItemLink ({ title, description, to, left, right }: ListItemLinkProps) {
+export function ListItemLink ({title, description, to, left, right}: ListItemLinkProps) {
     return <ListItemMaterial button component={RouterLink} to={to}>
         {left != undefined ?
             <ListItemIcon>{ left }</ListItemIcon> : undefined}

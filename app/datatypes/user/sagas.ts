@@ -1,5 +1,5 @@
-import axios, { AxiosResponse } from "axios";
-import { takeEvery, put, take, call, select } from "@redux-saga/core/effects";
+import axios, {AxiosResponse} from "axios";
+import {takeEvery, put, take, call, select} from "@redux-saga/core/effects";
 import { 
     USER_RETREIVE_PUBLIC, USER_RETREIVE_PRIVATE,
     USER_REQUEST_PERMISSIONS, UserRequestPermissionsAction,
@@ -10,16 +10,16 @@ import {
     permissionRetreivalSuccessful, permissionRetreivalFailure,
     calculateRegistrationSignature,
 } from ".";
-import { promptPass, APP_RETURN_PASS, getEndpoint, AppReturnPassAction } from "../app";
-import { areKeysGenerated, generateNewUserKeys, loadPrivateKey, loadPublicKey } from "~/encryption";
-import { ECKeyPair } from "elliptic";
-import { Vote, calculateVoteSignature } from "../votes";
+import {promptPass, APP_RETURN_PASS, getEndpoint, AppReturnPassAction} from "../app";
+import {areKeysGenerated, generateNewUserKeys, loadPrivateKey, loadPublicKey} from "~/encryption";
+import {ECKeyPair} from "elliptic";
+import {Vote, calculateVoteSignature} from "../votes";
 import {
     ballotSubmissionFailure, ballotSubmissionSuccessful, retreivePrivate,
     USER_RETURN_PRIVATE, UserReturnPrivateAction, USER_RETREIVE_PERMISSIONS, USER_STORE_PUBLIC,
 } from "./actions";
-import { getElection, Election, ElectionId } from "../elections";
-import { ElectionPermissionRequest } from "./types";
+import {getElection, Election, ElectionId} from "../elections";
+import {ElectionPermissionRequest} from "./types";
 
 export function* userSaga() {
     yield takeEvery(USER_RETREIVE_PUBLIC, userRetreivePublicSaga);
@@ -36,7 +36,7 @@ function* userRetreivePublicSaga() {
     } else {
         // No key exists, prompt for pass and generate.
         yield put(promptPass("Please enter a new passcode to use when voting", true));
-        const { payload: pass }: AppReturnPassAction = yield take(APP_RETURN_PASS);
+        const {payload: pass}: AppReturnPassAction = yield take(APP_RETURN_PASS);
         yield call(generateNewUserKeys, pass);
         const publicKey: string | null = yield call(loadPublicKey);
         yield put(storePublic(publicKey || ""));
@@ -48,7 +48,7 @@ function* userRetreivePrivateSaga() {
     if (generated) {
         // Key exists, prompt user for password.
         yield put(promptPass("Please enter your passcode"));
-        const { payload: pass }: AppReturnPassAction = yield take(APP_RETURN_PASS);
+        const {payload: pass}: AppReturnPassAction = yield take(APP_RETURN_PASS);
         const privateKey: string | null = yield call(loadPrivateKey, pass);
         if (privateKey !== null) {
             yield put(returnPrivate(privateKey));
@@ -59,8 +59,8 @@ function* userRetreivePrivateSaga() {
     } else {
         // No key exists, prompt for pass and generate.
         yield put(promptPass("Please enter a new passcode to use when voting", true));
-        const { payload: pass }: AppReturnPassAction = yield take(APP_RETURN_PASS);
-        const { getPrivate }: ECKeyPair = yield call(generateNewUserKeys, pass);
+        const {payload: pass}: AppReturnPassAction = yield take(APP_RETURN_PASS);
+        const {getPrivate}: ECKeyPair = yield call(generateNewUserKeys, pass);
         const privateKey = getPrivate("hex");
         yield put(returnPrivate(privateKey));
     }
@@ -79,7 +79,7 @@ export function* userRetreivePermissionsSaga() {
     yield put(permissionRetreivalSuccessful(response.data.data));
 }
 export function* permissionsRequestSaga(action: UserRequestPermissionsAction) {
-    const { electionId, emailAddress, firstName, lastName, dateOfBirth } = action.payload;
+    const {electionId, emailAddress, firstName, lastName, dateOfBirth} = action.payload;
     const publicKey: string | null = yield select(getPublicKey);
     const endpoint: string | null = yield select(getEndpoint);
 
