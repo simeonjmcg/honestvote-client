@@ -1,17 +1,17 @@
 import {call, takeEvery, put, select, take} from "@redux-saga/core/effects";
 import {
-    ELECTION_REQUEST, ElectionRequestAction,
-    ELECTIONS_REQUEST,
-    ELECTION_SAVE,
-    storeElection, errorElection,
-    storeElections, 
+    ELECTION_REQUEST, ELECTIONS_REQUEST, ELECTION_SAVE,
+    ElectionRequestAction,
+    Election, ElectionInfo,
+    storeElections, storeElection, errorElection,
+    calculateElectionSignature,
+    saveElectionSuccessful, saveElectionFailure, ElectionSaveAction, errorElections,
 } from "./";
-import {getEndpoint} from "../app";
+import {
+    getEndpoint,
+    getAdminPublicKey, retreiveAdminPrivate, UserReturnPrivateAction, ADMIN_RETURN_PRIVATE,
+} from "../";
 import axios, {AxiosResponse} from "axios";
-import {saveElectionSuccessful, saveElectionFailure, ElectionSaveAction, errorElections} from "./actions";
-import {getPublicKey, retreivePrivate, UserReturnPrivateAction, USER_RETURN_PRIVATE} from "../user";
-import {calculateElectionSignature} from "./functions";
-import {Election, ElectionInfo} from "./types";
 
 export function* electionsSaga() {
     yield takeEvery(ELECTION_REQUEST, electionRequestSaga);
@@ -45,13 +45,13 @@ function* electionsRequestSaga() {
 
 function* electionSaveSaga(action: ElectionSaveAction) {
     const endpoint: string = yield select(getEndpoint);
-    const publicKey: string = yield select(getPublicKey);
+    const adminPublicKey: string = yield select(getAdminPublicKey);
     const election = action.payload;
 
-    yield put(retreivePrivate());
-    const returnPrivate: UserReturnPrivateAction = yield take(USER_RETURN_PRIVATE);
-    election.sender = publicKey;
-    election.signature = calculateElectionSignature(action.payload, returnPrivate.payload);
+    yield put(retreiveAdminPrivate());
+    const returnAdminPrivate: UserReturnPrivateAction = yield take(ADMIN_RETURN_PRIVATE);
+    election.sender = adminPublicKey;
+    election.signature = calculateElectionSignature(action.payload, returnAdminPrivate.payload);
     const response: AxiosResponse<{status: string}> = yield call(axios.post, `https://${endpoint}/election`, election);
     if (response.status >= 400 || response.data.status !== "OK") {
         yield put(saveElectionFailure());

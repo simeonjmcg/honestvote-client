@@ -20,7 +20,7 @@ interface AddCandidate {
 }
 interface DeleteCandidate {
     type: "delete-candidate";
-    payload: {positionIndex: number, candidateIndex: number, value: string};
+    payload: {positionIndex: number, candidateIndex: number};
 }
 interface SetCandidate {
     type: "set-candidate";
@@ -34,24 +34,22 @@ export function adminCreate(state: AdminCreateState, action: AdminCreateActions)
         case "add-position":
             return [...state, {id: "", displayName: "", candidates: [{key: "", name: ""}]}];
         case "delete-position":
-            if (state[action.payload.positionIndex].candidates.length !== 0)
-                return state;
             return state.filter((_, i) => i !== action.payload.positionIndex);
         case "set-position":
             return state.map((pos, i) => i !== action.payload.positionIndex ? pos :
-                {...pos, id: slugify(action.payload.value), positionName: action.payload.value});
+                {...pos, id: slugify(action.payload.value), displayName: action.payload.value});
         case "add-candidate":
             return state.map((pos, i) => i !== action.payload.positionIndex ? pos :
                 {...pos, candidates: [...pos.candidates, {key: "", name: ""}]});
         case "delete-candidate":
             return state.map((pos, i) => i !== action.payload.positionIndex ? pos :
                 {...pos,
-                    candidates: pos.candidates.filter((_, i) => i !== action.payload.candidateIndex),
+                    candidates: pos.candidates.filter((_, j) => j !== action.payload.candidateIndex),
                 });
         case "set-candidate":
             return state.map((pos, i) => i !== action.payload.positionIndex ? pos :
                 {...pos,
-                    candidates: pos.candidates.map((candidate, i) => i !== action.payload.candidateIndex ? candidate :
+                    candidates: pos.candidates.map((candidate, j) => j !== action.payload.candidateIndex ? candidate :
                     {...candidate, id: slugify(action.payload.value), name: action.payload.value}),
                 });
     }

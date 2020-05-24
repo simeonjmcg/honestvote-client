@@ -92,7 +92,8 @@ declare class EC {
     hash: Hash;
     constructor(preset: CurvePreset);
     keyPair(options?: ECKeyPairOptions): ECKeyPair;
-    keyFromPrivate(priv: Point, enc?: Encoding): ECKeyPair;
+    keyFromPrivate(priv: string, enc: "hex"): ECKeyPair;
+    keyFromPrivate(priv: BN, enc?: Encoding): ECKeyPair;
     keyFromPublic(pub: Point, enc?: Encoding): ECKeyPair;
     genKeyPair(options?: HmacDRBGOptions): ECKeyPair;
     sign(msg: Message, key: BasePoint, enc?: Encoding, options?: SignOptions): ECSignature;
@@ -116,7 +117,7 @@ export interface HmacDRBGOptions {
 }
 
 export interface ECKeyPairOptions {
-    priv?: BasePoint;
+    priv?: BN;
     privEnc?: Encoding;
     pub?: BasePoint;
     pubEnc?: Encoding;
@@ -142,18 +143,19 @@ export type Hash = typeof hash.hmac
 
 export declare class ECKeyPair {
     ec: EC;
-    priv: BasePoint | null;
+    priv: BN | null;
     pub: BasePoint | null;
     constructor(ec: EC, options?: ECKeyPairOptions);
     static fromPublic(ec: EC, pub: Point, enc?: Encoding): ECKeyPair;
-    static fromPrivate(ec: EC, priv: Point, enc?: Encoding): ECKeyPair;
+    static fromPrivate(ec: EC, priv: string, enc: "hex"): ECKeyPair;
+    static fromPrivate(ec: EC, priv: BN, enc?: Encoding): ECKeyPair;
     validate(): ValidationResult;
     getPublic(compact: boolean, enc: "hex"): string;
     getPublic(compact?: boolean, enc?: Encoding): BasePoint;
     getPublic(enc: "hex"): string;
     getPublic(enc?: Encoding): Point;
     getPrivate(enc: "hex"): string;
-    getPrivate(enc?: Encoding): BasePoint;
+    getPrivate(enc?: Encoding): BN;
     derive(pub: Point): BasePoint;
     sign(msg: Message, enc?: Encoding, options?: ECKeyPairOptions): ECSignature;
     verify(msg: Message, signature: ECSignature): boolean;
@@ -170,7 +172,7 @@ export declare class ECSignature {
     r: BN;
     s: BN;
     constructor(options: ECSignatureOptions, enc?: Encoding);
-    toDER(enc?: "hex"): string;
+    toDER(enc: "hex"): string;
     toDER(enc?: Encoding): Buffer;
 }
 

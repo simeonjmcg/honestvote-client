@@ -21,14 +21,14 @@ export async function generateSymmetricKey(pass: string, salt: Uint8Array) {
 /** encrypt data based off of key and iv */
 export function aesEncrypt(key: Uint8Array, iv: Uint8Array) {
     const aesCbc = new ModeOfOperation.cbc(key, iv);
-    return (data: Uint8Array) => aesCbc.encrypt(data);
+    return (data: Uint8Array | number[]) => aesCbc.encrypt(data);
 }
 
 /** decrypt data from key and iv */
 export function aesDecrypt(key: Uint8Array, iv: Uint8Array) {
     const aesCbc = new ModeOfOperation.cbc(key, iv);
     
-    return (data: Uint8Array) => aesCbc.decrypt(data);
+    return (data: Uint8Array | number[]) => aesCbc.decrypt(data);
 }
 
 // Convert a hex string to a byte array
@@ -51,16 +51,16 @@ function bytesToHex(bytes: Uint8Array) {
 }
 
 // retreive public key from persistent storage
-export async function loadPublicKey () {
-    return await getItem(StorageKeys.PublicKey);
+export async function loadPublicKey (admin?: boolean) {
+    return await getItem(admin ? StorageKeys.AdminPublicKey : StorageKeys.PublicKey);
 }
 
 // retreive private key from persistent storage given the passcode
-export async function loadPrivateKey(pass: string) {
-    const salt = await getItem(StorageKeys.PassSalt);
-    const passCheck = await getItem(StorageKeys.PassCheck);
-    const encryptedPrivateKey = await getItem(StorageKeys.PrivateKeyEncrypted);
-    const initializationVector = await getItem(StorageKeys.InitializationVector);
+export async function loadPrivateKey(pass: string, admin?: boolean) {
+    const salt = await getItem(admin ? StorageKeys.AdminPassSalt : StorageKeys.PassSalt);
+    const passCheck = await getItem(admin ? StorageKeys.AdminPassCheck : StorageKeys.PassCheck);
+    const encryptedPrivateKey = await getItem(admin ? StorageKeys.AdminPrivateKeyEncrypted : StorageKeys.PrivateKeyEncrypted);
+    const initializationVector = await getItem(admin ? StorageKeys.AdminInitializationVector : StorageKeys.InitializationVector);
     if (salt === null || passCheck === null || encryptedPrivateKey === null || initializationVector === null) {
         return null; // something was not properly stored
     }
@@ -82,13 +82,13 @@ export async function loadPrivateKey(pass: string) {
 }
 
 /** checks if passCheck is stored in persistent storage */
-export async function areKeysGenerated() {
-    return await getItem(StorageKeys.PassCheck) !== null;
+export async function areKeysGenerated(admin?: boolean) {
+    return await getItem(admin ? StorageKeys.AdminPassCheck : StorageKeys.PassCheck) !== null;
 }
 
 /** generate a new public/private keypair and encrypt private using given passcode */
-export async function generateNewUserKeys(pass: string) {
-    const keyPair = ec.genKeyPair({
+export async function saveNewKeyPair(pass: string, privateKey?: string, admin?: boolean) {
+    const keyPair = privateKey ? ec.keyFromPrivate(privateKey, 'hex') : ec.genKeyPair({
         entropy: await cryptoRandomBytes(192),
     });
 
@@ -108,19 +108,19 @@ export async function generateNewUserKeys(pass: string) {
     // convert components to hex string for storage
     const salt = bytesToHex(saltBytes);
     const passCheck = bytesToHex(passCheckBytes);
-    const publicKeyDER = encodePublic(keyPair);
+    const publicKey = getEncodedPublic(keyPair);
     const encryptedPrivateKey = bytesToHex(encryptedPrivateKeyBytes);
     const initializationVector = bytesToHex(initializationVectorBytes);
 
     // store data in persistent storage
-    setItem(StorageKeys.PassSalt, salt);
-    setItem(StorageKeys.PassCheck, passCheck);
-    setItem(StorageKeys.PublicKey, publicKeyDER);
-    setItem(StorageKeys.PrivateKeyEncrypted, encryptedPrivateKey);
-    setItem(StorageKeys.InitializationVector, initializationVector);
+    setItem(admin ? StorageKeys.AdminPassSalt : StorageKeys.PassSalt, salt);
+    setItem(admin ? StorageKeys.AdminPassCheck : StorageKeys.PassCheck, passCheck);
+    setItem(admin ? StorageKeys.AdminPublicKey : StorageKeys.PublicKey, publicKey);
+    setItem(admin ? StorageKeys.AdminPrivateKeyEncrypted : StorageKeys.PrivateKeyEncrypted, encryptedPrivateKey);
+    setItem(admin ? StorageKeys.AdminInitializationVector : StorageKeys.InitializationVector, initializationVector);
     return keyPair;
 }
 
-export function encodePublic(keyPair: ECKeyPair) {
+export function getEncodedPublic(keyPair: ECKeyPair) {
     return keyPair.getPublic(true, "hex");
 }

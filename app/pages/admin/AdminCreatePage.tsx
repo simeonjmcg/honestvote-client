@@ -4,10 +4,10 @@ import {RouteChildrenProps} from "react-router";
 import {Page, TextField, Card, Header5, Button, ButtonLink, View} from '~/components';
 import {adminCreate} from './reducer';
 import {PRIMARY_COLOR} from '~/theme';
-import {AdminPositionView} from './AdminPositionView';
 import {useDispatch, useSelector} from "react-redux";
 import {Dispatch} from "redux";
-import {ActionTypes, saveElection, getElections} from "~/datatypes";
+import {ActionTypes, saveElection, getElections, getAdminPublicKey} from "~/datatypes";
+import {AdminPositionsView} from './AdminPositionsView';
 
 // NavigationStack for native, Router for web
 export type AdminPageProps = NavigationStackScreenProps & RouteChildrenProps;
@@ -20,7 +20,8 @@ export function AdminCreatePage () {
     const [startDate, setStartDate]  = useState(""); 
     const [endDate, setEndDate]  = useState("");
     const [emailDomain, setEmailDomain]  = useState("");
-    const election = useSelector(getElections).find(e => e.sender === "");
+    const adminPublicKey = useSelector(getAdminPublicKey);
+    const election = useSelector(getElections).find(e => e.sender === adminPublicKey);
     const institutionName = election ? election.institutionName : "";
 
     return (
@@ -39,21 +40,20 @@ export function AdminCreatePage () {
                     <TextField label="End Date" onValueChange = {setEndDate} ></TextField>
                     <TextField label="Email Domain" onValueChange = {setEmailDomain} ></TextField>
                 </View>
-            </Card>
 
-            <Card title={<Header5>Positions</Header5>}>                    
-                <Button type="contained" onPress={() => dispatch({type: 'add-position'})}>Add Position</Button>
-                    {positions.map((row, positionIndex) => 
-                    <AdminPositionView 
-                        key={positionIndex}
-                        electionPosition = { row } 
-                        onChange = { positionName => dispatch({type: 'set-position', payload: {positionIndex, value: positionName}})}
-                        onCandidateAdd = { () => dispatch({type: 'add-candidate', payload: {positionIndex}})}
-                        onCandidateDelete = {(candidateName, candidateIndex) => dispatch({type: 'delete-candidate', payload: {positionIndex, candidateIndex, value: candidateName}})}
-                        onCandidateChange = {(candidateName, candidateIndex) => dispatch({type: 'set-candidate', payload: {positionIndex, candidateIndex, value: candidateName}})} />,
-                )}
+                <AdminPositionsView
+                    electionPositions={positions}
+                    onPositionAdd={() => dispatch({type: 'add-position'})}
+                    onPositionChange={(positionName, positionIndex) => dispatch({type: 'set-position', payload: {positionIndex, value: positionName}})}
+                    onPositionDelete={positionIndex => dispatch({type: 'delete-position', payload: {positionIndex}})}
+                    onCandidateAdd={positionIndex => dispatch({type: 'add-candidate', payload: {positionIndex}})}
+                    onCandidateChange={(candidateName, positionIndex, candidateIndex) => dispatch({type: 'set-candidate', payload: {positionIndex, candidateIndex, value: candidateName}})}
+                    onCandidateDelete={(positionIndex, candidateIndex) => dispatch({type: 'delete-candidate', payload: {positionIndex, candidateIndex}})}
+                    />
+                <View direction="row">
+                    <Button type="contained" onPress={() => reduxDispatch(saveElection({electionName, description, startDate, endDate, positions, sender: adminPublicKey || "", emailDomain, institutionName, id:"", signature:""}))}>Create Election</Button>
+                </View>
             </Card>
-            <Button type="contained" onPress={() => reduxDispatch(saveElection({electionName, description, startDate, endDate, positions, sender:"", emailDomain, allowedCandidates:[], institutionName, id:"", signature:""}))}>Create Election</Button>
         </Page>
     );
 }

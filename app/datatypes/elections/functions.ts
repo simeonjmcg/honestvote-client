@@ -4,6 +4,7 @@ import {findId, sumMapValues, mapKey} from "~/utils";
 import {Vote} from "../votes";
 import {ec} from "~/encryption";
 import {sequence, string} from "~/der-encoding";
+import hash from "hash.js";
 
 // selectors
 export function getElections(state: State) {

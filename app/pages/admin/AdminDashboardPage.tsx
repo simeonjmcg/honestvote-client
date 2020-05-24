@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Dispatch} from "redux";
 import {
     ActionTypes,
-    requestElections, getElections,
+    requestElections, getElections, getAdminPublicKey,
 } from "~/datatypes";
 import {Page, Card, Header5, ButtonLink, ListItem, View} from '~/components';
 import {PRIMARY_COLOR} from '~/theme';
@@ -19,46 +19,36 @@ export function AdminDashboardPage () {
     useEffect(() => {
         dispatch(requestElections());
     }, []);
-    const elections = useSelector(getElections);
+    const adminPublicKey = useSelector(getAdminPublicKey);
+    const elections = useSelector(getElections).filter(e => e.sender === adminPublicKey);
 
     return (
         <Page>  
             
             <Card title={<Header5>Admin Dashboard</Header5>}>
-                {
-                    <View direction="row">
-                        <ButtonLink
-                            to={`/admin/create`}
-                            route="AdminCreatePage">
-                            Create New Election
-                        </ButtonLink>
-                    </View>                
-                }
+                <View direction="row">
+                    <ButtonLink
+                        to={`/admin/create`}
+                        route="AdminCreatePage">
+                        Create New Election
+                    </ButtonLink>
+                    {elections.map((row, index) => {
+                        return <ListItem
+                                key={index}
+                                title={row.institutionName}
+                                description={row.description} />;
+                    })}
+                </View>
                 
             </Card>
 
-            <Card title={<Header5>All Elections</Header5>}>
-                {elections.map((row, index) => {
-                    return <ListItem
-                            key={index}
-                            title={row.institutionName}
-                            description={row.description} />;
-                            {/*right={
-                                <ButtonLink
-                                    to={`/admin/edit/${row.id}`}
-                                    route="AdminEditPage"
-                                    params={{id: row.id}}>
-                                    Edit
-                                </ButtonLink>} */ 
-                            }
-                            
-                })}
+            <Card title={<Header5>My Elections</Header5>}>
             </Card>
         </Page>
     );
 }
 AdminDashboardPage.navigationOptions = {
-    title: "Admin All Elections Page",
+    title: "Admin Dashboard",
     headerStyle: {
       backgroundColor: PRIMARY_COLOR,
     },

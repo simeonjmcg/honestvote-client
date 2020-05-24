@@ -1,24 +1,23 @@
 import * as React from 'react';
 import {Candidate} from '~/datatypes';
-import {View, TextField, Button, Card} from '~/components';
+import {View, TextField, Button} from '~/components';
 
 
 export interface AdminCandidateViewProps {
     candidate : Candidate;
-    onChange: (name: string) => void;
-    onCandidateDelete?: (name?: string, candidateIndex?: number) => void; 
+    onChange: (value: string) => void;
+    onDelete?: () => void; 
 }
 
-export function AdminCandidateView ({onChange, onCandidateDelete}: AdminCandidateViewProps) {
+export function AdminCandidateView ({candidate, onChange, onDelete}: AdminCandidateViewProps) {
     return (
-        <View>
-            <Card>
-                <TextField 
-                    label = 'Candidate Name' 
-                    onValueChange = { onChange } />
-                
-                <Button type="contained" onPress={onCandidateDelete}>Delete Candidate</Button>
-            </Card>
+        <View direction="row">
+            <TextField 
+                label = 'Candidate Name' 
+                initialValue = {candidate.name}
+                onInputBlur = {onChange} />
+            
+            <Button type="contained" onPress={onDelete}>Delete Candidate</Button>
         </View>
     );
 }
