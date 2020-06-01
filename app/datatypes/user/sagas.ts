@@ -11,7 +11,7 @@ import {
     calculateRegistrationSignature,
 } from ".";
 import {promptPass, APP_RETURN_PASS, getEndpoint, AppReturnPassAction} from "../app";
-import {areKeysGenerated, generateNewUserKeys, loadPrivateKey, loadPublicKey} from "~/encryption";
+import {areKeysGenerated, saveNewKeyPair, loadPrivateKey, loadPublicKey, getEncodedPublic} from "~/encryption";
 import {ECKeyPair} from "elliptic";
 import {Vote, calculateVoteSignature} from "../votes";
 import {
@@ -37,32 +37,45 @@ function* userRetreivePublicSaga() {
         // No key exists, prompt for pass and generate.
         yield put(promptPass("Please enter a new passcode to use when voting", true));
         const {payload: pass}: AppReturnPassAction = yield take(APP_RETURN_PASS);
-        yield call(generateNewUserKeys, pass);
-        const publicKey: string | null = yield call(loadPublicKey);
-        yield put(storePublic(publicKey || ""));
+        const keyPair: ECKeyPair = yield call(saveNewKeyPair, pass);
+        const publicKey = getEncodedPublic(keyPair);
+        yield put(storePublic(publicKey));
     }
 }
 
 function* userRetreivePrivateSaga() {
     const generated: boolean = yield call(areKeysGenerated);
     if (generated) {
-        // Key exists, prompt user for password.
-        yield put(promptPass("Please enter your passcode"));
-        const {payload: pass}: AppReturnPassAction = yield take(APP_RETURN_PASS);
-        const privateKey: string | null = yield call(loadPrivateKey, pass);
-        if (privateKey !== null) {
-            yield put(returnPrivate(privateKey));
+        // Key exists, test for empty
+        const emptyPassPriv: string | null = yield call(loadPrivateKey, "");
+        if (emptyPassPriv !== null) {
+            yield put(returnPrivate(emptyPassPriv));
         } else {
-            // either invalid data was stored in localStorage, or pass was incorrect.
-            yield put(returnPrivateFailed());
+            // Pass not empty, prompt user for password.
+            yield put(promptPass("Please enter your passcode"));
+            const {payload: pass}: AppReturnPassAction = yield take(APP_RETURN_PASS);
+            const privateKey: string | null = yield call(loadPrivateKey, pass);
+            if (privateKey !== null) {
+                yield put(returnPrivate(privateKey));
+            } else {
+                // either invalid data was stored in localStorage, or pass was incorrect.
+                yield put(returnPrivateFailed());
+            }
         }
     } else {
         // No key exists, prompt for pass and generate.
         yield put(promptPass("Please enter a new passcode to use when voting", true));
         const {payload: pass}: AppReturnPassAction = yield take(APP_RETURN_PASS);
-        const {getPrivate}: ECKeyPair = yield call(generateNewUserKeys, pass);
-        const privateKey = getPrivate("hex");
-        yield put(returnPrivate(privateKey));
+        const keyPair: ECKeyPair = yield call(saveNewKeyPair, pass);
+        const privateKey: string | null = yield call(loadPrivateKey, pass, true);
+        const publicKey = getEncodedPublic(keyPair);
+        yield put(storePublic(publicKey));
+        if (privateKey !== null) {
+            yield put(returnPrivate(privateKey));
+        } else {
+            // never should happen, here for completeness.
+            yield put(returnPrivateFailed());
+        }
     }
 }
 

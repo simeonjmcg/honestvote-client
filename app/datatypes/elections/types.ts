@@ -30,7 +30,6 @@ export interface ElectionInfo {
 /** Election is a given election */
 export interface Election extends ElectionInfo {
   emailDomain: string;
-  allowedCandidates: string[];
   positions: ElectionPosition[];
 }
 

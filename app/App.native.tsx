@@ -12,12 +12,16 @@ import {useCommon} from "./pages/common-hooks";
 import {Provider as PaperProvider, DefaultTheme} from "react-native-paper";
 
 import {RegistrationPage} from "./pages/elections/election/registration/RegistrationPage";
+import {AdminDashboardPage} from "./pages/admin/AdminDashboardPage";
+import {AdminCreatePage} from "./pages/admin/AdminCreatePage";
 
 const MainNavigator = createStackNavigator({
     Elections: {screen: ElectionsPage},
     Election: {screen: ElectionPage},
     Ballot: {screen: BallotPage},
     Registration: {screen: RegistrationPage},
+    AdminCreate: {screen: AdminCreatePage},
+    AdminDashboard: {screen: AdminDashboardPage},
 });
 
 const Navigation = createAppContainer(MainNavigator);
