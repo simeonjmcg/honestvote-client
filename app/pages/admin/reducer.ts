@@ -1,5 +1,5 @@
 import {slugify} from "~/utils";
-import {ElectionPosition} from "~/datatypes";
+import {ElectionPosition, Candidate} from "~/datatypes";
 
 export type AdminCreateState = ElectionPosition[];
 interface AddPosition {
@@ -37,7 +37,7 @@ export function adminCreate(state: AdminCreateState, action: AdminCreateActions)
             return state.filter((_, i) => i !== action.payload.positionIndex);
         case "set-position":
             return state.map((pos, i) => i !== action.payload.positionIndex ? pos :
-                {...pos, id: slugify(action.payload.value), displayName: action.payload.value});
+                {...pos, id: slugify(action.payload.value), displayName: action.payload.value} as ElectionPosition);
         case "add-candidate":
             return state.map((pos, i) => i !== action.payload.positionIndex ? pos :
                 {...pos, candidates: [...pos.candidates, {key: "", name: ""}]});
@@ -50,7 +50,7 @@ export function adminCreate(state: AdminCreateState, action: AdminCreateActions)
             return state.map((pos, i) => i !== action.payload.positionIndex ? pos :
                 {...pos,
                     candidates: pos.candidates.map((candidate, j) => j !== action.payload.candidateIndex ? candidate :
-                    {...candidate, id: slugify(action.payload.value), name: action.payload.value}),
+                    {...candidate, key: slugify(action.payload.value), name: action.payload.value} as Candidate),
                 });
     }
     return state;
