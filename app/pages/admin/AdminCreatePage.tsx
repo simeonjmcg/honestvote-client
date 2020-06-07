@@ -6,7 +6,7 @@ import {adminCreate} from './reducer';
 import {PRIMARY_COLOR} from '~/theme';
 import {useDispatch, useSelector} from "react-redux";
 import {Dispatch} from "redux";
-import {ActionTypes, saveElection, getElections, getAdminPublicKey} from "~/datatypes";
+import {ActionTypes, saveElection, getAdminPublicKey} from "~/datatypes";
 import {AdminPositionsView} from './AdminPositionsView';
 
 // NavigationStack for native, Router for web
@@ -21,8 +21,6 @@ export function AdminCreatePage () {
     const [endDate, setEndDate]  = useState("");
     const [emailDomain, setEmailDomain]  = useState("");
     const adminPublicKey = useSelector(getAdminPublicKey);
-    const election = useSelector(getElections).find(e => e.sender === adminPublicKey);
-    const institutionName = election ? election.institutionName : "";
 
     return (
         <Page>  
@@ -51,7 +49,7 @@ export function AdminCreatePage () {
                     onCandidateDelete={(positionIndex, candidateIndex) => dispatch({type: 'delete-candidate', payload: {positionIndex, candidateIndex}})}
                     />
                 <View direction="row">
-                    <Button type="contained" onPress={() => reduxDispatch(saveElection({electionName, description, startDate, endDate, positions, sender: adminPublicKey || "", emailDomain, institutionName, id:"", signature:""}))}>Create Election</Button>
+                    <Button type="contained" onPress={() => reduxDispatch(saveElection({electionName, description, startDate, endDate, positions, sender: adminPublicKey || "", emailDomain, institutionName: "", id:"", signature:""}))}>Create Election</Button>
                 </View>
             </Card>
         </Page>

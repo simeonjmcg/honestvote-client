@@ -99,7 +99,6 @@ export function calculateElectionSignature(election: Election, privateKey: strin
     const keyPair = ec.keyFromPrivate(privateKey, "hex");
     const sig = sequence([
         string(election.electionName),
-        string(election.institutionName),
         string(election.description),
         string(election.startDate),
         string(election.endDate),
