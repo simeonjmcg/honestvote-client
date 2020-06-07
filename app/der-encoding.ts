@@ -9,7 +9,7 @@ export function string(s: string) {
 }
 
 function isPrintable(s: string) {
-    return /[a-zA-Z'()+,-.?:\/=]/.test(s);
+    return /^[a-zA-Z'()+,-.?:\/= ]*$/.test(s);
 }
 
 export function sequence<T1 extends asn1js.LocalValueBlock, T2 extends asn1js.BaseBlock<T1>>(arr: T2[]) {
