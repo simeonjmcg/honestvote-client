@@ -28,7 +28,7 @@
     "hash.js": "^1.1.7",
     "isomorphic-ws": "^4.0.1",
     "mem": "^4.3.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.1.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-jss": "^10.0.0",
